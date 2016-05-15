@@ -1,6 +1,7 @@
 public int size;
 public int xd;
 public int yd;
+public GameEngine g1 = new GameEngine();  
 
 void setup() {
   size = 40;
@@ -12,16 +13,20 @@ void setup() {
 
 
   //to be placed in correct mode later
-  GameEngine g1 = new GameEngine();
-
   for (int i = 0; i < 5; i++) {
     g1.createStation((int)(Math.random() * 1280), (int)(Math.random() * 720));
     //ifrandomly creating stations, add check to see if too close to other station
   }
   g1.createRail(g1.stationList[0], g1.stationList[1]);
+  g1.createTrain();
   //g1.createStation(100,100);
-  g1.drawStations();
+}
+
+void draw() {
+  background(255, 255, 0);
   g1.drawRails();
+  g1.moveTrains();
+  g1.drawStations();
 }
 
 //Questions to address:
