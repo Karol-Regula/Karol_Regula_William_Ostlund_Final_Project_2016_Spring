@@ -18,9 +18,11 @@ void setup() {
     //ifrandomly creating stations, add check to see if too close to other station
   }
   g1.createRail(g1.stationList[0], g1.stationList[1]);
+  g1.createTrain();
   //g1.createStation(100,100);
   g1.drawStations();
   g1.drawRails();
+  g1.moveTrains();
 }
 
 //Questions to address:

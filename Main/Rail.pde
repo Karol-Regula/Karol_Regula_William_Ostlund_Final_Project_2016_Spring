@@ -11,7 +11,8 @@ public class Rail {
   
   public void paint(){
     strokeWeight(3);
-    line (start.xcor, start.ycor, end.xcor, end.ycor);
+    line (start.xcor + 5, start.ycor + 5, end.xcor + 5, end.ycor + 5);
+    strokeWeight(1);
   }
   
 }

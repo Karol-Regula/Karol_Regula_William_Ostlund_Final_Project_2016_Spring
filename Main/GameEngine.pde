@@ -12,6 +12,8 @@ public class GameEngine {
     stationSize = 0;
     railList = new Rail[10];
     railSize = 0;
+    trainList = new Train[10];
+    trainSize = 0;
   }
 
   public void drawStations() {
@@ -23,6 +25,12 @@ public class GameEngine {
   public void drawRails() {
     for (int i = 0; i < railSize; i++) {//chnage this after adding grow and size
       railList[i].paint();
+    }
+  }
+  public void moveTrains() {
+    for (int i = 0; i < trainSize; i++) {//chnage this after adding grow and size
+      trainList[i].move();
+      trainList[i].paint();
     }
   }
 
@@ -39,6 +47,14 @@ public class GameEngine {
       temp[i] = railList[i];
     }
     railList = temp;
+  }
+  
+    public void growTrain() {
+    Train[] temp = new Train[trainList.length * 2];
+    for (int i = 0; i < trainList.length; i++) {
+      temp[i] = trainList[i];
+    }
+    trainList = temp;
   }
 
   public void createStation(int xcor, int ycor) {
@@ -57,5 +73,14 @@ public class GameEngine {
     Rail r1  = new Rail(start, end);
     railList[railSize] = r1;
     railSize++;
+  }
+  
+    public void createTrain() {
+    if (trainSize >= trainList.length) {
+      growTrain();
+    }
+    Train t1  = new Train(stationList[0], stationList[1]);
+    trainList[trainSize] = t1;
+    trainSize++;
   }
 }
