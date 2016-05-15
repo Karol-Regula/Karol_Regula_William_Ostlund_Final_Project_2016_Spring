@@ -27,10 +27,26 @@ public class GameEngine {
       railList[i].paint();
     }
   }
+
   public void moveTrains() {
     for (int i = 0; i < trainSize; i++) {//chnage this after adding grow and size
-      trainList[i].move();
-      trainList[i].paint();
+      Train t1 = trainList[i];
+      if (t1.traveling && t1.soFar != 0) {
+        System.out.println(t1. dist);
+        t1.xcor += (t1.end.xcor - t1.xcor) / (double)(t1.soFar);
+        t1.ycor += (t1.end.ycor - t1.ycor) / (double)(t1.soFar);
+        t1.soFar--;
+        trainList[i].paint();
+      } else {
+        trainList[i].paint();
+        int temp1 = t1.start.xcor;
+        int temp2 = t1.start.ycor;
+        t1.start.xcor = t1.end.xcor;
+        t1.start.ycor = t1.end.ycor;
+        t1.end.xcor = temp1;
+        t1.end.ycor = temp2;
+        t1.recalculate();
+      }
     }
   }
 
@@ -48,8 +64,8 @@ public class GameEngine {
     }
     railList = temp;
   }
-  
-    public void growTrain() {
+
+  public void growTrain() {
     Train[] temp = new Train[trainList.length * 2];
     for (int i = 0; i < trainList.length; i++) {
       temp[i] = trainList[i];
@@ -74,8 +90,8 @@ public class GameEngine {
     railList[railSize] = r1;
     railSize++;
   }
-  
-    public void createTrain() {
+
+  public void createTrain() {
     if (trainSize >= trainList.length) {
       growTrain();
     }
