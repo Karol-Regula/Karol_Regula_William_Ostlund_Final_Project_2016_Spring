@@ -3,6 +3,7 @@ public class Station {
   public int xcor;
   public int ycor;
   public int shape;//will be used in paint()
+  public int personLimit;
 
   public Station(int Xcor, int Ycor) {
     xcor = Xcor;
