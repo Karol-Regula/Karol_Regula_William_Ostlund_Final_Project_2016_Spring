@@ -40,8 +40,8 @@ public class GameEngine {
         trainList[i].paint();
       } else {
         trainList[i].paint();
-        int temp1 = t1.start.xcor;
-        int temp2 = t1.start.ycor;
+        float temp1 = t1.start.xcor;
+        float temp2 = t1.start.ycor;
         t1.start.xcor = t1.end.xcor;
         t1.start.ycor = t1.end.ycor;
         t1.end.xcor = temp1;

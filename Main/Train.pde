@@ -1,4 +1,4 @@
-public class Train {
+public class Train implements Locatable{
 
   public int passengers;
   public int personLimit;
@@ -7,8 +7,16 @@ public class Train {
   public Station end;
   public float xcor;
   public float ycor;
-  public int dist;
+  public int dist;//I think we should change this to float
   public int soFar;
+  
+  public float getXcor(){
+     return this.xcor; 
+  }
+  
+  public float getYcor(){
+     return this.ycor; 
+  }
 
   public Train(Station start, Station end) {
     this.start = start;
