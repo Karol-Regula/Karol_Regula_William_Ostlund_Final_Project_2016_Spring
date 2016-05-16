@@ -38,7 +38,14 @@ public class GameEngine {
         t1.ycor += (t1.end.ycor - t1.ycor) / (double)(t1.soFar);
         t1.soFar--;
         trainList[i].paint();
-      } else {
+      }else if(t1.end.hasNext()){
+        trainList[i].paint();
+        t1.start.xcor = t1.end.xcor;
+        t1.start.ycor = t1.end.ycor;
+        t1.end.xcor = t1.end.next().end.getXcor();
+        t1.end.ycor = t1.end.next().end.getYcor();
+        t1.recalculate();
+      }else {
         trainList[i].paint();
         float temp1 = t1.start.xcor;
         float temp2 = t1.start.ycor;
@@ -92,6 +99,10 @@ public class GameEngine {
     Rail r1  = new Rail(start, end);
     railList[railSize] = r1;
     railSize++;
+    start.setNext(true);
+    end.setLast(true);
+    start.setLast(r1);
+    end.setNext(r1);
   }
 
   public void createTrain() {
