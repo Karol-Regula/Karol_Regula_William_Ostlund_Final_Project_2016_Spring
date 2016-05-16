@@ -4,10 +4,12 @@ public class Station {
   public int ycor;
   public int shape;//will be used in paint()
   public int personLimit;
+  public int identifier;
 
-  public Station(int Xcor, int Ycor) {
+ public Station(int Xcor, int Ycor, int identifier) {
     xcor = Xcor;
     ycor = Ycor;
+    this.identifier = identifier;
   }
 
   public void paint() {
