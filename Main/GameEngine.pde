@@ -40,15 +40,7 @@ public class GameEngine {
         trainList[i].paint();
       } else {
         trainList[i].paint();
-        /*
-        int temp1 = t1.start.xcor;
-         int temp2 = t1.start.ycor;
-         t1.start.xcor = t1.end.xcor;
-         t1.start.ycor = t1.end.ycor;
-         t1.end.xcor = temp1;
-         t1.end.ycor = temp2;
-         */
-         Station next;
+        Station next;
         if (t1.start.identifier + 1 == stationSize) {
           next = stationList[0];
         } else {
@@ -56,7 +48,6 @@ public class GameEngine {
         }
         t1.start = t1.end;
         t1.end = next;
-
         t1.recalculate();
       }
     }
@@ -103,6 +94,10 @@ public class GameEngine {
     Rail r1  = new Rail(start, end);
     railList[railSize] = r1;
     railSize++;
+    start.setNext(true);
+    end.setLast(true);
+    start.setLast(r1);
+    end.setNext(r1);
   }
 
   public void createTrain() {
