@@ -6,7 +6,7 @@ public class GameEngine {
   public int trainSize;
   public Rail[] railList;
   public int railSize;
-  
+
   public GameEngine() {
     stationList = new Station[10];//make grow method for this
     stationSize = 0;
@@ -38,21 +38,33 @@ public class GameEngine {
         t1.ycor += (t1.end.ycor - t1.ycor) / (double)(t1.soFar);
         t1.soFar--;
         trainList[i].paint();
+      } 
+      /*
       }else if(t1.end.hasNext()){
-        trainList[i].paint();
-        t1.start.xcor = t1.end.xcor;
-        t1.start.ycor = t1.end.ycor;
-        t1.end.xcor = t1.end.next().end.getXcor();
-        t1.end.ycor = t1.end.next().end.getYcor();
-        t1.recalculate();
-      }else {
-        trainList[i].paint();
-        float temp1 = t1.start.xcor;
-        float temp2 = t1.start.ycor;
-        t1.start.xcor = t1.end.xcor;
-        t1.start.ycor = t1.end.ycor;
-        t1.end.xcor = temp1;
-        t1.end.ycor = temp2;
+       trainList[i].paint();
+       t1.start.xcor = t1.end.xcor;
+       t1.start.ycor = t1.end.ycor;
+       t1.end.xcor = t1.end.next().end.getXcor();
+       t1.end.ycor = t1.end.next().end.getYcor();
+       t1.recalculate();
+       }else {
+       trainList[i].paint();
+       float temp1 = t1.start.xcor;
+       float temp2 = t1.start.ycor;
+       t1.start.xcor = t1.end.xcor;
+       t1.start.ycor = t1.end.ycor;
+       t1.end.xcor = temp1;
+       t1.end.ycor = temp2;
+       */
+      else {  
+        Station next;
+        if (t1.start.identifier + 1 == stationSize) {
+          next = stationList[0];
+        } else {
+          next = stationList[t1.start.identifier + 1];
+        }
+        t1.start = t1.end;
+        t1.end = next;
         t1.recalculate();
       }
     }
@@ -87,7 +99,7 @@ public class GameEngine {
     if (stationSize >= stationList.length) {
       growStation();
     }
-    Station s1  = new Station(xcor, ycor);
+    Station s1  = new Station(xcor, ycor, stationSize);
     stationList[stationSize] = s1;
     stationSize++;
   }

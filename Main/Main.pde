@@ -5,7 +5,7 @@ public GameEngine g1 = new GameEngine();
 
 void setup() {
   size = 40;
-  frameRate(30);
+  frameRate(120);
   size(1280, 720);//window size
   background(255, 255, 0);//background color
   //noStroke();//disables border
@@ -17,7 +17,10 @@ void setup() {
     g1.createStation((int)(Math.random() * 1280), (int)(Math.random() * 720));
     //ifrandomly creating stations, add check to see if too close to other station
   }
-  g1.createRail(g1.stationList[0], g1.stationList[1]);
+  for (int i = 0; i < g1.stationSize - 1; i++){
+    g1.createRail(g1.stationList[i], g1.stationList[i + 1]);
+    g1.createRail(g1.stationList[g1.stationSize - 1], g1.stationList[0]);
+  }
   g1.createTrain();
   //g1.createStation(100,100);
 }

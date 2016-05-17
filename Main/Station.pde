@@ -8,6 +8,7 @@ public class Station implements Locatable{
   private boolean hasLast;
   private Rail next;
   private Rail last;
+  private int identifier;
 
   public float getXcor(){
      return this.xcor; 
@@ -17,9 +18,10 @@ public class Station implements Locatable{
      return this.ycor; 
   }
 
-  public Station(int Xcor, int Ycor) {
+  public Station(int Xcor, int Ycor, int identifier) {
     xcor = Xcor;
     ycor = Ycor;
+    this.identifier = identifier;
   }
 
   public void paint() {
