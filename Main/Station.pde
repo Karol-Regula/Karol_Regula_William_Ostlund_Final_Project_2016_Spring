@@ -6,8 +6,6 @@ public class Station implements Locatable{
   public int personLimit;
   private boolean hasNext;
   private boolean hasLast;
-  private Rail next;
-  private Rail last;
   private int identifier;
 
   public float getXcor(){
@@ -44,21 +42,4 @@ public class Station implements Locatable{
   public void setLast(boolean k){
     hasLast = k; 
   }
-  
-  public Rail next(){
-    return next; 
-  }
-  
-  public Rail last(){
-    return last; 
-  }
-  
-  public void setNext(Rail k){
-    next = k; 
-  }
-  
-  public void setLast(Rail k){
-    last = k; 
-  }
-  
 }

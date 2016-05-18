@@ -1,7 +1,7 @@
 public int size;
 public int xd;
 public int yd;
-public GameEngine g1 = new GameEngine();  
+public TrainLine g1 = new TrainLine();  
 
 void setup() {
   size = 40;
@@ -19,7 +19,7 @@ void setup() {
   }
   for (int i = 0; i < g1.stationSize - 1; i++){
     g1.createRail(g1.stationList[i], g1.stationList[i + 1]);
-    g1.createRail(g1.stationList[g1.stationSize - 1], g1.stationList[0]);
+    g1.createRail(g1.stationList[4], g1.stationList[0]);
   }
   g1.createTrain();
   //g1.createStation(100,100);
@@ -27,9 +27,19 @@ void setup() {
 
 void draw() {
   background(255, 255, 0);
+  //mouseClicked();
   g1.drawRails();
   g1.moveTrains();
   g1.drawStations();
+}
+
+void mouseClicked(){
+  g1.createStation(mouseX, mouseY);
+  g1.createRail(g1.stationList[g1.stationSize-1], g1.stationList[g1.stationSize]);
+  g1.createRail(g1.stationList[g1.stationSize - 1], g1.stationList[0]);
+  if(g1.stationSize == 1){
+    g1.createTrain(); 
+  }
 }
 
 //Questions to address:
