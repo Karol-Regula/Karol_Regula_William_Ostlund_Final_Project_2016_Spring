@@ -16,6 +16,25 @@ public class TrainLine {
     trainSize = 0;
   }
 
+  public void lineSetup() {
+    for (int i = 0; i < 5; i++) {
+      createStation((int)(Math.random() * 1280), (int)(Math.random() * 720));
+    }
+    for (int i = 0; i < stationSize - 1; i++) {
+      createRail(stationList[i], stationList[i + 1]);
+    }
+    createRail(stationList[4], stationList[0]);
+    createTrain();
+  }
+
+
+
+
+
+
+
+
+
   public void drawStations() {
     for (int i = 0; i < stationSize; i++) {//chnage this after adding grow and size
       stationList[i].paint();
@@ -33,7 +52,7 @@ public class TrainLine {
     for (int i = 0; i < trainSize; i++) {//chnage this after adding grow and size
       Train t1 = trainList[i];
       if (t1.traveling && t1.soFar != 0) {
-        System.out.println(t1. dist);
+        //System.out.println(t1. dist);
         t1.xcor += (t1.end.xcor - t1.xcor) / (double)(t1.soFar);
         t1.ycor += (t1.end.ycor - t1.ycor) / (double)(t1.soFar);
         t1.soFar--;
@@ -58,10 +77,10 @@ public class TrainLine {
        */
       else {  
         Station next;
-        if (t1.start.identifier + 1 == stationSize) {
+        if (t1.end.identifier == stationSize - 1) {
           next = stationList[0];
         } else {
-          next = stationList[t1.start.identifier + 1];
+          next = stationList[t1.end.identifier + 1];
         }
         t1.start = t1.end;
         t1.end = next;
