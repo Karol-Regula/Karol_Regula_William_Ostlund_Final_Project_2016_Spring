@@ -7,6 +7,8 @@ public class Station implements Locatable{
   private boolean hasNext;
   private boolean hasLast;
   private int identifier;
+  private Station next;
+  private Station prev;
 
   public float getXcor(){
      return this.xcor; 

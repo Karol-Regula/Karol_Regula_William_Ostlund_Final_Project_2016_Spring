@@ -9,6 +9,7 @@ public class Train implements Locatable {
   public float ycor;
   public int dist;//I think we should change this to float
   public int soFar;
+  public float angle;
 
   public float getXcor() {
     return this.xcor;
@@ -28,21 +29,31 @@ public class Train implements Locatable {
     soFar = dist / 2;
   }
 
-  public float getAngle(Station x) {
-    return atan((x.getYcor() - this.ycor)/(x.getXcor() - this.xcor));//Does not work when implemented, moved improperly, I think we should work on
-    //other stuff before fixing this
+  public void setAngle() {
+    this.angle = atan((start.getYcor() - end.ycor)/(start.getXcor() - end.xcor));//Does not work when implemented, moved improperly, I think we should work on
   }
 
   public void paint() {
     //System.out.println(xcor + " " + ycor);
-    //rotate(this.getAngle(start));
+    //pushMatrix();
+    //translate(-xcor + 10, -ycor + 5);
+    
+    //popMatrix();
     rect(xcor, ycor, 20, 10); //need to chnage facing direction later
-    //rotate(-this.getAngle(start));
+    //rotate(angle);
+    //popMatrix();
+    //translate(xcor - 10, ycor - 5);
+    //pushMatrix();
+    //rotate(-angle);
+    //popMatrix();
+    //popMatrix();
     //rotate(-1*this.getAngle(start));
   }
 
   public void recalculate() {
     dist = (int) Math.sqrt( (start.xcor - end.xcor) * (start.xcor - end.xcor) +  (start.ycor - end.ycor) * (start.ycor - end.ycor));//calculate distance between stations
     soFar = dist / 2;
+    setAngle();
+    System.out.println(angle);
   }
 }
