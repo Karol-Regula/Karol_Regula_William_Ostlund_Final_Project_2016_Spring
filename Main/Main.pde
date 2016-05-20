@@ -15,20 +15,23 @@ void setup() {
   //mode?
   TrainLine t1 = new TrainLine();
   lines[0] = t1;
+  g1.TrainLines = lines;
 }
 
 void draw() {
   background(255, 255, 0);
   //mouseClicked();
-  for (int i = 0; i < TrainLineSize; i++) {
-    if (lines[i].stationSize == 0){
-      lines[i].lineSetup();
-    }
-    lines[i].drawRails();
-    lines[i].moveTrains();
-    lines[i].drawStations();
+  for (int i = 0; i < g1.size; i++) {
+    //if (mousePressed){
+      //lines[i].lineSetup();
+      //lines[i].addStation(mouseX, mouseY);
+    //}
+    g1.TrainLines[i].drawRails();
+    g1.TrainLines[i].moveTrains();
+    g1.TrainLines[i].drawStations();
     g1.spawnStations();
   }
+  g1.spawnStation(0);
   rect(10, 10, 30, 30);
 }
 
