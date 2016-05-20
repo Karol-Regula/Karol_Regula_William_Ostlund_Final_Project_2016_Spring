@@ -1,17 +1,21 @@
 public class GameEngine {
   public Station[] masterStationList;
   public int masterSize;
-  public TrainLine[] TrainLines;
+  public TrainLine[] TrainLines = new TrainLine [100];
+  public int trainLineSize;
   public int size, timer;
   public int holdText;
   public String text;
   public int xText;
   public int yText;
+  public TrainLine currentLine;
+  public color currentColor;
+ public int currentNumber;
 
 
   public GameEngine() {
     TrainLines = new TrainLine[10];
-    TrainLines[0] = new TrainLine();
+    TrainLines[0] = new TrainLine(color( (int)(Math.random() * 255), (int)(Math.random() * 255), (int)(Math.random() * 255)));
     masterStationList = new Station[100]; //fix array resizing when this works
     size = 1;
   }
@@ -45,6 +49,18 @@ public class GameEngine {
     }
     timer++;
   }
+  
+  public void cycleLines(){
+    if (currentNumber == trainLineSize - 1){
+      currentLine = TrainLines[0];
+      currentColor = currentLine.whatColor;
+      currentNumber = 0;
+    }else{
+      currentLine = TrainLines[currentNumber + 1];
+      currentColor = currentLine.whatColor;
+      currentNumber++;
+    }
+  }
 
 
   public void addText(String s, int x, int y) {
@@ -57,7 +73,7 @@ public class GameEngine {
     if (holdText > 0) {
       fill(50);
       text(text, xText, yText);
-      fill(0);
+      fill(0, 225, 225);
     }
     holdText--;
   }

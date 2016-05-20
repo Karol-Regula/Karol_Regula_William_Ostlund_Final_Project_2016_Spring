@@ -1,12 +1,10 @@
 public int size;
 public int xd;
 public int yd;
-public TrainLine[] lines = new TrainLine[100]; //will fix 
-public int trainLineSize;
+//public TrainLine[] lines = new TrainLine[100]; //will fix 
+//public int trainLineSize;
 public GameEngine g1 = new GameEngine();
-public int holdText;
-public int currentLine;
-public color currentColor;
+
 
 void setup() {
   size = 40;
@@ -15,10 +13,9 @@ void setup() {
   background(255, 255, 0);//background color
   //noStroke();//disables border
   //mode?
-  TrainLine t1 = new TrainLine();
-  lines[0] = t1;
-  g1.TrainLines = lines;
-  trainLineSize = 1;
+  //lines[0] = t1;
+  //g1.TrainLines = lines;
+  g1.trainLineSize = 1;
 }
 
 void draw() {
@@ -36,25 +33,36 @@ void draw() {
     g1.drawStations();//draws unconnected stations
   }
   g1.spawnStations();
-  rect(10, 10, 30, 30);
+  rect(10, 30, 30, 30);
   fill(50);
-  text("New TrainLine", 50, 30);
+  text("New TrainLine", 50, 50);
   fill(0, 225, 225);
-  rect(10, 80, 30, 30);
+  
+  fill(g1.currentColor);
+  rect(10, 100, 30, 30);
   fill(50);
-  text("Cycle Lines", 50, 100);
+  text("Cycle Lines", 50, 120);
+  text(g1.currentNumber, 130, 120);
+  fill(0, 225, 225);
+  
+  fill(50);
+  text("Number of TrainLines: ", 15, 22);
+  text(g1.trainLineSize, 150, 22);
   fill(0, 225, 225);
   g1.printText();
 }
 
 void mouseClicked() {
-  if (mouseX > 10 && mouseX < 40 && mouseY > 10 && mouseY < 40) {
-    TrainLine t1 = new TrainLine();
-    lines[trainLineSize] = t1;
-    trainLineSize++;
+  if (mouseX > 10 && mouseX < 40 && mouseY > 30 && mouseY < 70) {
+    TrainLine t1 = new TrainLine(color( (int)(Math.random() * 255), (int)(Math.random() * 255), (int)(Math.random() * 255) ));
+    g1.TrainLines[g1.trainLineSize] = t1;
+    g1.trainLineSize++;
     textSize(12);
-    g1.addText("New TrainLine has been created.", 80, 30);
-    g1.holdText = 400;
+    g1.addText("New TrainLine has been created.", 200, 30);
+    g1.holdText = 300;
+  }
+  if (mouseX > 10 && mouseX < 40 && mouseY > 100 && mouseY < 130){
+    g1.cycleLines();
   }
   //g1.createStation(mouseX, mouseY);
   //g1.createRail(g1.stationList[g1.stationSize - 2], g1.stationList[g1.stationSize - 1]);
@@ -74,6 +82,8 @@ void mouseClicked() {
 //make trains move
 //make passengers
 //allow them to board
+
+//make sure stations don't spawn in text area
 
 //USER INTERFACE
 
