@@ -6,14 +6,16 @@ public class TrainLine {
   public int trainSize;
   public Rail[] railList;
   public int railSize;
+  public color whatColor;
 
-  public TrainLine() {
+  public TrainLine(color whatColor) {
     stationList = new Station[10];//make grow method for this
     stationSize = 0;
     railList = new Rail[10];
     railSize = 0;
     trainList = new Train[10];
     trainSize = 0;
+    this.whatColor = whatColor;
   }
 
   public void lineSetup() {
