@@ -4,9 +4,8 @@ public int yd;
 //public TrainLine[] lines = new TrainLine[100]; //will fix 
 //public int trainLineSize;
 public GameEngine g1 = new GameEngine();
-public boolean mouseClick = false;;
-public int timer;
-
+public boolean mouseClick = false;
+public boolean mouseClickRail = false;
 
 void setup() {
   size = 40;
@@ -34,34 +33,59 @@ void draw() {
     g1.spawnStations();
     g1.drawStations();//draws unconnected stations
   }
-  g1.spawnStations();
+  //g1.spawnStations();
   rect(10, 30, 30, 30);
   fill(50);
   text("New TrainLine", 50, 50);
   fill(0, 225, 225);
-  
+
   fill(g1.currentColor);
   rect(10, 100, 30, 30);
   fill(50);
   text("Cycle Lines", 50, 120);
   text(g1.currentNumber, 130, 120);
-  if (mouseClick){
+  if (mouseClick) {
     fill(10);
     g1.spawnStation(g1.currentNumber);
-  }else{
+  } else {
     fill(0, 225, 225);
   }
-  System.out.println(mouseClick);
+  //System.out.println(mouseClick);
   rect(10, 170, 30, 30);
   fill(50);
   text("Add Station", 50, 190);
   fill(0, 225, 225);
-  
+
   fill(50);
   text("Number of TrainLines: ", 15, 22);
   text(g1.trainLineSize, 150, 22);
   fill(0, 225, 225);
   g1.printText();
+  if (mouseClickRail) {
+    fill(10);
+    Station x = null;
+    Station y = null;
+    boolean k = true;
+    while (k) {
+      if (g1.getStation(g1.currentNumber) != null && x!= null) {
+        y = g1.getStation(g1.currentNumber);
+      }
+      if (g1.getStation(g1.currentNumber) != null) {
+        x = g1.getStation(g1.currentNumber);
+      }
+      if (x != null && y!= null) {
+        g1.TrainLines[g1.currentNumber].createRail(x, y);
+        k= false;
+      }
+      System.out.println(x);
+    }
+  }else{
+     fill(0,225,225); 
+  }
+  rect(10, 240, 30, 30);
+  fill(50);
+  text("Add Rail", 50, 260);
+  fill(0, 225, 225);
   
 }
 
@@ -75,11 +99,15 @@ void mouseClicked() {
     g1.addText("New TrainLine has been created.", 200, 30);
     g1.holdText = 300;
   }
-  if (mouseX > 10 && mouseX < 40 && mouseY > 100 && mouseY < 130){
+  if (mouseX > 10 && mouseX < 40 && mouseY > 100 && mouseY < 130) {
     g1.cycleLines();
   }
-  if(mouseX > 10 && mouseX < 40 && mouseY > 170 && mouseY < 200){
-    mouseClick = true; 
+  if (mouseX > 10 && mouseX < 40 && mouseY > 170 && mouseY < 200) {
+    mouseClick = true;
+  }
+  if (mouseX > 10 && mouseX < 40 && mouseY > 240 && mouseY < 270) {
+    System.out.println("ewrgt");
+    mouseClickRail = true;
   }
   //g1.createStation(mouseX, mouseY);
   //g1.createRail(g1.stationList[g1.stationSize - 2], g1.stationList[g1.stationSize - 1]);

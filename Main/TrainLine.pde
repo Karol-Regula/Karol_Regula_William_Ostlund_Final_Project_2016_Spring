@@ -139,6 +139,7 @@ public class TrainLine {
     Rail r1  = new Rail(start, end);
     railList[railSize] = r1;
     railSize++;
+    mouseClickRail = false;
   }
 
   public void createTrain() {
