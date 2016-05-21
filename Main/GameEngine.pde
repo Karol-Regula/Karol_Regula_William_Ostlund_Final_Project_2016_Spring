@@ -38,14 +38,15 @@ public class GameEngine {
 
   //----------------------------------------------Everything below is the User Interface Stuff----------------------------------------------
 
-  public void spawnStation(int i) {
+  public void spawnStation(int i) { //very basic framework for the user interface, we can discuss how this will work in class
     System.out.println(timer);
     if (size == 0) {
       return; //I don't think this anomaly should ever occur, I think we should start off with one station, and therefore one trainline
     }
-    if (i<size && i>=0 && mousePressed && timer >= 25) {
-      TrainLines[i].addStation(mouseX, mouseY);
+    if (i<size && i>=0 && mousePressed && timer >= 0) {
+      TrainLines[i].addStation(Math.round(mouseX/30)*30, Math.round(mouseY/30) * 30);
       timer = 0;
+      mouseClick = false;
     }
     timer++;
   }
@@ -76,5 +77,16 @@ public class GameEngine {
       fill(0, 225, 225);
     }
     holdText--;
+  }
+  
+  public Station getStation(int i){
+    Operations s = new Operations();
+    Station ans = null;
+    for(int k = 0; k < TrainLines[i].stationSize; k++){
+       if(s.dist(TrainLines[i].stationList[k]) < 15){
+         ans = TrainLines[i].stationList[k];
+       }
+    }
+    return ans;
   }
 }                         

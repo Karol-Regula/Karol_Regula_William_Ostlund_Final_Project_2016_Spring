@@ -4,6 +4,8 @@ public int yd;
 //public TrainLine[] lines = new TrainLine[100]; //will fix 
 //public int trainLineSize;
 public GameEngine g1 = new GameEngine();
+public boolean mouseClick = false;;
+public int timer;
 
 
 void setup() {
@@ -43,6 +45,16 @@ void draw() {
   fill(50);
   text("Cycle Lines", 50, 120);
   text(g1.currentNumber, 130, 120);
+  if (mouseClick){
+    fill(10);
+    g1.spawnStation(g1.currentNumber);
+  }else{
+    fill(0, 225, 225);
+  }
+  System.out.println(mouseClick);
+  rect(10, 170, 30, 30);
+  fill(50);
+  text("Add Station", 50, 190);
   fill(0, 225, 225);
   
   fill(50);
@@ -50,10 +62,12 @@ void draw() {
   text(g1.trainLineSize, 150, 22);
   fill(0, 225, 225);
   g1.printText();
+  
 }
 
 void mouseClicked() {
   if (mouseX > 10 && mouseX < 40 && mouseY > 30 && mouseY < 70) {
+    //I think the User should add a station here, I think its time we switch to a manual user interface rather than 
     TrainLine t1 = new TrainLine(color( (int)(Math.random() * 255), (int)(Math.random() * 255), (int)(Math.random() * 255) ));
     g1.TrainLines[g1.trainLineSize] = t1;
     g1.trainLineSize++;
@@ -63,6 +77,9 @@ void mouseClicked() {
   }
   if (mouseX > 10 && mouseX < 40 && mouseY > 100 && mouseY < 130){
     g1.cycleLines();
+  }
+  if(mouseX > 10 && mouseX < 40 && mouseY > 170 && mouseY < 200){
+    mouseClick = true; 
   }
   //g1.createStation(mouseX, mouseY);
   //g1.createRail(g1.stationList[g1.stationSize - 2], g1.stationList[g1.stationSize - 1]);

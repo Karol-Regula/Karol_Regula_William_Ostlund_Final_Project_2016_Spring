@@ -54,6 +54,6 @@ public class Train implements Locatable {
     dist = (int) Math.sqrt( (start.xcor - end.xcor) * (start.xcor - end.xcor) +  (start.ycor - end.ycor) * (start.ycor - end.ycor));//calculate distance between stations
     soFar = dist / 2;
     setAngle();
-    System.out.println(angle);
+    //System.out.println(angle);
   }
 }

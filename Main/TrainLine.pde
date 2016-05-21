@@ -39,10 +39,10 @@ public class TrainLine {
 
   public void addStation(int x, int y){
     createStation(x, y);
-    if(stationSize >= 2){
-      railList[railSize - 1] = new Rail(stationList[stationSize - 2], stationList[stationSize - 1]);
-    }
-    createRail(stationList[stationSize - 1], stationList[0]);
+    //if(stationSize >= 2){
+      //railList[railSize - 1] = new Rail(stationList[stationSize - 2], stationList[stationSize - 1]);
+    //}
+    //createRail(stationList[stationSize - 1], stationList[0]);
   }
 
   public void drawStations() {
