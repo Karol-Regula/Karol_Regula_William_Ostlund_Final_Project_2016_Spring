@@ -7,6 +7,7 @@ public class Station implements Locatable {
   private boolean hasNext;
   private boolean hasLast;
   private int identifier;
+ public boolean selected;
 
   public float getXcor() {
     return this.xcor;
@@ -20,11 +21,17 @@ public class Station implements Locatable {
     xcor = Xcor;
     ycor = Ycor;
     this.identifier = identifier;
+    selected = false;
   }
 
   public void paint() {
-    fill(0, 225, 225);
-    rect(xcor, ycor, 10, 10);
+    if(selected){
+      fill(#33C94A);
+      rect(xcor-2.5, ycor-2.5, 15, 15);
+    }else{
+      fill(0, 225, 225);
+      rect(xcor, ycor, 10, 10);
+    }
   }
 
   public boolean hasNext() {

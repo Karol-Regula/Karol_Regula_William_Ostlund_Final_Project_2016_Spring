@@ -30,18 +30,36 @@ public class GameEngine {
   public void detectRail() {
     if (mouseClickRail) {
       fill(10);
+      Operations s = new Operations();
+      for (int k = 0; k < masterSize; k++) {
+        if (s.dist(masterStationList[k]) < 10) {               
+          masterStationList[k].selected = true;
+        }else{
+          masterStationList[k].selected = false;
+        }
+      }
+      if(x!=-1){
+          this.masterStationList[x].selected = true;
+        }
+      if(y!=-1){
+        this.masterStationList[y].selected = true;
+      }
       if (y== -1) {
         if (g1.getStation(g1.currentNumber) != -1 && g1.getStation(g1.currentNumber) != x && x!= -1) {
           y = g1.getStation(g1.currentNumber);
+          this.masterStationList[y].selected = true;
         }
         if (g1.getStation(g1.currentNumber) != -1 && y == -1) {
           x = g1.getStation(g1.currentNumber);
+          this.masterStationList[x].selected = true;
         }
         System.out.println("x: " + x);
         System.out.println("y: " + y);
         //System.out.println(g1.masterStationList[1]);
       } else {
         g1.currentLine.createRail(g1.masterStationList[x], g1.masterStationList[y], g1.currentColor);
+        this.masterStationList[y].selected = false;
+        this.masterStationList[x].selected = false;
         x=-1;
         y=-1;
       }
@@ -113,7 +131,7 @@ public class GameEngine {
   public int getStation(int i) {
     Operations s = new Operations();
     for (int k = 0; k < masterSize; k++) {
-      if (s.dist(masterStationList[k]) < 10) {               
+      if (s.dist(masterStationList[k]) < 15 && mousePressed) {               
         return k;
       }
     }
