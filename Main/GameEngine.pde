@@ -39,9 +39,9 @@ public class GameEngine {
         }
         System.out.println("x: " + x);
         System.out.println("y: " + y);
-        System.out.println(g1.masterStationList[1]);
+        //System.out.println(g1.masterStationList[1]);
       } else {
-        g1.TrainLines[g1.currentNumber].createRail(g1.masterStationList[x], g1.masterStationList[y], g1.currentColor);
+        g1.currentLine.createRail(g1.masterStationList[x], g1.masterStationList[y], g1.currentColor);
         x=-1;
         y=-1;
       }
@@ -59,14 +59,17 @@ public class GameEngine {
     }
   }
 
+  public void spawnTrain() {
+  }
+
   //----------------------------------------------Everything below is the User Interface Stuff----------------------------------------------
 
   public void spawnStation(int i) { //very basic framework for the user interface, we can discuss how this will work in class
     System.out.println(timer);
     if (size == 0) {
-      return; //I don't think this anomaly should ever occur, I think we should start off with one station, and therefore one trainline
+      //return; //I don't think this anomaly should ever occur, I think we should start off with one station, and therefore one trainline
     }
-    if (i<size && i>=0 && mousePressed && timer >= 0) {
+    if (mousePressed && timer >= 0) { // commented out if (i<size && i>=0 && mousePressed...
       Station s1  = new Station(Math.round(mouseX/30)*30, Math.round(mouseY/30) * 30, 0);
       masterStationList[masterSize] = s1;
       timer = 0;
@@ -106,7 +109,6 @@ public class GameEngine {
 
   public int getStation(int i) {
     Operations s = new Operations();
-    int ans = 0;
     for (int k = 0; k < masterSize; k++) {
       if (s.dist(masterStationList[k]) < 10) {               
         return k;

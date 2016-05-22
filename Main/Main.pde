@@ -25,7 +25,7 @@ void setup() {
 void draw() {
   background(255, 255, 0);
   //mouseClicked();
-  for (int i = 0; i < g1.size; i++) {
+  for (int i = 0; i < g1.trainLineSize; i++) {
     //if (mousePressed){
     //lines[i].lineSetup();
     //lines[i].addStation(mouseX, mouseY);
@@ -33,9 +33,11 @@ void draw() {
     g1.TrainLines[i].drawRails();
     g1.TrainLines[i].moveTrains();
     g1.TrainLines[i].drawStations();
-    g1.spawnStations();
-    g1.drawStations();//draws unconnected stations
   }
+  g1.spawnStations();
+  g1.drawStations();//draws unconnected stations
+  
+  
   //g1.spawnStations();
   rect(10, 30, 30, 30);
   fill(50);
@@ -64,12 +66,18 @@ void draw() {
   text(g1.trainLineSize, 150, 22);
   fill(0, 225, 225);
   g1.printText();
-  
+
   g1.detectRail();//moved out of draw ino function in GameEngine
-  
+
   rect(10, 240, 30, 30);
   fill(50);
   text("Add Rail", 50, 260);
+  fill(0, 225, 225);
+
+  //createTrain
+  rect(10, 320, 30, 30);
+  fill(50);
+  text("Spawn Train (Current Train Line)", 50, 340);
   fill(0, 225, 225);
 }
 
@@ -93,16 +101,11 @@ void mouseClicked() {
     System.out.println("ewrgt");
     mouseClickRail = true;
   }
-  //g1.createStation(mouseX, mouseY);
-  //g1.createRail(g1.stationList[g1.stationSize - 2], g1.stationList[g1.stationSize - 1]);
-  //g1.createRail(g1.stationList[g1.stationSize - 2], g1.stationList[0]);
+  if (mouseX > 10 && mouseX < 40 && mouseY > 320 && mouseY < 350) {
+    g1.spawnTrain();
+  }
 }
 
-
-//Questions to address:
-//coordinate class
-//naming
-//arrays vs arraylists vs linked lists vs whatever
 
 //use vectors for movement?
 
