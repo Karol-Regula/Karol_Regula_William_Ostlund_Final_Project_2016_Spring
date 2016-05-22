@@ -6,6 +6,8 @@ public int yd;
 public GameEngine g1 = new GameEngine();
 public boolean mouseClick = false;
 public boolean mouseClickRail = false;
+public int x = -1;
+public int y = -1;
 
 void setup() {
   size = 40;
@@ -63,21 +65,16 @@ void draw() {
   g1.printText();
   if (mouseClickRail) {
     fill(10);
-    Station x = null;
-    Station y = null;
-    boolean k = true;
-    while (k) {
-      if (g1.getStation(g1.currentNumber) != null && x!= null) {
+    if (y== -1) {
+      if (g1.getStation(g1.currentNumber) != -1 && g1.getStation(g1.currentNumber) != x && x!= -1) {
         y = g1.getStation(g1.currentNumber);
       }
-      if (g1.getStation(g1.currentNumber) != null) {
+      if (g1.getStation(g1.currentNumber) != -1) {
         x = g1.getStation(g1.currentNumber);
       }
-      if (x != null && y!= null) {
-        g1.TrainLines[g1.currentNumber].createRail(x, y);
-        k= false;
-      }
       System.out.println(x);
+    }else{
+      g1.TrainLines[g1.currentNumber].createRail(g1.TrainLines[g1.currentNumber].stationList[x], g1.TrainLines[g1.currentNumber].stationList[y]);
     }
   }else{
      fill(0,225,225); 

@@ -130,6 +130,7 @@ public class TrainLine {
     Station s1  = new Station(xcor, ycor, stationSize);
     stationList[stationSize] = s1;
     stationSize++;
+    mouseClickRail = false;
   }
 
   public void createRail(Station start, Station end) {

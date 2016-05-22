@@ -79,14 +79,15 @@ public class GameEngine {
     holdText--;
   }
   
-  public Station getStation(int i){
+  public int getStation(int i){
     Operations s = new Operations();
-    Station ans = null;
+    int ans = 0;
     for(int k = 0; k < TrainLines[i].stationSize; k++){
-       if(s.dist(TrainLines[i].stationList[k]) < 15){
-         ans = TrainLines[i].stationList[k];
+      System.out.println(s.dist(TrainLines[i].stationList[k]));
+       if(s.dist(TrainLines[i].stationList[k]) < 15){               
+         return ans;
        }
     }
-    return ans;
+    return -1;
   }
 }                         
