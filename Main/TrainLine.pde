@@ -90,10 +90,12 @@ public class TrainLine {
        */
       else {  
         Station next;
-        if (t1.end.identifier == stationSize - 1) {
-          next = stationList[0];
+        if (t1.currentNumber == railSize - 1) {
+          next = railList[0].start;
+          t1.currentNumber = 0;
         } else {
-          next = stationList[t1.end.identifier + 1];
+          next = railList[t1.currentNumber].end;
+          t1.currentNumber++;
         }
         t1.start = t1.end;
         t1.end = next;
@@ -150,7 +152,7 @@ public class TrainLine {
     if (trainSize >= trainList.length) {
       growTrain();
     }
-    Train t1  = new Train(stationList[0], stationList[1]);
+    Train t1  = new Train(railList[0].start, railList[0].end);
     trainList[trainSize] = t1;
     trainSize++;
   }

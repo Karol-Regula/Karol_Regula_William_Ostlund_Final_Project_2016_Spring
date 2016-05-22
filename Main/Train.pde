@@ -10,6 +10,7 @@ public class Train implements Locatable {
   public int dist;//I think we should change this to float
   public int soFar;
   public float angle;
+  public int currentNumber;
 
   public float getXcor() {
     return this.xcor;
@@ -27,6 +28,7 @@ public class Train implements Locatable {
     traveling  = true; //true for now, determined by consrtuctor later
     dist = (int) Math.sqrt( (start.xcor - end.xcor) * (start.xcor - end.xcor) +  (start.ycor - end.ycor) * (start.ycor - end.ycor));//calculate distance between stations
     soFar = dist / 2;
+    currentNumber = 0;
   }
 
   public void setAngle() {

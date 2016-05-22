@@ -60,6 +60,9 @@ public class GameEngine {
   }
 
   public void spawnTrain() {
+    if (currentLine.railSize > 0) {    
+      currentLine.createTrain();
+    }
   }
 
   //----------------------------------------------Everything below is the User Interface Stuff----------------------------------------------
