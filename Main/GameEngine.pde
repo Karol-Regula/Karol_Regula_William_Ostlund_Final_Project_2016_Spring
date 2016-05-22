@@ -27,6 +27,29 @@ public class GameEngine {
     }
   }
 
+  public void detectRail() {
+    if (mouseClickRail) {
+      fill(10);
+      if (y== -1) {
+        if (g1.getStation(g1.currentNumber) != -1 && g1.getStation(g1.currentNumber) != x && x!= -1) {
+          y = g1.getStation(g1.currentNumber);
+        }
+        if (g1.getStation(g1.currentNumber) != -1 && y == -1) {
+          x = g1.getStation(g1.currentNumber);
+        }
+        System.out.println("x: " + x);
+        System.out.println("y: " + y);
+        System.out.println(g1.masterStationList[1]);
+      } else {
+        g1.TrainLines[g1.currentNumber].createRail(g1.masterStationList[x], g1.masterStationList[y], g1.currentColor);
+        x=-1;
+        y=-1;
+      }
+    } else {
+      fill(0, 225, 225);
+    }
+  }
+
   public void spawnStations() {//for now will add to existing trainline, but I want the stations that spawn to be unafiliated until the user connects them, we should discuss this in class
     if ((int)(Math.random() * 1000) == 1) {
       Station s1 = new Station((int)(Math.random() * 1280), (int)(Math.random() * 720), 1);
@@ -44,8 +67,10 @@ public class GameEngine {
       return; //I don't think this anomaly should ever occur, I think we should start off with one station, and therefore one trainline
     }
     if (i<size && i>=0 && mousePressed && timer >= 0) {
-      TrainLines[i].addStation(Math.round(mouseX/30)*30, Math.round(mouseY/30) * 30);
+      Station s1  = new Station(Math.round(mouseX/30)*30, Math.round(mouseY/30) * 30, 0);
+      masterStationList[masterSize] = s1;
       timer = 0;
+      masterSize++;
       mouseClick = false;
     }
     timer++;
@@ -82,8 +107,8 @@ public class GameEngine {
   public int getStation(int i) {
     Operations s = new Operations();
     int ans = 0;
-    for (int k = 0; k < TrainLines[i].stationSize; k++) {
-      if (s.dist(TrainLines[i].stationList[k]) < 10) {               
+    for (int k = 0; k < masterSize; k++) {
+      if (s.dist(masterStationList[k]) < 10) {               
         return k;
       }
     }
