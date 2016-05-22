@@ -18,16 +18,19 @@ public class TrainLine {
     this.whatColor = whatColor;
   }
 
+
+  /*
   public void lineSetup() {
-    for (int i = 0; i < 5; i++) {
-      createStation((int)(Math.random() * 1280), (int)(Math.random() * 720));
-    }
-    for (int i = 0; i < stationSize - 1; i++) {
-      createRail(stationList[i], stationList[i + 1]);
-    }
-    createRail(stationList[4], stationList[0]);
-    createTrain();
-  }
+   for (int i = 0; i < 5; i++) {
+   createStation((int)(Math.random() * 1280), (int)(Math.random() * 720));
+   }
+   for (int i = 0; i < stationSize - 1; i++) {
+   createRail(stationList[i], stationList[i + 1]);
+   }
+   createRail(stationList[4], stationList[0]);
+   createTrain();
+   }
+   */
 
 
 
@@ -37,10 +40,10 @@ public class TrainLine {
 
 
 
-  public void addStation(int x, int y){
+  public void addStation(int x, int y) {
     createStation(x, y);
     //if(stationSize >= 2){
-      //railList[railSize - 1] = new Rail(stationList[stationSize - 2], stationList[stationSize - 1]);
+    //railList[railSize - 1] = new Rail(stationList[stationSize - 2], stationList[stationSize - 1]);
     //}
     //createRail(stationList[stationSize - 1], stationList[0]);
   }
@@ -133,11 +136,11 @@ public class TrainLine {
     mouseClickRail = false;
   }
 
-  public void createRail(Station start, Station end) {
+  public void createRail(Station start, Station end, color whatColor) {
     if (railSize >= railList.length) {
       growRail();
     }
-    Rail r1  = new Rail(start, end);
+    Rail r1  = new Rail(start, end, whatColor);
     railList[railSize] = r1;
     railSize++;
     mouseClickRail = false;
@@ -152,29 +155,31 @@ public class TrainLine {
     trainSize++;
   }
 
+  /*
   public void addStation(int i, Station g) {
-    int x = stationList.length;
-    if (stationList.length == stationSize) {
-      x*=2;
-    }
-    int y = railList.length;
-    if (stationList.length == railSize) {
-      y*=2;
-    }
-    Station[] a = new Station[x];
-    Rail[] b = new Rail[y];
-    for (int k = 0; k < i; k++) {
-      a[k] = stationList[k];
-    }
-    stationList[i] = g;
-    for (int k = i+1; k<= x; k++) {
-      a[k] = stationList[k-1];
-    }
-    for (int k = 1; k<y; k++) {
-      b[k-1] = new Rail(a[k-1], a[k]);
-    }
-    b[y] = new Rail(a[y-1], a[0]);
-    stationSize++;
-    railSize++;
-  }
+   int x = stationList.length;
+   if (stationList.length == stationSize) {
+   x*=2;
+   }
+   int y = railList.length;
+   if (stationList.length == railSize) {
+   y*=2;
+   }
+   Station[] a = new Station[x];
+   Rail[] b = new Rail[y];
+   for (int k = 0; k < i; k++) {
+   a[k] = stationList[k];
+   }
+   stationList[i] = g;
+   for (int k = i+1; k<= x; k++) {
+   a[k] = stationList[k-1];
+   }
+   for (int k = 1; k<y; k++) {
+   b[k-1] = new Rail(a[k-1], a[k]);
+   }
+   b[y] = new Rail(a[y-1], a[0]);
+   stationSize++;
+   railSize++;
+   }
+   */
 }

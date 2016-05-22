@@ -10,7 +10,7 @@ public class GameEngine {
   public int yText;
   public TrainLine currentLine;
   public color currentColor;
- public int currentNumber;
+  public int currentNumber;
 
 
   public GameEngine() {
@@ -50,13 +50,13 @@ public class GameEngine {
     }
     timer++;
   }
-  
-  public void cycleLines(){
-    if (currentNumber == trainLineSize - 1){
+
+  public void cycleLines() {
+    if (currentNumber == trainLineSize - 1) {
       currentLine = TrainLines[0];
       currentColor = currentLine.whatColor;
       currentNumber = 0;
-    }else{
+    } else {
       currentLine = TrainLines[currentNumber + 1];
       currentColor = currentLine.whatColor;
       currentNumber++;
@@ -78,14 +78,14 @@ public class GameEngine {
     }
     holdText--;
   }
-  
-  public int getStation(int i){
+
+  public int getStation(int i) {
     Operations s = new Operations();
     int ans = 0;
-    for(int k = 0; k < TrainLines[i].stationSize; k++){
-       if(s.dist(TrainLines[i].stationList[k]) < 10){               
-         return k;
-       }
+    for (int k = 0; k < TrainLines[i].stationSize; k++) {
+      if (s.dist(TrainLines[i].stationList[k]) < 10) {               
+        return k;
+      }
     }
     return -1;
   }

@@ -37,7 +37,7 @@ public class Train implements Locatable {
     //System.out.println(xcor + " " + ycor);
     //pushMatrix();
     //translate(-xcor + 10, -ycor + 5);
-    
+
     //popMatrix();
     rect(xcor, ycor, 20, 10); //need to chnage facing direction later
     //rotate(angle);

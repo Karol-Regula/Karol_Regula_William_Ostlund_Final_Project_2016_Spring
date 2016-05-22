@@ -19,6 +19,7 @@ void setup() {
   //lines[0] = t1;
   //g1.TrainLines = lines;
   g1.trainLineSize = 1;
+  g1.cycleLines();
 }
 
 void draw() {
@@ -75,19 +76,18 @@ void draw() {
       System.out.println("x: " + x);
       System.out.println("y: " + y);
       System.out.println(g1.TrainLines[g1.currentNumber].stationList[1]);
-    }else{
-      g1.TrainLines[g1.currentNumber].createRail(g1.TrainLines[g1.currentNumber].stationList[x], g1.TrainLines[g1.currentNumber].stationList[y]);
+    } else {
+      g1.TrainLines[g1.currentNumber].createRail(g1.TrainLines[g1.currentNumber].stationList[x], g1.TrainLines[g1.currentNumber].stationList[y], g1.currentColor);
       x=-1;
       y=-1;
     }
-  }else{
-     fill(0,225,225); 
+  } else {
+    fill(0, 225, 225);
   }
   rect(10, 240, 30, 30);
   fill(50);
   text("Add Rail", 50, 260);
   fill(0, 225, 225);
-  
 }
 
 void mouseClicked() {

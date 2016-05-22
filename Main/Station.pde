@@ -1,4 +1,4 @@
-public class Station implements Locatable{
+public class Station implements Locatable {
 
   public float xcor;
   public float ycor;
@@ -8,12 +8,12 @@ public class Station implements Locatable{
   private boolean hasLast;
   private int identifier;
 
-  public float getXcor(){
-     return this.xcor; 
+  public float getXcor() {
+    return this.xcor;
   }
-  
-  public float getYcor(){
-     return this.ycor; 
+
+  public float getYcor() {
+    return this.ycor;
   }
 
   public Station(int Xcor, int Ycor, int identifier) {
@@ -26,20 +26,20 @@ public class Station implements Locatable{
     fill(0, 225, 225);
     rect(xcor, ycor, 10, 10);
   }
-  
-  public boolean hasNext(){
-    return hasNext; 
+
+  public boolean hasNext() {
+    return hasNext;
   }
-  
-  public boolean hasLast(){
-    return hasLast; 
+
+  public boolean hasLast() {
+    return hasLast;
   }
-  
-  public void setNext(boolean k){
-    hasNext = k; 
+
+  public void setNext(boolean k) {
+    hasNext = k;
   }
-  
-  public void setLast(boolean k){
-    hasLast = k; 
+
+  public void setLast(boolean k) {
+    hasLast = k;
   }
 }
