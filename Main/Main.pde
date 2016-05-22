@@ -39,10 +39,11 @@ void draw() {
   
   
   //g1.spawnStations();
+  g1.hover(10,40,30,70);
   rect(10, 30, 30, 30);
   fill(50);
   text("New TrainLine", 50, 50);
-  fill(0, 225, 225);
+  g1.hover(10,40,100,130);
 
   fill(g1.currentColor);
   rect(10, 100, 30, 30);
@@ -53,7 +54,7 @@ void draw() {
     fill(10);
     g1.spawnStation(g1.currentNumber);
   } else {
-    fill(0, 225, 225);
+    g1.hover(10,40,170,200);
   }
   //System.out.println(mouseClick);
   rect(10, 170, 30, 30);
@@ -64,18 +65,17 @@ void draw() {
   fill(50);
   text("Number of TrainLines: ", 15, 22);
   text(g1.trainLineSize, 150, 22);
-  fill(0, 225, 225);
   g1.printText();
 
   g1.detectRail();//moved out of draw ino function in GameEngine
-
+  
   rect(10, 240, 30, 30);
   fill(50);
   text("Add Rail", 50, 260);
-  fill(0, 225, 225);
+  g1.hover(10,40,310,340);
 
   //createTrain
-  rect(10, 320, 30, 30);
+  rect(10, 310, 30, 30);
   fill(50);
   text("Spawn Train (Current Train Line)", 50, 340);
   fill(0, 225, 225);
@@ -98,10 +98,9 @@ void mouseClicked() {
     mouseClick = true;
   }
   if (mouseX > 10 && mouseX < 40 && mouseY > 240 && mouseY < 270) {
-    System.out.println("ewrgt");
     mouseClickRail = true;
   }
-  if (mouseX > 10 && mouseX < 40 && mouseY > 320 && mouseY < 350) {
+  if (mouseX > 10 && mouseX < 40 && mouseY > 300 && mouseY < 330) {
     g1.spawnTrain();
   }
 }

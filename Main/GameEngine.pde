@@ -64,7 +64,7 @@ public class GameEngine {
         y=-1;
       }
     } else {
-      fill(0, 225, 225);
+      this.hover(10,40,240,270);
     }
   }
 
@@ -136,5 +136,13 @@ public class GameEngine {
       }
     }
     return -1;
+  }
+  
+  public void hover(int x1, int x2, int y1, int y2){
+    if(mouseX > x1 && mouseY > y1 && mouseX < x2 && mouseY < y2){
+      fill(0); //FIX COLOR LATER 
+    }else{
+      fill(0,225,225); 
+    }
   }
 }                         
