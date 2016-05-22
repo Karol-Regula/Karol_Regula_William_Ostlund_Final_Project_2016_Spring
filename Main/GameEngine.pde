@@ -83,9 +83,8 @@ public class GameEngine {
     Operations s = new Operations();
     int ans = 0;
     for(int k = 0; k < TrainLines[i].stationSize; k++){
-      System.out.println(s.dist(TrainLines[i].stationList[k]));
-       if(s.dist(TrainLines[i].stationList[k]) < 15){               
-         return ans;
+       if(s.dist(TrainLines[i].stationList[k]) < 10){               
+         return k;
        }
     }
     return -1;

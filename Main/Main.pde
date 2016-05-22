@@ -69,12 +69,16 @@ void draw() {
       if (g1.getStation(g1.currentNumber) != -1 && g1.getStation(g1.currentNumber) != x && x!= -1) {
         y = g1.getStation(g1.currentNumber);
       }
-      if (g1.getStation(g1.currentNumber) != -1) {
+      if (g1.getStation(g1.currentNumber) != -1 && y == -1) {
         x = g1.getStation(g1.currentNumber);
       }
-      System.out.println(x);
+      System.out.println("x: " + x);
+      System.out.println("y: " + y);
+      System.out.println(g1.TrainLines[g1.currentNumber].stationList[1]);
     }else{
       g1.TrainLines[g1.currentNumber].createRail(g1.TrainLines[g1.currentNumber].stationList[x], g1.TrainLines[g1.currentNumber].stationList[y]);
+      x=-1;
+      y=-1;
     }
   }else{
      fill(0,225,225); 
