@@ -1,7 +1,7 @@
 public class GameEngine {
   public Station[] masterStationList;
   public int masterSize;
-  public TrainLine[] TrainLines = new TrainLine [100];
+  public TrainLine[] TrainLines = new TrainLine [5];
   public int trainLineSize;
   public int size, timer;
   public int holdText;
@@ -15,7 +15,12 @@ public class GameEngine {
 
   public GameEngine() {
     TrainLines = new TrainLine[10];
-    TrainLines[0] = new TrainLine(color( (int)(Math.random() * 255), (int)(Math.random() * 255), (int)(Math.random() * 255)));
+    //TrainLines[0] = new TrainLine(color( (int)(Math.random() * 255), (int)(Math.random() * 255), (int)(Math.random() * 255)));
+    TrainLines[0] = new TrainLine(color(255,0,0));
+    TrainLines[1] = new TrainLine(color(0,255,255));
+    TrainLines[2] = new TrainLine(color(0,255,0));
+    TrainLines[3] = new TrainLine(color(0,0,255));
+    TrainLines[4] = new TrainLine(color(255,255,0));
     masterStationList = new Station[100]; //fix array resizing when this works
     size = 1;
   }

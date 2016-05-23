@@ -13,17 +13,17 @@ void setup() {
   size = 40;
   frameRate(60);
   size(1280, 720);//window size
-  background(255, 255, 0);//background color
+  background(0, 0, 0);//background color
   //noStroke();//disables border
   //mode?
   //lines[0] = t1;
   //g1.TrainLines = lines;
-  g1.trainLineSize = 1;
+  g1.trainLineSize = 5;
   g1.cycleLines();
 }
 
 void draw() {
-  background(255, 255, 0);
+  background(255, 255, 230);
   //mouseClicked();
   for (int i = 0; i < g1.trainLineSize; i++) {
     //if (mousePressed){
@@ -84,12 +84,13 @@ void draw() {
 void mouseClicked() {
   if (mouseX > 10 && mouseX < 40 && mouseY > 30 && mouseY < 70) {
     //I think the User should add a station here, I think its time we switch to a manual user interface rather than 
-    TrainLine t1 = new TrainLine(color( (int)(Math.random() * 255), (int)(Math.random() * 255), (int)(Math.random() * 255) ));
-    g1.TrainLines[g1.trainLineSize] = t1;
-    g1.trainLineSize++;
-    textSize(12);
-    g1.addText("New TrainLine has been created.", 200, 30);
-    g1.holdText = 300;
+    
+    //TrainLine t1 = new TrainLine(color( (int)(Math.random() * 255), (int)(Math.random() * 255), (int)(Math.random() * 255) ));
+    //g1.TrainLines[g1.trainLineSize] = t1;
+    //g1.trainLineSize++;
+    //textSize(12);
+    //g1.addText("New TrainLine has been created.", 200, 30);
+    //g1.holdText = 300;
   }
   if (mouseX > 10 && mouseX < 40 && mouseY > 100 && mouseY < 130) {
     g1.cycleLines();

@@ -27,10 +27,10 @@ public class Station implements Locatable {
   public void paint() {
     if(selected){
       fill(#33C94A);
-      rect(xcor-2.5, ycor-2.5, 15, 15);
+      rect(xcor-2.5, ycor-2.5, 20, 20);
     }else{
       fill(0, 225, 225);
-      rect(xcor, ycor, 10, 10);
+      rect(xcor, ycor, 15, 15);
     }
   }
 

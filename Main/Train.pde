@@ -45,7 +45,7 @@ public class Train implements Locatable {
 
     //popMatrix();
     fill(whatColor);
-    rect(xcor, ycor, 20, 10); //need to chnage facing direction later
+    rect(xcor, ycor, 25, 12.5); //need to chnage facing direction later
     fill(50);
     //rotate(angle);
     //popMatrix();
