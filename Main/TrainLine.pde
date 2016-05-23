@@ -7,6 +7,7 @@ public class TrainLine {
   public Rail[] railList;
   public int railSize;
   public color whatColor;
+  public boolean isLoop = true;
 
   public TrainLine(color whatColor) {
     stationList = new Station[10];//make grow method for this
@@ -36,7 +37,9 @@ public class TrainLine {
 
 
 
-
+  public void isLoop() {
+    //to be implemented, now it is assumed that all lines are looped
+  }
 
 
 
@@ -64,13 +67,27 @@ public class TrainLine {
   public void moveTrains() {
     for (int i = 0; i < trainSize; i++) {//chnage this after adding grow and size
       Train t1 = trainList[i];
-      if (t1.traveling && t1.soFar != 0) {
+      if (t1.traveling && t1.soFar >= 20) {
         //System.out.println(t1. dist);
         t1.xcor += (t1.end.xcor - t1.xcor) / (double)(t1.soFar);
         t1.ycor += (t1.end.ycor - t1.ycor) / (double)(t1.soFar);
         t1.soFar--;
         trainList[i].paint();
-      } 
+      }else if (t1.traveling && t1.soFar <= 50 && t1.soFar >= 0.1) {
+        //System.out.println(t1. dist);
+        t1.xcor += (t1.end.xcor - t1.xcor) / (double)(t1.soFar)  * (0.02 * t1.soFar);
+        t1.ycor += (t1.end.ycor - t1.ycor) / (double)(t1.soFar)  * (0.02 * t1.soFar);
+        t1.soFar -=  (0.004 * (50 - t1.soFar));
+        System.out.println(t1.soFar);
+        trainList[i].paint();
+        if (t1.soFar < 0.3){
+          t1.waiting = 100;
+        }
+      }else if (t1.waiting > 0){
+        t1.waiting--;
+        t1.paint();
+        //passengers board here
+      }
       /*
       }else if(t1.end.hasNext()){
        trainList[i].paint();
@@ -146,13 +163,14 @@ public class TrainLine {
     railList[railSize] = r1;
     railSize++;
     mouseClickRail = false;
+    isLoop();
   }
 
   public void createTrain() {
     if (trainSize >= trainList.length) {
       growTrain();
     }
-    Train t1  = new Train(railList[0].start, railList[0].end);
+    Train t1  = new Train(railList[0].start, railList[0].end, whatColor);
     trainList[trainSize] = t1;
     trainSize++;
   }

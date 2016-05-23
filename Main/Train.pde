@@ -8,9 +8,11 @@ public class Train implements Locatable {
   public float xcor;
   public float ycor;
   public int dist;//I think we should change this to float
-  public int soFar;
+  public float soFar;
   public float angle;
   public int currentNumber;
+  public color whatColor;
+  public int waiting;
 
   public float getXcor() {
     return this.xcor;
@@ -20,7 +22,7 @@ public class Train implements Locatable {
     return this.ycor;
   }
 
-  public Train(Station start, Station end) {
+  public Train(Station start, Station end, color whatColor) {
     this.start = start;
     this.end = end;
     xcor = start.xcor;
@@ -29,6 +31,7 @@ public class Train implements Locatable {
     dist = (int) Math.sqrt( (start.xcor - end.xcor) * (start.xcor - end.xcor) +  (start.ycor - end.ycor) * (start.ycor - end.ycor));//calculate distance between stations
     soFar = dist / 2;
     currentNumber = 0;
+    this.whatColor = whatColor;
   }
 
   public void setAngle() {
@@ -41,7 +44,9 @@ public class Train implements Locatable {
     //translate(-xcor + 10, -ycor + 5);
 
     //popMatrix();
+    fill(whatColor);
     rect(xcor, ycor, 20, 10); //need to chnage facing direction later
+    fill(50);
     //rotate(angle);
     //popMatrix();
     //translate(xcor - 10, ycor - 5);

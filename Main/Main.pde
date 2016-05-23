@@ -11,7 +11,7 @@ public int y = -1;
 
 void setup() {
   size = 40;
-  frameRate(120);
+  frameRate(60);
   size(1280, 720);//window size
   background(255, 255, 0);//background color
   //noStroke();//disables border
