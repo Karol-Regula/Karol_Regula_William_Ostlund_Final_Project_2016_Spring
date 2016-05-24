@@ -14,7 +14,18 @@ public class Rail {
   public void paint() {
     strokeWeight(3);
     stroke(whatColor);
-    line (start.xcor + 5, start.ycor + 5, end.xcor + 5, end.ycor + 5);
+    if (start.shape == 0 && end.shape ==0){
+    line (start.xcor + 7.5, start.ycor + 7.5, end.xcor + 7.5, end.ycor + 7.5);
+    }
+    if (start.shape == 1 && end.shape ==0){
+    line (start.xcor, start.ycor, end.xcor + 7.5, end.ycor + 7.5);
+    }
+    if (start.shape == 0 && end.shape ==1){
+    line (start.xcor + 7.5, start.ycor + 7.5, end.xcor, end.ycor);
+    }
+    if (start.shape == 1 && end.shape ==1){
+    line (start.xcor, start.ycor, end.xcor, end.ycor);
+    }
     stroke(50);
     strokeWeight(1);
   }

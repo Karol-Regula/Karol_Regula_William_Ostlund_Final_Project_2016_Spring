@@ -2,12 +2,14 @@ public class Station implements Locatable {
 
   public float xcor;
   public float ycor;
+  public float Txcor;
+  public float Tycor;
   public int shape;//will be used in paint()
   public int personLimit;
   private boolean hasNext;
   private boolean hasLast;
   private int identifier;
- public boolean selected;
+  public boolean selected;
   public int[]connections;
   public float getXcor() {
     return this.xcor;
@@ -17,21 +19,37 @@ public class Station implements Locatable {
     return this.ycor;
   }
 
-  public Station(int Xcor, int Ycor, int identifier) {
+  public Station(int Xcor, int Ycor, int identifier, int shape) {
     xcor = Xcor;
     ycor = Ycor;
     this.identifier = identifier;
     selected = false;
     connections = new int[5];
+    this.shape = shape;
+    if (shape == 1){
+      Txcor = xcor - 7.5;
+      Tycor = ycor - 7.5;
+    }else{
+      Txcor = xcor;
+      Tycor = ycor;
+    }
   }
 
   public void paint() {
-    if(selected){
+    if (selected) {
       fill(#33C94A);
-      rect(xcor-2.5, ycor-2.5, 20, 20);
-    }else{
+      if (shape == 0) {
+        rect(xcor-2.5, ycor-2.5, 20, 20);
+      } else {
+        ellipse (xcor-2.5, ycor-2.5, 20, 20);
+      }
+    } else {
       fill(0, 225, 225);
-      rect(xcor, ycor, 15, 15);
+      if (shape == 0) {
+        rect(xcor, ycor, 15, 15);
+      } else {
+        ellipse(xcor, ycor, 15, 15);
+      }
     }
   }
 

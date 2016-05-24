@@ -69,14 +69,14 @@ public class TrainLine {
       Train t1 = trainList[i];
       if (t1.traveling && t1.soFar >= 20) {
         //System.out.println(t1. dist);
-        t1.xcor += (t1.end.xcor - t1.xcor) / (double)(t1.soFar);
-        t1.ycor += (t1.end.ycor - t1.ycor) / (double)(t1.soFar);
+        t1.xcor += (t1.end.Txcor - t1.xcor) / (double)(t1.soFar);
+        t1.ycor += (t1.end.Tycor - t1.ycor) / (double)(t1.soFar);
         t1.soFar--;
         trainList[i].paint();
       } else if (t1.traveling && t1.soFar <= 50 && t1.soFar >= 0.1) {
         //System.out.println(t1. dist);
-        t1.xcor += (t1.end.xcor - t1.xcor) / (double)(t1.soFar)  * (0.02 * t1.soFar);
-        t1.ycor += (t1.end.ycor - t1.ycor) / (double)(t1.soFar)  * (0.02 * t1.soFar);
+        t1.xcor += (t1.end.Txcor - t1.xcor) / (double)(t1.soFar)  * (0.02 * t1.soFar);
+        t1.ycor += (t1.end.Tycor - t1.ycor) / (double)(t1.soFar)  * (0.02 * t1.soFar);
         t1.soFar -=  (0.004 * (50 - t1.soFar));
         System.out.println(t1.soFar);
         trainList[i].paint();
@@ -149,7 +149,7 @@ public class TrainLine {
     if (stationSize >= stationList.length) {
       growStation();
     }
-    Station s1  = new Station(xcor, ycor, stationSize);
+    Station s1  = new Station(xcor, ycor, stationSize, (int)(Math.random() * 2));
     stationList[stationSize] = s1;
     stationSize++;
     mouseClickRail = false;
