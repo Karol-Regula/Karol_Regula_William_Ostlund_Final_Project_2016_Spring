@@ -25,10 +25,10 @@ public class Train implements Locatable {
   public Train(Station start, Station end, color whatColor) {
     this.start = start;
     this.end = end;
-    xcor = start.xcor;
-    ycor = start.ycor;
+    xcor = start.Txcor;
+    ycor = start.Tycor;
     traveling  = true; //true for now, determined by consrtuctor later
-    dist = (int) Math.sqrt( (start.xcor - end.xcor) * (start.xcor - end.xcor) +  (start.ycor - end.ycor) * (start.ycor - end.ycor));//calculate distance between stations
+    dist = (int) Math.sqrt( (start.Txcor - end.Txcor) * (start.Txcor - end.Txcor) +  (start.Tycor - end.Tycor) * (start.Tycor - end.Tycor));//calculate distance between stations
     soFar = dist / 2;
     currentNumber = 0;
     this.whatColor = whatColor;
@@ -58,7 +58,7 @@ public class Train implements Locatable {
   }
 
   public void recalculate() {
-    dist = (int) Math.sqrt( (start.xcor - end.xcor) * (start.xcor - end.xcor) +  (start.ycor - end.ycor) * (start.ycor - end.ycor));//calculate distance between stations
+    dist = (int) Math.sqrt( (start.Txcor - end.Txcor) * (start.Txcor - end.Txcor) +  (start.Tycor - end.Tycor) * (start.Tycor - end.Tycor));//calculate distance between stations
     soFar = dist / 2;
     setAngle();
     //System.out.println(angle);

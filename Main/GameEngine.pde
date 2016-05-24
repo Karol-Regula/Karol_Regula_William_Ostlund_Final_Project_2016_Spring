@@ -79,7 +79,7 @@ public class GameEngine {
 
   public void spawnStations() {//for now will add to existing trainline, but I want the stations that spawn to be unafiliated until the user connects them, we should discuss this in class
     if ((int)(Math.random() * 1000) == 1) {
-      Station s1 = new Station((int)(Math.random() * 1280), (int)(Math.random() * 720), 1);
+      Station s1 = new Station((int)(Math.random() * 1280), (int)(Math.random() * 720), 1, (int)(Math.random() * 2));
       masterStationList[masterSize] = (s1);
       masterSize++;
       //createStation((int)(Math.random() * 1280), (int)(Math.random() * 720));
@@ -100,7 +100,7 @@ public class GameEngine {
       //return; //I don't think this anomaly should ever occur, I think we should start off with one station, and therefore one trainline
     }
     if (mousePressed && timer >= 0) { // commented out if (i<size && i>=0 && mousePressed...
-      Station s1  = new Station(Math.round(mouseX/30)*30, Math.round(mouseY/30) * 30, 0);
+      Station s1  = new Station(Math.round(mouseX/30)*30, Math.round(mouseY/30) * 30, 0, (int)(Math.random() * 2));
       masterStationList[masterSize] = s1;
       timer = 0;
       masterSize++;
