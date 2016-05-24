@@ -155,7 +155,7 @@ public class TrainLine {
     mouseClickRail = false;
   }
 
-  public void createRail(Station start, Station end, color whatColor) {
+  public int createRail(Station start, Station end, color whatColor) {
     if (railSize >= railList.length) {
       growRail();
     }
@@ -167,13 +167,12 @@ public class TrainLine {
       isLoop();
     } else {
       Rail r1 = new Rail(start, end, whatColor);
+      //System.out.println("fdgvb gvrt");
       if (r1.start == railList[railSize - 1].end) {
         railList[railSize] = r1;
         railSize++;
         mouseClickRail = false;
         isLoop();
-      } else if (r1.end == railList[railSize - 1].end ||r1.start == railList[0].start) {
-        createRail(end, start, whatColor);
       } else if (r1.end == railList[0].start) {
         Rail[] a = new Rail[railList.length];
         a[0] = r1;
@@ -186,8 +185,11 @@ public class TrainLine {
         isLoop();
       } else {
         //message("Remember: All rails on a single trainline must be continuous");
+        mouseClickRail = false;
+        return -1;
       }
     }
+    return 0;
   }
 
   public void createTrain() {

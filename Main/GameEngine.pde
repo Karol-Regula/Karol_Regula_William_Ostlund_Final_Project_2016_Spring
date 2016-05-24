@@ -60,11 +60,11 @@ public class GameEngine {
           x = g1.getStation(g1.currentNumber);
           this.masterStationList[x].selected = true;
         }
-        System.out.println("x: " + x);
-        System.out.println("y: " + y);
+        //System.out.println("x: " + x);
+        //System.out.println("y: " + y);
         //System.out.println(g1.masterStationList[1]);
       } else {
-        g1.currentLine.createRail(g1.masterStationList[x], g1.masterStationList[y], g1.currentColor);
+          g1.currentLine.createRail(g1.masterStationList[y], g1.masterStationList[x], g1.currentColor);
         this.masterStationList[y].selected = false;
         this.masterStationList[x].selected = false;
         this.masterStationList[x].connections[this.currentNumber]++;
@@ -95,7 +95,7 @@ public class GameEngine {
   //----------------------------------------------Everything below is the User Interface Stuff----------------------------------------------
 
   public void spawnStation(int i) { //very basic framework for the user interface, we can discuss how this will work in class
-    System.out.println(timer);
+    //System.out.println(timer);
     if (size == 0) {
       //return; //I don't think this anomaly should ever occur, I think we should start off with one station, and therefore one trainline
     }
