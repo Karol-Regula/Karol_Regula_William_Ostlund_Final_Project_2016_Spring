@@ -73,17 +73,17 @@ public class TrainLine {
         t1.ycor += (t1.end.ycor - t1.ycor) / (double)(t1.soFar);
         t1.soFar--;
         trainList[i].paint();
-      }else if (t1.traveling && t1.soFar <= 50 && t1.soFar >= 0.1) {
+      } else if (t1.traveling && t1.soFar <= 50 && t1.soFar >= 0.1) {
         //System.out.println(t1. dist);
         t1.xcor += (t1.end.xcor - t1.xcor) / (double)(t1.soFar)  * (0.02 * t1.soFar);
         t1.ycor += (t1.end.ycor - t1.ycor) / (double)(t1.soFar)  * (0.02 * t1.soFar);
         t1.soFar -=  (0.004 * (50 - t1.soFar));
         System.out.println(t1.soFar);
         trainList[i].paint();
-        if (t1.soFar < 0.3){
+        if (t1.soFar < 0.3) {
           t1.waiting = 100;
         }
-      }else if (t1.waiting > 0){
+      } else if (t1.waiting > 0) {
         t1.waiting--;
         t1.paint();
         //passengers board here
@@ -159,11 +159,35 @@ public class TrainLine {
     if (railSize >= railList.length) {
       growRail();
     }
-    Rail r1  = new Rail(start, end, whatColor);
-    railList[railSize] = r1;
-    railSize++;
-    mouseClickRail = false;
-    isLoop();
+    if (railSize == 0) {
+      Rail r1  = new Rail(start, end, whatColor);
+      railList[railSize] = r1;
+      railSize++;
+      mouseClickRail = false;
+      isLoop();
+    } else {
+      Rail r1 = new Rail(start, end, whatColor);
+      if (r1.start == railList[railSize - 1].end) {
+        railList[railSize] = r1;
+        railSize++;
+        mouseClickRail = false;
+        isLoop();
+      } else if (r1.end == railList[railSize - 1].end ||r1.start == railList[0].start) {
+        createRail(end, start, whatColor);
+      } else if (r1.end == railList[0].start) {
+        Rail[] a = new Rail[railList.length];
+        a[0] = r1;
+        for (int i = 0; i < railSize; i++) {
+          a[i+1] = railList[i];
+        }
+        railSize++;
+        railList = a;
+        mouseClickRail = false;
+        isLoop();
+      } else {
+        //message("Remember: All rails on a single trainline must be continuous");
+      }
+    }
   }
 
   public void createTrain() {

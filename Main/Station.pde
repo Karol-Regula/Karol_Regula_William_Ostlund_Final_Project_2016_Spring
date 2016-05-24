@@ -8,7 +8,7 @@ public class Station implements Locatable {
   private boolean hasLast;
   private int identifier;
  public boolean selected;
-
+  public int[]connections;
   public float getXcor() {
     return this.xcor;
   }
@@ -22,6 +22,7 @@ public class Station implements Locatable {
     ycor = Ycor;
     this.identifier = identifier;
     selected = false;
+    connections = new int[5];
   }
 
   public void paint() {

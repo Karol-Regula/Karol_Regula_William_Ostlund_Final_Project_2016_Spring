@@ -50,11 +50,13 @@ public class GameEngine {
         this.masterStationList[y].selected = true;
       }
       if (y== -1) {
-        if (g1.getStation(g1.currentNumber) != -1 && g1.getStation(g1.currentNumber) != x && x!= -1) {
+        if (g1.getStation(g1.currentNumber) != -1 && g1.getStation(g1.currentNumber) != x && x!= -1 && 
+        g1.masterStationList[getStation(g1.currentNumber)].connections[this.currentNumber] < 2) {
           y = g1.getStation(g1.currentNumber);
           this.masterStationList[y].selected = true;
         }
-        if (g1.getStation(g1.currentNumber) != -1 && y == -1) {
+        if (g1.getStation(g1.currentNumber) != -1 && y == -1 && 
+        g1.masterStationList[getStation(g1.currentNumber)].connections[this.currentNumber] < 2) {
           x = g1.getStation(g1.currentNumber);
           this.masterStationList[x].selected = true;
         }
@@ -65,6 +67,8 @@ public class GameEngine {
         g1.currentLine.createRail(g1.masterStationList[x], g1.masterStationList[y], g1.currentColor);
         this.masterStationList[y].selected = false;
         this.masterStationList[x].selected = false;
+        this.masterStationList[x].connections[this.currentNumber]++;
+        this.masterStationList[y].connections[this.currentNumber]++;
         x=-1;
         y=-1;
       }
