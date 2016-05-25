@@ -81,12 +81,21 @@ public class TrainLine {
         System.out.println(t1.soFar);
         trainList[i].paint();
         if (t1.soFar < 0.3) {
-          t1.waiting = 100;
+          t1.waiting = 100;// ======================= NOTE: for future purposes, this code executes way too may times
+          t1.deboardPassengers();
+          t1.traveling = false;
         }
       } else if (t1.waiting > 0) {
         t1.waiting--;
+        if (t1.waiting == 40){
+          t1.boardPassengers();
+        }
         t1.paint();
         //passengers board here
+        if (t1.waiting == 0){
+          t1.traveling = true;
+          t1.soFar = 0;
+        }
       }
       /*
       }else if(t1.end.hasNext()){

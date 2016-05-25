@@ -28,7 +28,7 @@ public class GameEngine {
 
   public void spawnPassengers() {
     for (int i = 0; i < masterSize; i++) {
-      if ((int)(Math.random() * 200) == 2) {//------------------------------ probability for passengers << change here
+      if ((int)(Math.random() * 200) == 2 && masterStationList[i].Passengers.size() < 10 ) {//------------------------------ probability for passengers << change here
         Passenger p1 = new Passenger((int)(Math.random() * 2));
         masterStationList[i].Passengers.add(p1);
       }
@@ -43,6 +43,21 @@ public class GameEngine {
         }
         if (masterStationList[i].shape == 1) {
           masterStationList[i].Passengers.get(j).paint((int)masterStationList[i].xcor + j * 10 + 10, (int)masterStationList[i].ycor - 10);
+        }
+      }
+    }
+  }
+
+  public void drawPassengersOnTrains() {
+    for (int i = 0; i < trainLineSize; i++) {
+      for (int j = 0; j < TrainLines[i].trainSize; j++) {
+        for (int k = 0; k < TrainLines[i].trainList[j].Passengers.size(); k++) {
+          if (k <= 2) {
+            TrainLines[i].trainList[j].Passengers.get(k).paint((int)TrainLines[i].trainList[j].xcor + 2 + 10 * k, (int)TrainLines[i].trainList[j].ycor + 1);
+          }
+          if (k > 2) {
+            TrainLines[i].trainList[j].Passengers.get(k).paint((int)TrainLines[i].trainList[j].xcor + 2 + 10 * (k - 3), (int)TrainLines[i].trainList[j].ycor + 8);
+          }
         }
       }
     }
@@ -102,7 +117,7 @@ public class GameEngine {
   }
 
   public void spawnStations() {//for now will add to existing trainline, but I want the stations that spawn to be unafiliated until the user connects them, we should discuss this in class
-    if ((int)(Math.random() * 1000) == 1) {
+    if ((int)(Math.random() * 5000) == 1) {
       Station s1 = new Station((int)(Math.random() * 1280), (int)(Math.random() * 720), 1, (int)(Math.random() * 2));
       masterStationList[masterSize] = (s1);
       masterSize++;

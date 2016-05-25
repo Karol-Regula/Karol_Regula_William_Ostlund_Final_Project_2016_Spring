@@ -13,7 +13,8 @@ public class Train implements Locatable {
   public int currentNumber;
   public color whatColor;
   public int waiting;
-
+  public int capacity;
+  public ArrayList<Passenger> Passengers;
   public float getXcor() {
     return this.xcor;
   }
@@ -32,6 +33,26 @@ public class Train implements Locatable {
     soFar = dist / 2;
     currentNumber = 0;
     this.whatColor = whatColor;
+    Passengers = new ArrayList<Passenger>();
+    capacity = 0;
+  }
+  
+  public void boardPassengers(){
+    while (capacity <= 5 && end.Passengers.size() > 0){
+      Passengers.add(end.Passengers.remove(0));
+      capacity++;
+    }
+  }
+  
+  public void deboardPassengers(){
+    System.out.println("deboard");
+    for (int i = 0; i < capacity; i++){
+      if (Passengers.get(i).shape == end.shape){
+        Passengers.remove(i);
+        i--;
+        capacity--;
+      }
+    }
   }
 
   public void setAngle() {
@@ -45,7 +66,7 @@ public class Train implements Locatable {
 
     //popMatrix();
     fill(whatColor);
-    rect(xcor, ycor, 25, 12.5); //need to chnage facing direction later
+    rect(xcor, ycor, 30, 15); //need to chnage facing direction later
     fill(50);
     //rotate(angle);
     //popMatrix();

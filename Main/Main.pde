@@ -32,21 +32,24 @@ void draw() {
     //lines[i].addStation(mouseX, mouseY);
     //}
     g1.TrainLines[i].drawRails();
-    g1.TrainLines[i].moveTrains();
     g1.TrainLines[i].drawStations();
   }
+  for (int i = 0; i < g1.trainLineSize; i++) {
+    g1.TrainLines[i].moveTrains();
+  }
   g1.spawnStations();
+  g1.drawPassengersOnTrains();
   g1.drawStations();//draws unconnected stations
   g1.spawnPassengers();
   g1.drawPassengers();
-  
-  
+
+
   //g1.spawnStations();
-  g1.hover(10,40,30,70);
+  g1.hover(10, 40, 30, 70);
   rect(10, 30, 30, 30);
   fill(50);
   text("New TrainLine", 50, 50);
-  g1.hover(10,40,100,130);
+  g1.hover(10, 40, 100, 130);
 
   fill(g1.currentColor);
   rect(10, 100, 30, 30);
@@ -57,7 +60,7 @@ void draw() {
     fill(10);
     g1.spawnStation(g1.currentNumber);
   } else {
-    g1.hover(10,40,170,200);
+    g1.hover(10, 40, 170, 200);
   }
   //System.out.println(mouseClick);
   rect(10, 170, 30, 30);
@@ -71,11 +74,11 @@ void draw() {
   g1.printText();
 
   g1.detectRail();//moved out of draw ino function in GameEngine
-  
+
   rect(10, 240, 30, 30);
   fill(50);
   text("Add Rail", 50, 260);
-  g1.hover(10,40,310,340);
+  g1.hover(10, 40, 310, 340);
 
   //createTrain
   rect(10, 310, 30, 30);
@@ -88,7 +91,7 @@ void draw() {
 void mouseClicked() {
   if (mouseX > 10 && mouseX < 40 && mouseY > 30 && mouseY < 70) {
     //I think the User should add a station here, I think its time we switch to a manual user interface rather than 
-    
+
     //TrainLine t1 = new TrainLine(color( (int)(Math.random() * 255), (int)(Math.random() * 255), (int)(Math.random() * 255) ));
     //g1.TrainLines[g1.trainLineSize] = t1;
     //g1.trainLineSize++;
