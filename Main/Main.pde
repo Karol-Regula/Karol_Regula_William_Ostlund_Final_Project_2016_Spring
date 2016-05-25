@@ -20,6 +20,7 @@ void setup() {
   //g1.TrainLines = lines;
   g1.trainLineSize = 5;
   g1.cycleLines();
+  smooth();
 }
 
 void draw() {

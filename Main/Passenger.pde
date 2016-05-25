@@ -9,10 +9,12 @@ public class Passenger{
   
   public void paint(int xcor, int ycor){
     if (shape == 0){
-      rect(xcor, ycor, 5, 5);
+      fill(50);
+      rect(xcor, ycor, 6, 6);
     }
     if (shape == 1){
-      ellipse(xcor, ycor, 5, 5);
+      fill(50);
+      ellipse(xcor + 3, ycor + 3, 6, 6);
     }
   }
   
