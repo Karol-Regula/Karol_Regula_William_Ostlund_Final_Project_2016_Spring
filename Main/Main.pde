@@ -79,6 +79,7 @@ void draw() {
   fill(50);
   text("Spawn Train (Current Train Line)", 50, 340);
   fill(0, 225, 225);
+  g1.railCheck(g1.currentNumber);
 }
 
 void mouseClicked() {

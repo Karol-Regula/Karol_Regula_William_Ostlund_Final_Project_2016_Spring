@@ -107,7 +107,7 @@ public class TrainLine {
        */
       else {  
         Station next;
-        if (t1.currentNumber == railSize - 1) {
+        if (t1.currentNumber == railSize) {
           next = railList[0].start;
           t1.currentNumber = 0;
         } else {

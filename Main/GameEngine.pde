@@ -64,7 +64,9 @@ public class GameEngine {
         //System.out.println("y: " + y);
         //System.out.println(g1.masterStationList[1]);
       } else {
+        if(g1.currentLine.createRail(g1.masterStationList[x], g1.masterStationList[y], g1.currentColor) == -1){
           g1.currentLine.createRail(g1.masterStationList[y], g1.masterStationList[x], g1.currentColor);
+        }
         this.masterStationList[y].selected = false;
         this.masterStationList[x].selected = false;
         this.masterStationList[x].connections[this.currentNumber]++;
@@ -152,6 +154,12 @@ public class GameEngine {
       fill(0); //FIX COLOR LATER 
     }else{
       fill(0,225,225); 
+    }
+  }
+  
+  public void railCheck(int i){
+    for(int k = 0; k < TrainLines[i].railSize - 1; k++){
+      System.out.println(TrainLines[i].railList[k].end == TrainLines[i].railList[k+1].start);
     }
   }
 }                         
