@@ -16,15 +16,32 @@ public class GameEngine {
   public GameEngine() {
     TrainLines = new TrainLine[10];
     //TrainLines[0] = new TrainLine(color( (int)(Math.random() * 255), (int)(Math.random() * 255), (int)(Math.random() * 255)));
-    TrainLines[0] = new TrainLine(color(255,0,0));
-    TrainLines[1] = new TrainLine(color(0,255,255));
-    TrainLines[2] = new TrainLine(color(0,255,0));
-    TrainLines[3] = new TrainLine(color(0,0,255));
-    TrainLines[4] = new TrainLine(color(255,255,0));
+    TrainLines[0] = new TrainLine(color(255, 0, 0));
+    TrainLines[1] = new TrainLine(color(0, 255, 255));
+    TrainLines[2] = new TrainLine(color(0, 255, 0));
+    TrainLines[3] = new TrainLine(color(0, 0, 255));
+    TrainLines[4] = new TrainLine(color(255, 255, 0));
     masterStationList = new Station[100]; //fix array resizing when this works
     size = 1;
   }
 
+
+  public void spawnPassengers() {
+    for (int i = 0; i < masterSize; i++) {
+      if ((int)(Math.random() * 100) == 2) {//------------------------------ probability for passengers << change here
+        Passenger p1 = new Passenger((int)(Math.random() * 2));
+        masterStationList[i].Passengers.add(p1);
+      }
+    }
+  }
+
+  public void drawPassengers() {
+    for (int i = 0; i < masterSize; i++) {
+      for (int j = 0; j < masterStationList[i].Passengers.size(); j++) {
+        masterStationList[i].Passengers.get(j).paint((int)masterStationList[i].xcor + j * 10, (int)masterStationList[i].ycor);
+      }
+    }
+  }
 
   public void drawStations() {
     for (int i = 0; i < masterSize; i++) {//chnage this after adding grow and size
@@ -39,24 +56,24 @@ public class GameEngine {
       for (int k = 0; k < masterSize; k++) {
         if (s.dist(masterStationList[k]) < 10) {               
           masterStationList[k].selected = true;
-        }else{
+        } else {
           masterStationList[k].selected = false;
         }
       }
-      if(x!=-1){
-          this.masterStationList[x].selected = true;
-        }
-      if(y!=-1){
+      if (x!=-1) {
+        this.masterStationList[x].selected = true;
+      }
+      if (y!=-1) {
         this.masterStationList[y].selected = true;
       }
       if (y== -1) {
         if (g1.getStation(g1.currentNumber) != -1 && g1.getStation(g1.currentNumber) != x && x!= -1 && 
-        g1.masterStationList[getStation(g1.currentNumber)].connections[this.currentNumber] < 2) {
+          g1.masterStationList[getStation(g1.currentNumber)].connections[this.currentNumber] < 2) {
           y = g1.getStation(g1.currentNumber);
           this.masterStationList[y].selected = true;
         }
         if (g1.getStation(g1.currentNumber) != -1 && y == -1 && 
-        g1.masterStationList[getStation(g1.currentNumber)].connections[this.currentNumber] < 2) {
+          g1.masterStationList[getStation(g1.currentNumber)].connections[this.currentNumber] < 2) {
           x = g1.getStation(g1.currentNumber);
           this.masterStationList[x].selected = true;
         }
@@ -64,7 +81,7 @@ public class GameEngine {
         //System.out.println("y: " + y);
         //System.out.println(g1.masterStationList[1]);
       } else {
-        if(g1.currentLine.createRail(g1.masterStationList[x], g1.masterStationList[y], g1.currentColor) == -1){
+        if (g1.currentLine.createRail(g1.masterStationList[x], g1.masterStationList[y], g1.currentColor) == -1) {
           g1.currentLine.createRail(g1.masterStationList[y], g1.masterStationList[x], g1.currentColor);
         }
         this.masterStationList[y].selected = false;
@@ -75,7 +92,7 @@ public class GameEngine {
         y=-1;
       }
     } else {
-      this.hover(10,40,240,270);
+      this.hover(10, 40, 240, 270);
     }
   }
 
@@ -148,17 +165,17 @@ public class GameEngine {
     }
     return -1;
   }
-  
-  public void hover(int x1, int x2, int y1, int y2){
-    if(mouseX > x1 && mouseY > y1 && mouseX < x2 && mouseY < y2){
-      fill(0); //FIX COLOR LATER 
-    }else{
-      fill(0,225,225); 
+
+  public void hover(int x1, int x2, int y1, int y2) {
+    if (mouseX > x1 && mouseY > y1 && mouseX < x2 && mouseY < y2) {
+      fill(0); //FIX COLOR LATER
+    } else {
+      fill(0, 225, 225);
     }
   }
-  
-  public void railCheck(int i){
-    for(int k = 0; k < TrainLines[i].railSize - 1; k++){
+
+  public void railCheck(int i) {
+    for (int k = 0; k < TrainLines[i].railSize - 1; k++) {
       System.out.println(TrainLines[i].railList[k].end == TrainLines[i].railList[k+1].start);
     }
   }

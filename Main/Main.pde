@@ -36,6 +36,8 @@ void draw() {
   }
   g1.spawnStations();
   g1.drawStations();//draws unconnected stations
+  g1.spawnPassengers();
+  g1.drawPassengers();
   
   
   //g1.spawnStations();

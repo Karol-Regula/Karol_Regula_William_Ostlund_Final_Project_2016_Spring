@@ -9,6 +9,7 @@ public class Station implements Locatable {
   private boolean hasNext;
   private boolean hasLast;
   private int identifier;
+  public ArrayList<Passenger> Passengers;
   public boolean selected;
   public int[]connections;
   public float getXcor() {
@@ -33,6 +34,7 @@ public class Station implements Locatable {
       Txcor = xcor;
       Tycor = ycor;
     }
+    Passengers = new ArrayList<Passenger>();
   }
 
   public void paint() {
