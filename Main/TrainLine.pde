@@ -8,6 +8,7 @@ public class TrainLine {
   public int railSize;
   public color whatColor;
   public boolean isLoop = true;
+  public boolean loop;
 
   public TrainLine(color whatColor) {
     stationList = new Station[10];//make grow method for this
@@ -17,6 +18,7 @@ public class TrainLine {
     trainList = new Train[10];
     trainSize = 0;
     this.whatColor = whatColor;
+    loop = false;
   }
 
 
@@ -78,7 +80,7 @@ public class TrainLine {
         t1.xcor += (t1.end.Txcor - t1.xcor) / (double)(t1.soFar)  * (0.02 * t1.soFar);
         t1.ycor += (t1.end.Tycor - t1.ycor) / (double)(t1.soFar)  * (0.02 * t1.soFar);
         t1.soFar -=  (0.004 * (50 - t1.soFar));
-        System.out.println(t1.soFar);
+        //System.out.println(t1.soFar);
         trainList[i].paint();
         if (t1.soFar < 0.3) {
           t1.waiting = 100;// ======================= NOTE: for future purposes, this code executes way too may times
@@ -114,11 +116,17 @@ public class TrainLine {
        t1.end.xcor = temp1;
        t1.end.ycor = temp2;
        */
-      else {  
+      else if(t1.forward){   //<>//
         Station next;
         if (t1.currentNumber == railSize) {
-          next = railList[0].start;
-          t1.currentNumber = 0;
+          if(this.loop){
+            next = railList[0].start;
+            t1.currentNumber = 0;
+          }else{
+            next = t1.start;
+            t1.currentNumber = railSize - 1;
+            t1.forward = false;
+          }
         } else {
           next = railList[t1.currentNumber].end;
           t1.currentNumber++;
@@ -126,7 +134,26 @@ public class TrainLine {
         t1.start = t1.end;
         t1.end = next;
         t1.recalculate();
+      }else{
+        Station last;
+        if (t1.currentNumber == -1) {
+          if(this.loop){ 
+            last = railList[railSize - 1].end;
+            t1.currentNumber = railSize - 1;
+          }else{
+            last = t1.end;
+            t1.currentNumber = 0;
+            t1.forward = true;
+          }
+        } else {
+          last = railList[t1.currentNumber].start;
+          t1.currentNumber--;
+        }
+        t1.start = t1.end;
+        t1.end = last;
+        t1.recalculate();
       }
+      System.out.println(t1.forward + ":" + t1.currentNumber);
     }
   }
 
