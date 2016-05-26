@@ -15,6 +15,7 @@ public class Train implements Locatable {
   public int waiting;
   public int capacity;
   public ArrayList<Passenger> Passengers;
+  public boolean forward;
   public float getXcor() {
     return this.xcor;
   }
@@ -35,6 +36,7 @@ public class Train implements Locatable {
     this.whatColor = whatColor;
     Passengers = new ArrayList<Passenger>();
     capacity = 0;
+    forward = true;
   }
   
   public void boardPassengers(){
