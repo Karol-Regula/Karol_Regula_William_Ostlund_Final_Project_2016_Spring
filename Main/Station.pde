@@ -38,6 +38,7 @@ public class Station implements Locatable {
   }
 
   public void paint() {
+    strokeWeight(3);
     if (selected) {
       fill(#33C94A);
       if (shape == 0) {
@@ -46,13 +47,14 @@ public class Station implements Locatable {
         ellipse (xcor-2.5, ycor-2.5, 20, 20);
       }
     } else {
-      fill(0, 225, 225);
+      fill(255, 255, 255);
       if (shape == 0) {
         rect(xcor, ycor, 15, 15);
       } else {
         ellipse(xcor, ycor, 15, 15);
       }
     }
+    strokeWeight(1);
   }
 
   public boolean hasNext() {
