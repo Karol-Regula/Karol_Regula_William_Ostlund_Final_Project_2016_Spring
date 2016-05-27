@@ -1,5 +1,6 @@
 public class Train implements Locatable {
-
+  
+  PShape s;
   public int passengers;
   public int personLimit;
   public boolean traveling;
@@ -60,6 +61,19 @@ public class Train implements Locatable {
   public void setAngle() {
     this.angle = atan((start.getYcor() - end.ycor)/(start.getXcor() - end.xcor));//Does not work when implemented, moved improperly, I think we should work on
   }
+  
+  public void sha(){
+    float ang = atan(0.5);
+    float dist = (float)Math.sqrt(15*15 + 7.5 * 7.5);
+     s = createShape();
+     s.beginShape();
+     s.vertex((float)(xcor + dist * Math.cos(angle + ang)), (float)(ycor + dist*Math.sin(angle+ang)) + 7.5);
+     s.vertex((float)(xcor + dist * Math.cos(angle - ang)), (float)(ycor + dist*Math.sin(angle-ang)) + 7.5);
+     s.vertex((float)(xcor - dist * Math.cos(angle + ang)), (float)(ycor - dist*Math.sin(angle+ang)) + 7.5);
+     s.vertex((float)(xcor - dist * Math.cos(angle - ang)), (float)(ycor - dist*Math.sin(angle-ang)) + 7.5);
+     s.vertex((float)(xcor + dist * Math.cos(angle + ang)), (float)(ycor + dist*Math.sin(angle+ang)) + 7.5);
+     s.endShape();
+  }
 
   public void paint() {
     //System.out.println(xcor + " " + ycor);
@@ -68,7 +82,8 @@ public class Train implements Locatable {
 
     //popMatrix();
     fill(whatColor);
-    rect(xcor, ycor, 30, 15); //need to chnage facing direction later
+    this.sha();//need to chnage facing direction later
+    shape(s);
     fill(50);
     //rotate(angle);
     //popMatrix();
