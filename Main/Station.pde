@@ -1,5 +1,6 @@
 public class Station implements Locatable {
 
+  public PShape avatar;
   public float xcor;
   public float ycor;
   public float Txcor;
@@ -27,10 +28,10 @@ public class Station implements Locatable {
     selected = false;
     connections = new int[5];
     this.shape = shape;
-    if (shape == 1){
+    if (shape == 1) {
       Txcor = xcor - 7.5;
       Tycor = ycor - 7.5;
-    }else{
+    } else {
       Txcor = xcor;
       Tycor = ycor;
     }
@@ -48,12 +49,53 @@ public class Station implements Locatable {
       }
     } else {
       fill(255, 255, 255);
-      if (shape == 0) {
-        rect(xcor, ycor, 15, 15);
-      } else {
-        ellipse(xcor, ycor, 15, 15);
+      switch (shape) {
+      case 0: 
+        avatar = createShape(RECT, this.getXcor()- 2.5, this.getYcor()-2.5, 20, 20);
+        break;
+      case 1:
+        avatar = createShape(ELLIPSE, this.getXcor()-2.5, this.getYcor()-2.5, 20, 20);
+        break;
+      case 2:
+        avatar.beginShape();
+        avatar.vertex(this.getXcor(), this.getYcor() + 10);
+        avatar.vertex(this.getXcor() - 10 * cos(-2*PI/3), this.getYcor() - 10 * sin(2*PI/3));
+        avatar.vertex(this.getXcor() - 10 * cos(-2*PI/3), this.getYcor() + 10 * sin(2*PI/3));
+        avatar.endShape(CLOSE);
+        break;
+      case 3:
+        avatar.beginShape();
+        avatar.vertex(this.getXcor(), this.getYcor() + 20);
+        avatar.vertex(this.getXcor() - 20, this.getYcor());
+        avatar.vertex(this.getXcor(), this.getYcor() - 20);
+        avatar.vertex(this.getXcor() + 20, this.getYcor());
+        avatar.endShape(CLOSE);
+        break;
+      case 4:
+        avatar.beginShape();
+        avatar.vertex(this.getXcor(), this.getYcor() - 10);
+        avatar.vertex(this.getXcor() - sin((2*PI)/5)*10, this.getYcor() - cos((2*PI)/5)*10);
+        avatar.vertex(this.getXcor() - sin((4*PI)/5)*10, this.getYcor() + cos((PI)/5)*10);
+        avatar.vertex(this.getXcor() + sin((4*PI)/5)*10, this.getYcor() + cos((PI)/5)*10);
+        avatar.vertex(this.getXcor() + sin((2*PI)/5)*10, this.getYcor() - cos((2*PI)/5)*10);
+        avatar.endShape();
+        break;
+      case 5:
+        avatar = createShape();
+        avatar.beginShape();
+        avatar.vertex(this.getXcor()+20, this.getYcor());
+        avatar.vertex(this.getXcor()+5, this.getYcor()+5);
+        avatar.vertex(this.getXcor(), this.getYcor()+20);
+        avatar.vertex(this.getXcor()-5, this.getYcor()+5);
+        avatar.vertex(this.getXcor()-20, this.getYcor());
+        avatar.vertex(this.getXcor()-5, this.getYcor()-5);
+        avatar.vertex(this.getXcor(), this.getYcor()-20);
+        avatar.vertex(this.getXcor()+5, this.getYcor()-5);
+        avatar.endShape();
+        break;
       }
     }
+    shape(avatar);
     strokeWeight(1);
   }
 

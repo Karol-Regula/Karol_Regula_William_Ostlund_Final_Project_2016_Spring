@@ -67,11 +67,11 @@ public class Train implements Locatable {
     float dist = (float)Math.sqrt(15*15 + 7.5 * 7.5);
      s = createShape();
      s.beginShape();
-     s.vertex((float)(xcor + dist * Math.cos(angle + ang)), (float)(ycor + dist*Math.sin(angle+ang)) + 7.5);
-     s.vertex((float)(xcor + dist * Math.cos(angle - ang)), (float)(ycor + dist*Math.sin(angle-ang)) + 7.5);
-     s.vertex((float)(xcor - dist * Math.cos(angle + ang)), (float)(ycor - dist*Math.sin(angle+ang)) + 7.5);
-     s.vertex((float)(xcor - dist * Math.cos(angle - ang)), (float)(ycor - dist*Math.sin(angle-ang)) + 7.5);
-     s.vertex((float)(xcor + dist * Math.cos(angle + ang)), (float)(ycor + dist*Math.sin(angle+ang)) + 7.5);
+     s.vertex((float)(xcor + dist * Math.cos(angle + ang) + 7.5), (float)(ycor + dist*Math.sin(angle+ang)) + 7.5);
+     s.vertex((float)(xcor + dist * Math.cos(angle - ang) + 7.5), (float)(ycor + dist*Math.sin(angle-ang)) + 7.5);
+     s.vertex((float)(xcor - dist * Math.cos(angle + ang) + 7.5), (float)(ycor - dist*Math.sin(angle+ang)) + 7.5);
+     s.vertex((float)(xcor - dist * Math.cos(angle - ang) + 7.5), (float)(ycor - dist*Math.sin(angle-ang)) + 7.5);
+     s.vertex((float)(xcor + dist * Math.cos(angle + ang) + 7.5), (float)(ycor + dist*Math.sin(angle+ang)) + 7.5);
      s.endShape();
   }
 
