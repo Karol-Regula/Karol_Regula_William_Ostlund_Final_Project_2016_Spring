@@ -34,6 +34,7 @@ void draw() {
     g1.TrainLines[i].drawRails();
     g1.TrainLines[i].drawStations();
   }
+  g1.drawDuplicateRails();
   for (int i = 0; i < g1.trainLineSize; i++) {
     g1.TrainLines[i].moveTrains();
   }

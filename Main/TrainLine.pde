@@ -153,7 +153,7 @@ public class TrainLine {
         t1.end = last;
         t1.recalculate();
       }
-      System.out.println(t1.forward + ":" + t1.currentNumber);
+      //System.out.println(t1.forward + ":" + t1.currentNumber);
     }
   }
 
