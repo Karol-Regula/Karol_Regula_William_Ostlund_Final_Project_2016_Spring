@@ -49,16 +49,16 @@ public class GameEngine {
         if (j != i && mouseClickRail == false) {
           /*
           for (int d = 0; d < masterRailList.length; d++){
-            System.out.println(masterRailList[d].start);
-            System.out.println(masterRailList[d].end);
-          }
-          System.out.println(masterRailList[i].start);
-          System.out.println(masterRailList[i].end);
-          System.out.println(j);
-          System.out.println(masterRailList.length);
-          System.out.println(masterRailList[j]);
-          System.out.println(masterRailList[j].end);
-          */
+           System.out.println(masterRailList[d].start);
+           System.out.println(masterRailList[d].end);
+           }
+           System.out.println(masterRailList[i].start);
+           System.out.println(masterRailList[i].end);
+           System.out.println(j);
+           System.out.println(masterRailList.length);
+           System.out.println(masterRailList[j]);
+           System.out.println(masterRailList[j].end);
+           */
           if (masterRailList[i].start == masterRailList[j].start && masterRailList[i].end == masterRailList[j].end) {
             current.add(masterRailList[j]);
           }

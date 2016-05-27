@@ -107,7 +107,16 @@ void mouseClicked() {
     mouseClick = true;
   }
   if (mouseX > 10 && mouseX < 40 && mouseY > 240 && mouseY < 270) {
-    mouseClickRail = true;
+    if (mouseClickRail) {
+      mouseClickRail = false;
+      for (int i = 0; i < g1.masterSize; i++) {
+        g1.masterStationList[i].selected = false;
+      }
+      x = -1;
+      y = -1;
+    }else{
+      mouseClickRail = true;
+    }
   }
   if (mouseX > 10 && mouseX < 40 && mouseY > 300 && mouseY < 330) {
     g1.spawnTrain();
