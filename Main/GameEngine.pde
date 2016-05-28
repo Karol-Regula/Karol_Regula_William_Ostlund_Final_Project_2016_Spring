@@ -146,7 +146,7 @@ public class GameEngine {
       fill(10);
       Operations s = new Operations();
       for (int k = 0; k < masterSize; k++) {
-        if (s.dist(masterStationList[k]) < 10) {               
+        if (s.dist(masterStationList[k]) < 20) {               
           masterStationList[k].selected = true;
         } else {
           masterStationList[k].selected = false;
@@ -267,7 +267,7 @@ public class GameEngine {
   public int getStation(int i) {
     Operations s = new Operations();
     for (int k = 0; k < masterSize; k++) {
-      if (s.dist(masterStationList[k]) < 15 && mousePressed) {               
+      if (s.dist(masterStationList[k]) < 20 && mousePressed) {               
         return k;
       }
     }
