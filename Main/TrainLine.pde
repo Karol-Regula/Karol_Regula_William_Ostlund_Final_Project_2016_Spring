@@ -282,6 +282,26 @@ public class TrainLine { //<>//
           railSize--;
           railList = a;
         } else if (loop) {
+          Rail[] a = new Rail[railList.length];
+          for (int k = i+1; k < railSize+i; k++) {
+              if(k<railSize){
+                a[k-i-1] = railList[k];
+              }else{
+                a[i+k%railSize] = railList[k%railSize];
+              }
+          }
+          for (Train t1 : trainList) {
+            if (t1!= null && t1.currentNumber > i) {
+              if(t1.currentNumber >= i){
+                t1.currentNumber -= i;
+                t1.forward = !t1.forward;
+              }else{
+                t1.currentNumber += i; 
+              }
+            }
+          }
+          railSize--;
+          railList = a;
         }
         removingRail = false;
         loop = false;
