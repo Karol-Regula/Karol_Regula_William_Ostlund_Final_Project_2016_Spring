@@ -1,4 +1,4 @@
-public class TrainLine {
+public class TrainLine { //<>//
 
   public Station[] stationList;
   public int stationSize;
@@ -83,18 +83,50 @@ public class TrainLine {
         //System.out.println(t1.soFar);
         trainList[i].paint();
         if (t1.soFar < 0.3) {
-          t1.waiting = 100;// ======================= NOTE: for future purposes, this code executes way too may times
-          t1.deboardPassengers();
+          t1.waiting = 140;// ======================= NOTE: for future purposes, this code executes way too may times
           t1.traveling = false;
         }
       } else if (t1.waiting > 0) {
         t1.waiting--;
-        if (t1.waiting == 40){
-          t1.boardPassengers();
+        if (t1.waiting == 130) {
+          t1.deboardPassenger();
+        }
+        if (t1.waiting == 120) {
+          t1.deboardPassenger();
+        }
+        if (t1.waiting == 110) {
+          t1.deboardPassenger();
+        }
+        if (t1.waiting == 100) {
+          t1.deboardPassenger();
+        }
+        if (t1.waiting == 90) {
+          t1.deboardPassenger();
+        }
+        if (t1.waiting == 80) {
+          t1.deboardPassenger();
+        }
+        if (t1.waiting == 70) {
+          t1.boardPassenger();
+        }
+         if (t1.waiting == 60) {
+          t1.boardPassenger();
+        }
+         if (t1.waiting == 50) {
+          t1.boardPassenger();
+        }
+         if (t1.waiting == 40) {
+          t1.boardPassenger();
+        }
+         if (t1.waiting == 30) {
+          t1.boardPassenger();
+        }
+         if (t1.waiting == 20) {
+          t1.boardPassenger();
         }
         t1.paint();
         //passengers board here
-        if (t1.waiting == 0){
+        if (t1.waiting == 0) {
           t1.traveling = true;
           t1.soFar = 0;
         }
@@ -116,13 +148,13 @@ public class TrainLine {
        t1.end.xcor = temp1;
        t1.end.ycor = temp2;
        */
-      else if(t1.forward){   //<>//
+      else if (t1.forward) {  
         Station next;
         if (t1.currentNumber == railSize) {
-          if(this.loop){
+          if (this.loop) {
             next = railList[0].start;
             t1.currentNumber = 0;
-          }else{
+          } else {
             next = t1.start;
             t1.currentNumber = railSize - 1;
             t1.forward = false;
@@ -134,13 +166,13 @@ public class TrainLine {
         t1.start = t1.end;
         t1.end = next;
         t1.recalculate();
-      }else{
+      } else {
         Station last;
         if (t1.currentNumber == -1) {
-          if(this.loop){ 
+          if (this.loop) { 
             last = railList[railSize - 1].end;
             t1.currentNumber = railSize - 1;
-          }else{
+          } else {
             last = t1.end;
             t1.currentNumber = 0;
             t1.forward = true;

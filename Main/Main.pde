@@ -21,6 +21,15 @@ void setup() {
   g1.trainLineSize = 5;
   g1.cycleLines();
   smooth();
+  Station s1  = new Station(400, 200, 0, 0);
+  g1.masterStationList[g1.masterSize] = s1;
+  g1.masterSize++;
+  Station s2  = new Station(500, 350, 0, 1);
+  g1.masterStationList[g1.masterSize] = s2;
+  g1.masterSize++;
+  Station s3  = new Station(800, 150, 0, 0);
+  g1.masterStationList[g1.masterSize] = s3;
+  g1.masterSize++;
 }
 
 void draw() {
@@ -34,7 +43,7 @@ void draw() {
     g1.TrainLines[i].drawRails();
     g1.TrainLines[i].drawStations();
   }
-  g1.drawDuplicateRails();
+  //g1.drawDuplicateRails();
   for (int i = 0; i < g1.trainLineSize; i++) {
     g1.TrainLines[i].moveTrains();
   }

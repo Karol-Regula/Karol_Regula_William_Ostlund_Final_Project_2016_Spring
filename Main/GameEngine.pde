@@ -21,7 +21,7 @@ public class GameEngine {
     TrainLines[2] = new TrainLine(color(0, 255, 0));
     TrainLines[3] = new TrainLine(color(0, 0, 255));
     TrainLines[4] = new TrainLine(color(255, 255, 0));
-    masterStationList = new Station[100]; //fix array resizing when this works
+    masterStationList = new Station[10000]; //fix array resizing when this works
     size = 1;
   }
 
@@ -68,20 +68,30 @@ public class GameEngine {
         duplicateRailGroups.add(current);
       }
     }
+    System.out.println("duplicateRailGroups.size() = " + duplicateRailGroups.size());
     //all duplicate Rails are now groups in an ArrayList of ArrayLists
     for (int i = 0; i < duplicateRailGroups.size(); i++) {
       if (duplicateRailGroups.get(i).size() == 2) {
-        duplicateRailGroups.get(i).get(0).sXcor = 0;
-        duplicateRailGroups.get(i).get(0).sYcor = 0;
-        duplicateRailGroups.get(i).get(0).eXcor = 0;
-        duplicateRailGroups.get(i).get(0).eYcor = 0;
-        //duplicateRailGroups.get(i).get(0).paintAlternate(); //painting the rail using the special offset coordinates
+        System.out.println("Repeating rails: 2");
+        
+        //the most important part
+        float xOff = duplicateRailGroups.get(i).get(0).start.xcor - duplicateRailGroups.get(i).get(0).end.xcor;
+        float yOff = duplicateRailGroups.get(i).get(0).start.ycor - duplicateRailGroups.get(i).get(0).end.ycor;
+        
+        
+        duplicateRailGroups.get(i).get(0).sXcor = duplicateRailGroups.get(i).get(0).start.xcor + xOff / 10;
+        duplicateRailGroups.get(i).get(0).sYcor = duplicateRailGroups.get(i).get(0).start.ycor + yOff / 10;
+        duplicateRailGroups.get(i).get(0).eXcor = duplicateRailGroups.get(i).get(0).end.xcor + xOff / 10;
+        duplicateRailGroups.get(i).get(0).eYcor = duplicateRailGroups.get(i).get(0).end.ycor + yOff /10;
+        duplicateRailGroups.get(i).get(0).paintAlternate = true;
+        duplicateRailGroups.get(i).get(0).paint(); //painting the rail using the special offset coordinates
         //
-        duplicateRailGroups.get(i).get(1).sXcor = 0;
-        duplicateRailGroups.get(i).get(1).sYcor = 0;
-        duplicateRailGroups.get(i).get(1).eXcor = 0;
-        duplicateRailGroups.get(i).get(1).eYcor = 0;
-        //duplicateRailGroups.get(i).get(1).paintAlternate(); //painting the rail using the special offset coordinates
+        duplicateRailGroups.get(i).get(1).sXcor = duplicateRailGroups.get(i).get(0).start.xcor - xOff / 10;
+        duplicateRailGroups.get(i).get(1).sYcor = duplicateRailGroups.get(i).get(0).start.ycor - yOff / 10;
+        duplicateRailGroups.get(i).get(1).eXcor = duplicateRailGroups.get(i).get(0).end.xcor - xOff / 10;
+        duplicateRailGroups.get(i).get(1).eYcor = duplicateRailGroups.get(i).get(0).end.ycor - yOff / 10;
+        duplicateRailGroups.get(i).get(1).paint(); //painting the rail using the special offset coordinates
+        duplicateRailGroups.get(i).get(1).paintAlternate = true;
       }
     }
   }
@@ -180,7 +190,7 @@ public class GameEngine {
 
   public void spawnStations() {//for now will add to existing trainline, but I want the stations that spawn to be unafiliated until the user connects them, we should discuss this in class
     Operations o1= new Operations();
-    if ((int)(Math.random() * 5) == 1) {
+    if ((int)(Math.random() * 1000) == 0) {
       boolean good = false;
       int counter = 0;
       while (!good && counter < 100) {
@@ -188,7 +198,7 @@ public class GameEngine {
         Station s1 = new Station((int)(Math.random() * 1280), (int)(Math.random() * 720), 1, (int)(Math.random() * 2));
         if (masterSize > 0) {
           for (int i = 0; i < masterSize; i++) {
-            if (o1.dist(s1, masterStationList[i]) < 200) {
+            if (o1.dist(s1, masterStationList[i]) < 120) {
               good = false;
             }
           }

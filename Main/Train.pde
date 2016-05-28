@@ -38,21 +38,25 @@ public class Train implements Locatable {
     capacity = 0;
     forward = true;
   }
-  
-  public void boardPassengers(){
-    while (capacity <= 5 && end.Passengers.size() > 0){
+
+  public void boardPassenger() {
+    if (capacity <= 5 && end.Passengers.size() > 0) {
       Passengers.add(end.Passengers.remove(0));
       capacity++;
     }
   }
-  
-  public void deboardPassengers(){
+
+  public void deboardPassenger() {
     System.out.println("deboard");
-    for (int i = 0; i < capacity; i++){
-      if (Passengers.get(i).shape == end.shape){
-        Passengers.remove(i);
-        i--;
-        capacity--;
+    boolean removed = false;
+    for (int i = 0; i < capacity; i++) {
+      if (removed == false) {
+        if (Passengers.get(i).shape == end.shape) {
+          Passengers.remove(i);
+          removed = true;
+          i--;
+          capacity--;
+        }
       }
     }
   }
@@ -65,12 +69,16 @@ public class Train implements Locatable {
     //System.out.println(xcor + " " + ycor);
     //pushMatrix();
     //translate(-xcor + 10, -ycor + 5);
-
+    //rotate(-angle);
+    rect(xcor, ycor, 30, 15);
     //popMatrix();
     fill(whatColor);
     rect(xcor, ycor, 30, 15); //need to chnage facing direction later
     fill(50);
+    //pushMatrix();
     //rotate(angle);
+    //popMatrix();
+
     //popMatrix();
     //translate(xcor - 10, ycor - 5);
     //pushMatrix();
