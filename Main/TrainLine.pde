@@ -40,7 +40,11 @@ public class TrainLine { //<>//
 
 
   public void isLoop() {
-    //to be implemented, now it is assumed that all lines are looped
+    if(railList[railSize - 1].end == railList[0].start){
+      loop = true; 
+    }else{
+      loop = false; 
+    }
   }
 
 
@@ -112,7 +116,7 @@ public class TrainLine { //<>//
          if (t1.waiting == 60) {
           t1.boardPassenger();
         }
-         if (t1.waiting == 50) {
+         if (t1.waiting == 50) { //<>//
           t1.boardPassenger();
         }
          if (t1.waiting == 40) {
