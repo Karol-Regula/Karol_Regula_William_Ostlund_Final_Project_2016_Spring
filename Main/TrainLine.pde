@@ -116,7 +116,7 @@ public class TrainLine { //<>//
           t1.boardPassenger();
         }
         if (t1.waiting == 50) {
-          t1.boardPassenger(); //<>//
+          t1.boardPassenger(); //<>// //<>//
         }
         if (t1.waiting == 40) {
           t1.boardPassenger();
@@ -287,7 +287,7 @@ public class TrainLine { //<>//
               if(k<railSize){
                 a[k-i-1] = railList[k];
               }else{
-                a[i+k%railSize] = railList[k%railSize];
+                a[k - i - 1] = railList[k%railSize];
               }
           }
           for (Train t1 : trainList) {
@@ -295,8 +295,10 @@ public class TrainLine { //<>//
               if(t1.currentNumber >= i){
                 t1.currentNumber -= i;
                 t1.forward = !t1.forward;
+                t1.recalculate();
               }else{
-                t1.currentNumber += i; 
+                t1.currentNumber = railSize - t1.currentNumber - 2; 
+                t1.recalculate();
               }
             }
           }
