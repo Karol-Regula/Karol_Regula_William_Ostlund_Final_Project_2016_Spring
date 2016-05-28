@@ -6,6 +6,7 @@ public int yd;
 public GameEngine g1 = new GameEngine();
 public boolean mouseClick = false;
 public boolean mouseClickRail = false;
+public boolean removingRail = false;
 public int x = -1;
 public int y = -1;
 
@@ -66,16 +67,16 @@ void draw() {
   fill(50);
   text("Cycle Lines", 50, 120);
   text(g1.currentNumber, 130, 120);
-  if (mouseClick) {
+  if (removingRail) {
     fill(10);
-    g1.spawnStation(g1.currentNumber);
+    g1.findRail();
   } else {
     g1.hover(10, 40, 170, 200);
   }
   //System.out.println(mouseClick);
   rect(10, 170, 30, 30);
   fill(50);
-  text("Add Station", 50, 190);
+  text("Remove Rail", 50, 190);
   fill(0, 225, 225);
 
   fill(50);
@@ -84,7 +85,6 @@ void draw() {
   g1.printText();
 
   g1.detectRail();//moved out of draw ino function in GameEngine
-
   rect(10, 240, 30, 30);
   fill(50);
   text("Add Rail", 50, 260);
@@ -113,7 +113,22 @@ void mouseClicked() {
     g1.cycleLines();
   }
   if (mouseX > 10 && mouseX < 40 && mouseY > 170 && mouseY < 200) {
-    mouseClick = true;
+    if (removingRail) {
+      removingRail = false;
+      for (int i = 0; i < g1.masterSize; i++) {
+        g1.masterStationList[i].selected = false;
+      }
+      x = -1;
+      y = -1;
+    }else{
+      mouseClickRail = false;
+      for (int i = 0; i < g1.masterSize; i++) {
+        g1.masterStationList[i].selected = false;
+      }
+      x = -1;
+      y = -1;
+      removingRail = true;
+    }
   }
   if (mouseX > 10 && mouseX < 40 && mouseY > 240 && mouseY < 270) {
     if (mouseClickRail) {
@@ -124,10 +139,16 @@ void mouseClicked() {
       x = -1;
       y = -1;
     }else{
+      removingRail = false;
+      for (int i = 0; i < g1.masterSize; i++) {
+        g1.masterStationList[i].selected = false;
+      }
+      x = -1;
+      y = -1;
       mouseClickRail = true;
     }
   }
-  if (mouseX > 10 && mouseX < 40 && mouseY > 300 && mouseY < 330) {
+  if (mouseX > 10 && mouseX < 40 && mouseY > 310 && mouseY < 340) {
     g1.spawnTrain();
   }
 }

@@ -38,12 +38,11 @@ public class TrainLine { //<>//
 
 
 
-
   public void isLoop() {
-    if(railList[railSize - 1].end == railList[0].start){
-      loop = true; 
-    }else{
-      loop = false; 
+    if (railList[railSize - 1].end == railList[0].start) {
+      loop = true;
+    } else {
+      loop = false;
     }
   }
 
@@ -113,19 +112,19 @@ public class TrainLine { //<>//
         if (t1.waiting == 70) {
           t1.boardPassenger();
         }
-         if (t1.waiting == 60) {
+        if (t1.waiting == 60) {
           t1.boardPassenger();
         }
-         if (t1.waiting == 50) { //<>//
+        if (t1.waiting == 50) {
+          t1.boardPassenger(); //<>//
+        }
+        if (t1.waiting == 40) {
           t1.boardPassenger();
         }
-         if (t1.waiting == 40) {
+        if (t1.waiting == 30) {
           t1.boardPassenger();
         }
-         if (t1.waiting == 30) {
-          t1.boardPassenger();
-        }
-         if (t1.waiting == 20) {
+        if (t1.waiting == 20) {
           t1.boardPassenger();
         }
         t1.paint();
@@ -262,6 +261,34 @@ public class TrainLine { //<>//
       }
     }
     return 0;
+  }
+
+  public int removeRail(Station x, Station y) {
+    for (int i = 0; i < railSize; i++) {
+      if (railList[i].start == x && railList[i].end == y) {
+        if (i == railSize - 1) {
+          railList[railSize - 1] = null;
+          railSize--;
+        } else if (i==0) {
+          Rail[] a = new Rail[railList.length];
+          for (int k = 1; k < railSize; k++) {
+            a[k-1] = railList[k];
+          }
+          for (Train t1 : trainList) {
+            if (t1!= null) {
+              t1.currentNumber--;
+            }
+          }
+          railSize--;
+          railList = a;
+        } else if (loop) {
+        }
+        removingRail = false;
+        loop = false;
+        return 0;
+      }
+    }
+    return -1;
   }
 
   public void createTrain() {

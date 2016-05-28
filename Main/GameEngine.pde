@@ -187,6 +187,53 @@ public class GameEngine {
       this.hover(10, 40, 240, 270);
     }
   }
+  
+  public void findRail() {
+    if (removingRail) {
+      fill(10);
+      Operations s = new Operations();
+      for (int k = 0; k < masterSize; k++) {
+        if (s.dist(masterStationList[k]) < 20) {               
+          masterStationList[k].selected = true;
+        } else {
+          masterStationList[k].selected = false;
+        }
+      }
+      if (x!=-1) {
+        this.masterStationList[x].selected = true;
+      }
+      if (y!=-1) {
+        this.masterStationList[y].selected = true;
+      }
+      if (y== -1) {
+        if (g1.getStation(g1.currentNumber) != -1 && g1.getStation(g1.currentNumber) != x && x!= -1 && 
+          g1.masterStationList[getStation(g1.currentNumber)].connections[this.currentNumber] > 0) {
+          y = g1.getStation(g1.currentNumber);
+          this.masterStationList[y].selected = true;
+        }
+        if (g1.getStation(g1.currentNumber) != -1 && y == -1 && 
+          g1.masterStationList[getStation(g1.currentNumber)].connections[this.currentNumber] > 0) {
+          x = g1.getStation(g1.currentNumber);
+          this.masterStationList[x].selected = true;
+        }
+        //System.out.println("x: " + x);
+        //System.out.println("y: " + y);
+        //System.out.println(g1.masterStationList[1]);
+      } else {
+        if (g1.currentLine.removeRail(g1.masterStationList[x], g1.masterStationList[y]) == -1) {
+          g1.currentLine.removeRail(g1.masterStationList[y], g1.masterStationList[x]);
+        }
+        this.masterStationList[y].selected = false;
+        this.masterStationList[x].selected = false;
+        this.masterStationList[x].connections[this.currentNumber]--;
+        this.masterStationList[y].connections[this.currentNumber]--;
+        x=-1;
+        y=-1;
+      }
+    } else {
+      this.hover(10, 40, 170, 200);
+    }
+  }
 
   public void spawnStations() {//for now will add to existing trainline, but I want the stations that spawn to be unafiliated until the user connects them, we should discuss this in class
     Operations o1= new Operations();
