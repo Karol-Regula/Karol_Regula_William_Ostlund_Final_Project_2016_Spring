@@ -305,7 +305,7 @@ public class TrainLine { //<>//
           railSize--;
           railList = a;
         }
-        removingRail = false;
+        removingRail = false; 
         loop = false;
         return 0;
       }
