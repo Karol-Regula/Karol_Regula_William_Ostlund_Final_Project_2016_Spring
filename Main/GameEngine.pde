@@ -101,22 +101,21 @@ public class GameEngine {
         }
         /*
         else{
-          duplicateRailGroups.get(i).get(0).sXcor = duplicateRailGroups.get(i).get(0).start.xcor + (2 * (ratio)) + extra * 4;
-          duplicateRailGroups.get(i).get(0).sYcor = duplicateRailGroups.get(i).get(0).start.ycor + (2 * (1 - ratio)) + extra * 4;
-          duplicateRailGroups.get(i).get(0).eXcor = duplicateRailGroups.get(i).get(0).end.xcor + (2 * (ratio)) + extra * 4;
-          duplicateRailGroups.get(i).get(0).eYcor = duplicateRailGroups.get(i).get(0).end.ycor + (2 * (1 - ratio)) + extra * 4;
-          duplicateRailGroups.get(i).get(0).paintAlternate = true;
-          duplicateRailGroups.get(i).get(0).paint(); //painting the rail using the special offset coordinates
-          //
-          duplicateRailGroups.get(i).get(1).sXcor = duplicateRailGroups.get(i).get(0).start.xcor - (2 * (ratio)) - extra * 4;
-          duplicateRailGroups.get(i).get(1).sYcor = duplicateRailGroups.get(i).get(0).start.ycor - (2 * (1 - ratio)) - extra * 4;
-          duplicateRailGroups.get(i).get(1).eXcor = duplicateRailGroups.get(i).get(0).end.xcor - (2 * (ratio)) - extra *  4;
-          duplicateRailGroups.get(i).get(1).eYcor = duplicateRailGroups.get(i).get(0).end.ycor - (2 * (1 - ratio)) - extra * 4;
-          duplicateRailGroups.get(i).get(1).paint(); //painting the rail using the special offset coordinates
-          duplicateRailGroups.get(i).get(1).paintAlternate = true;
-        }
-        */
-        
+         duplicateRailGroups.get(i).get(0).sXcor = duplicateRailGroups.get(i).get(0).start.xcor + (2 * (ratio)) + extra * 4;
+         duplicateRailGroups.get(i).get(0).sYcor = duplicateRailGroups.get(i).get(0).start.ycor + (2 * (1 - ratio)) + extra * 4;
+         duplicateRailGroups.get(i).get(0).eXcor = duplicateRailGroups.get(i).get(0).end.xcor + (2 * (ratio)) + extra * 4;
+         duplicateRailGroups.get(i).get(0).eYcor = duplicateRailGroups.get(i).get(0).end.ycor + (2 * (1 - ratio)) + extra * 4;
+         duplicateRailGroups.get(i).get(0).paintAlternate = true;
+         duplicateRailGroups.get(i).get(0).paint(); //painting the rail using the special offset coordinates
+         //
+         duplicateRailGroups.get(i).get(1).sXcor = duplicateRailGroups.get(i).get(0).start.xcor - (2 * (ratio)) - extra * 4;
+         duplicateRailGroups.get(i).get(1).sYcor = duplicateRailGroups.get(i).get(0).start.ycor - (2 * (1 - ratio)) - extra * 4;
+         duplicateRailGroups.get(i).get(1).eXcor = duplicateRailGroups.get(i).get(0).end.xcor - (2 * (ratio)) - extra *  4;
+         duplicateRailGroups.get(i).get(1).eYcor = duplicateRailGroups.get(i).get(0).end.ycor - (2 * (1 - ratio)) - extra * 4;
+         duplicateRailGroups.get(i).get(1).paint(); //painting the rail using the special offset coordinates
+         duplicateRailGroups.get(i).get(1).paintAlternate = true;
+         }
+         */
       }
     }
   }
@@ -127,7 +126,9 @@ public class GameEngine {
     for (int i = 0; i < masterSize; i++) {
       if ((int)(Math.random() * 200) == 2 && masterStationList[i].Passengers.size() < 10 ) {//------------------------------ probability for passengers << change here
         Passenger p1 = new Passenger((int)(Math.random() * 3));
-        masterStationList[i].Passengers.add(p1);
+        if (p1.shape != masterStationList[i].shape) {
+          masterStationList[i].Passengers.add(p1);
+        }
       }
     }
   }
