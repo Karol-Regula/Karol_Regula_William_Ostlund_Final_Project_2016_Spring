@@ -267,7 +267,7 @@ public class GameEngine {
       int counter = 0;
       while (!good && counter < 100) {
         good = true;
-        Station s1 = new Station((int)(Math.random() * 1280), (int)(Math.random() * 720), 1, (int)(Math.random() * 2));
+        Station s1 = new Station((int)(Math.random() * 1280), (int)(Math.random() * 720), 1, (int)(Math.random() * 3));
         if (masterSize > 0) {
           for (int i = 0; i < masterSize; i++) {
             if (o1.dist(s1, masterStationList[i]) < 120) {
