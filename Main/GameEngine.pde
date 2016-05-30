@@ -41,12 +41,11 @@ public class GameEngine {
     }
     //at this point all existing rails are in one big array
     ArrayList<ArrayList<Rail>> duplicateRailGroups = new ArrayList<ArrayList<Rail>>(); // groups of rails that run between the same stations 
-    //int currentChecked = 0;
     for (int i = 0; i < masterRailList.length; i++) {
       ArrayList<Rail> current = new ArrayList<Rail>();
       current.add(masterRailList[i]);
       for (int j = 0; j < masterRailList.length - 1; j++) {
-        if (j != i && mouseClickRail == false) {
+        if (j != i) {
           /*
           for (int d = 0; d < masterRailList.length; d++){
            System.out.println(masterRailList[d].start);
@@ -73,25 +72,51 @@ public class GameEngine {
     for (int i = 0; i < duplicateRailGroups.size(); i++) {
       if (duplicateRailGroups.get(i).size() == 2) {
         System.out.println("Repeating rails: 2");
-        
+
         //the most important part
-        float xOff = duplicateRailGroups.get(i).get(0).start.xcor - duplicateRailGroups.get(i).get(0).end.xcor;
-        float yOff = duplicateRailGroups.get(i).get(0).start.ycor - duplicateRailGroups.get(i).get(0).end.ycor;
+        float xOff = abs(duplicateRailGroups.get(i).get(0).start.xcor - duplicateRailGroups.get(i).get(0).end.xcor); //difference in x between stations
+        float yOff = abs(duplicateRailGroups.get(i).get(0).start.ycor - duplicateRailGroups.get(i).get(0).end.ycor); //difference in y between stations
+        float angle = atan(yOff / xOff);
+        System.out.println(angle);
+        float ratio = xOff /(xOff + yOff);
+        float extra = (0.8 * (1 - abs((1 - (ratio * 2))))); // this magic is meant to fix diagonal lines
+        System.out.println(ratio);
+        boolean specialCase =  duplicateRailGroups.get(i).get(0).sXcor > duplicateRailGroups.get(i).get(1).sXcor && duplicateRailGroups.get(i).get(0).sYcor < duplicateRailGroups.get(i).get(1).sYcor;
+
+
+        if (true) {
+          duplicateRailGroups.get(i).get(0).sXcor = duplicateRailGroups.get(i).get(0).start.xcor + (2 * (1 - ratio)) + extra;
+          duplicateRailGroups.get(i).get(0).sYcor = duplicateRailGroups.get(i).get(0).start.ycor - (2 * (ratio)) - extra;
+          duplicateRailGroups.get(i).get(0).eXcor = duplicateRailGroups.get(i).get(0).end.xcor + (2 * (1 - ratio)) + extra;
+          duplicateRailGroups.get(i).get(0).eYcor = duplicateRailGroups.get(i).get(0).end.ycor - (2 * (ratio)) - extra;
+          duplicateRailGroups.get(i).get(0).paintAlternate = true;
+          duplicateRailGroups.get(i).get(0).paint(); //painting the rail using the special offset coordinates
+          //
+          duplicateRailGroups.get(i).get(1).sXcor = duplicateRailGroups.get(i).get(0).start.xcor - (2 * (1 - ratio)) - extra;
+          duplicateRailGroups.get(i).get(1).sYcor = duplicateRailGroups.get(i).get(0).start.ycor + (2 * (ratio)) + extra;
+          duplicateRailGroups.get(i).get(1).eXcor = duplicateRailGroups.get(i).get(0).end.xcor - (2 * (1 - ratio)) - extra;
+          duplicateRailGroups.get(i).get(1).eYcor = duplicateRailGroups.get(i).get(0).end.ycor + (2 * (ratio)) + extra;
+          duplicateRailGroups.get(i).get(1).paint(); //painting the rail using the special offset coordinates
+          duplicateRailGroups.get(i).get(1).paintAlternate = true;
+        }
+        /*
+        else{
+          duplicateRailGroups.get(i).get(0).sXcor = duplicateRailGroups.get(i).get(0).start.xcor + (2 * (ratio)) + extra * 4;
+          duplicateRailGroups.get(i).get(0).sYcor = duplicateRailGroups.get(i).get(0).start.ycor + (2 * (1 - ratio)) + extra * 4;
+          duplicateRailGroups.get(i).get(0).eXcor = duplicateRailGroups.get(i).get(0).end.xcor + (2 * (ratio)) + extra * 4;
+          duplicateRailGroups.get(i).get(0).eYcor = duplicateRailGroups.get(i).get(0).end.ycor + (2 * (1 - ratio)) + extra * 4;
+          duplicateRailGroups.get(i).get(0).paintAlternate = true;
+          duplicateRailGroups.get(i).get(0).paint(); //painting the rail using the special offset coordinates
+          //
+          duplicateRailGroups.get(i).get(1).sXcor = duplicateRailGroups.get(i).get(0).start.xcor - (2 * (ratio)) - extra * 4;
+          duplicateRailGroups.get(i).get(1).sYcor = duplicateRailGroups.get(i).get(0).start.ycor - (2 * (1 - ratio)) - extra * 4;
+          duplicateRailGroups.get(i).get(1).eXcor = duplicateRailGroups.get(i).get(0).end.xcor - (2 * (ratio)) - extra *  4;
+          duplicateRailGroups.get(i).get(1).eYcor = duplicateRailGroups.get(i).get(0).end.ycor - (2 * (1 - ratio)) - extra * 4;
+          duplicateRailGroups.get(i).get(1).paint(); //painting the rail using the special offset coordinates
+          duplicateRailGroups.get(i).get(1).paintAlternate = true;
+        }
+        */
         
-        
-        duplicateRailGroups.get(i).get(0).sXcor = duplicateRailGroups.get(i).get(0).start.xcor + xOff / 10;
-        duplicateRailGroups.get(i).get(0).sYcor = duplicateRailGroups.get(i).get(0).start.ycor + yOff / 10;
-        duplicateRailGroups.get(i).get(0).eXcor = duplicateRailGroups.get(i).get(0).end.xcor + xOff / 10;
-        duplicateRailGroups.get(i).get(0).eYcor = duplicateRailGroups.get(i).get(0).end.ycor + yOff /10;
-        duplicateRailGroups.get(i).get(0).paintAlternate = true;
-        duplicateRailGroups.get(i).get(0).paint(); //painting the rail using the special offset coordinates
-        //
-        duplicateRailGroups.get(i).get(1).sXcor = duplicateRailGroups.get(i).get(0).start.xcor - xOff / 10;
-        duplicateRailGroups.get(i).get(1).sYcor = duplicateRailGroups.get(i).get(0).start.ycor - yOff / 10;
-        duplicateRailGroups.get(i).get(1).eXcor = duplicateRailGroups.get(i).get(0).end.xcor - xOff / 10;
-        duplicateRailGroups.get(i).get(1).eYcor = duplicateRailGroups.get(i).get(0).end.ycor - yOff / 10;
-        duplicateRailGroups.get(i).get(1).paint(); //painting the rail using the special offset coordinates
-        duplicateRailGroups.get(i).get(1).paintAlternate = true;
       }
     }
   }
@@ -187,7 +212,7 @@ public class GameEngine {
       this.hover(10, 40, 240, 270);
     }
   }
-  
+
   public void findRail() {
     if (removingRail) {
       fill(10);
@@ -237,7 +262,7 @@ public class GameEngine {
 
   public void spawnStations() {//for now will add to existing trainline, but I want the stations that spawn to be unafiliated until the user connects them, we should discuss this in class
     Operations o1= new Operations();
-    if ((int)(Math.random() * 1000) == 0) {
+    if ((int)(Math.random() * 100) == 0) {
       boolean good = false;
       int counter = 0;
       while (!good && counter < 100) {

@@ -42,7 +42,7 @@ public class Rail {
 
   public void paint() { // new and improved paint
     if (!paintAlternate) {
-      strokeWeight(3);
+      strokeWeight(4);
       stroke(whatColor);
       if (start.shape == 0) {
         sXcor = start.xcor + 7.5;
@@ -62,9 +62,27 @@ public class Rail {
       stroke(50);
       strokeWeight(1);
     } else {
-      strokeWeight(3);
+      strokeWeight(4);
       stroke(whatColor);
-      line (sXcor, sYcor, eXcor, eYcor);
+      float tsXcor = sXcor;
+      float tsYcor = sYcor;
+      float teXcor = eXcor;
+      float teYcor = eYcor;
+      if (start.shape == 0) {
+        tsXcor = sXcor + 7.5;
+        tsYcor = sYcor + 7.5;
+      } else if (start.shape == 1) {
+        tsXcor = sXcor;
+        tsYcor = sYcor;
+      }
+      if (end.shape == 0) {
+        teXcor = eXcor + 7.5;
+        teYcor = eYcor + 7.5;
+      } else if (end.shape == 1) {
+        teXcor = eXcor;
+        teYcor = eYcor;
+      }
+      line (tsXcor, tsYcor, teXcor, teYcor);
       stroke(50);
       strokeWeight(1);
     }

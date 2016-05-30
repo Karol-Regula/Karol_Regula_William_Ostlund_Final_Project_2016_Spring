@@ -84,7 +84,7 @@ public class Train implements Locatable {
     //pushMatrix();
     //translate(-xcor + 10, -ycor + 5);
     //rotate(-angle);
-    rect(xcor, ycor, 30, 15);
+    //rect(xcor, ycor, 30, 15);
     //popMatrix();
     fill(whatColor);
     this.sha();//need to chnage facing direction later
