@@ -63,7 +63,7 @@ public class Train implements Locatable {
   }
 
   public void setAngle() {
-    this.angle = atan((start.getYcor() - end.ycor)/(start.getXcor() - end.xcor));//Does not work when implemented, moved improperly, I think we should work on
+    this.angle = atan((start.Tycor - end.Tycor)/(start.Txcor - end.Txcor));//Does not work when implemented, moved improperly, I think we should work on
   }
   
   public void sha(){

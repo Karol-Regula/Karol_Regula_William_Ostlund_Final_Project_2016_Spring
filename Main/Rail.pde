@@ -50,6 +50,9 @@ public class Rail {
       } else if (start.shape == 1) {
         sXcor = start.xcor;
         sYcor = start.ycor;
+      } else if (start.shape == 2){
+        sXcor = start.xcor;
+        sYcor = start.ycor - 8;
       }
       if (end.shape == 0) {
         eXcor = end.xcor + 7.5;
@@ -57,6 +60,9 @@ public class Rail {
       } else if (end.shape == 1) {
         eXcor = end.xcor;
         eYcor = end.ycor;
+      } else if (end.shape == 2){
+        eXcor = end.xcor;
+        eYcor = end.ycor - 8;
       }
       line (sXcor, sYcor, eXcor, eYcor);
       stroke(50);

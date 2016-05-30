@@ -126,7 +126,7 @@ public class GameEngine {
   public void spawnPassengers() {
     for (int i = 0; i < masterSize; i++) {
       if ((int)(Math.random() * 200) == 2 && masterStationList[i].Passengers.size() < 10 ) {//------------------------------ probability for passengers << change here
-        Passenger p1 = new Passenger((int)(Math.random() * 2));
+        Passenger p1 = new Passenger((int)(Math.random() * 3));
         masterStationList[i].Passengers.add(p1);
       }
     }
@@ -136,10 +136,13 @@ public class GameEngine {
     for (int i = 0; i < masterSize; i++) {
       for (int j = 0; j < masterStationList[i].Passengers.size(); j++) {
         if (masterStationList[i].shape == 0) {
-          masterStationList[i].Passengers.get(j).paint((int)masterStationList[i].xcor + j * 10 + 20, (int)masterStationList[i].ycor - 4);
+          masterStationList[i].Passengers.get(j).paint((int)masterStationList[i].xcor + j * 10 + 24, (int)masterStationList[i].ycor - 8);
         }
         if (masterStationList[i].shape == 1) {
-          masterStationList[i].Passengers.get(j).paint((int)masterStationList[i].xcor + j * 10 + 10, (int)masterStationList[i].ycor - 10);
+          masterStationList[i].Passengers.get(j).paint((int)masterStationList[i].xcor + j * 10 + 11, (int)masterStationList[i].ycor - 16);
+        }
+        if (masterStationList[i].shape == 2) {
+          masterStationList[i].Passengers.get(j).paint((int)masterStationList[i].xcor + j * 10 + 10, (int)masterStationList[i].ycor - 20);
         }
       }
     }

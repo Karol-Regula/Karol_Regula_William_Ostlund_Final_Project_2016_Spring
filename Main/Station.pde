@@ -28,7 +28,10 @@ public class Station implements Locatable {
     selected = false;
     connections = new int[5];
     this.shape = shape;
-    if (shape == 1) {
+    if (shape == 2){
+      Txcor = xcor;
+      Tycor = ycor - 8;
+    }else if (shape == 1) {
       Txcor = xcor - 7.5;
       Tycor = ycor - 7.5;
     } else {
