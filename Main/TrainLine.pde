@@ -367,6 +367,8 @@ public class TrainLine { //<>// //<>//
       growTrain();
     }
     Train t1  = new Train(railList[0].start, railList[0].end, whatColor);
+    t1.identifier = this.identifier;
+    t1.trainLine = this;
     trainList[trainSize] = t1;
     trainSize++;
   }

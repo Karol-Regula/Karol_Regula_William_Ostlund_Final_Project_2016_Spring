@@ -35,7 +35,7 @@ public class GameEngine {
     if (drawStopHere) {
       for (int i = 0; i < masterSize; i++) {
         for (int j = 0; j < masterStationList[i].stopHere.size(); j++){
-          System.out.println("DRAWSTOPHERE");
+          //System.out.println("DRAWSTOPHERE");
           text(masterStationList[i].stopHere.get(j), masterStationList[i].xcor + j * 15, masterStationList[i].ycor - 20);
         }
       }
@@ -145,6 +145,7 @@ public class GameEngine {
         Passenger p1 = new Passenger((int)(Math.random() * 3)); 
           if (p1.shape != masterStationList[i].shape) {
           masterStationList[i].Passengers.add(p1);
+          p1.currentStation = masterStationList[i];
         }
       }
     }

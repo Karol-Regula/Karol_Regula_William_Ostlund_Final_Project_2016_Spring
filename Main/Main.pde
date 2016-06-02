@@ -52,7 +52,7 @@ void draw() {
   for (int i = 0; i < g1.trainLineSize; i++) {
     g1.TrainLines[i].moveTrains();
     if (g1.TrainLines[i].typesHere.size() > 0) {
-      System.out.println(g1.TrainLines[i].typesHere.get(0));
+      //System.out.println(g1.TrainLines[i].typesHere.get(0));
     }
   }
   for (int i = 0; i < g1.masterSize; i++) {

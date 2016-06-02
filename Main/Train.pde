@@ -1,5 +1,5 @@
 public class Train implements Locatable {
-  
+
   PShape s;
   public int passengers;
   public int personLimit;
@@ -17,6 +17,8 @@ public class Train implements Locatable {
   public int capacity;
   public ArrayList<Passenger> Passengers;
   public boolean forward;
+  public char identifier;
+  public TrainLine trainLine;
   public float getXcor() {
     return this.xcor;
   }
@@ -42,8 +44,24 @@ public class Train implements Locatable {
 
   public void boardPassenger() {
     if (capacity <= 5 && end.Passengers.size() > 0) {
-      Passengers.add(end.Passengers.remove(0));
-      capacity++;
+      boolean board = false;
+      int whichTested = 0;
+      while (whichTested < end.Passengers.size() && board == false) {
+        for (int i = 0; i < trainLine.typesHere.size(); i++){
+          System.out.print(trainLine.typesHere.get(i) + " " );
+        }
+        System.out.println();
+        if (trainLine.typesHere.contains(end.Passengers.get(whichTested).shape)) {
+          board = true;
+        } else {
+          whichTested++;
+        }
+      }
+      if (whichTested < end.Passengers.size() && (board == true || end.Passengers.get(whichTested).targetTrainLine == trainLine.identifier)) {
+        Passengers.add(end.Passengers.remove(whichTested));
+        capacity++;
+        
+      }
     }
   }
 
@@ -65,18 +83,18 @@ public class Train implements Locatable {
   public void setAngle() {
     this.angle = atan((start.Tycor - end.Tycor)/(start.Txcor - end.Txcor));//Does not work when implemented, moved improperly, I think we should work on
   }
-  
-  public void sha(){
+
+  public void sha() {
     float ang = atan(0.5);
     float dist = (float)Math.sqrt(15*15 + 7.5 * 7.5);
-     s = createShape();
-     s.beginShape();
-     s.vertex((float)(xcor + dist * Math.cos(angle + ang) + 7.5), (float)(ycor + dist*Math.sin(angle+ang)) + 7.5);
-     s.vertex((float)(xcor + dist * Math.cos(angle - ang) + 7.5), (float)(ycor + dist*Math.sin(angle-ang)) + 7.5);
-     s.vertex((float)(xcor - dist * Math.cos(angle + ang) + 7.5), (float)(ycor - dist*Math.sin(angle+ang)) + 7.5);
-     s.vertex((float)(xcor - dist * Math.cos(angle - ang) + 7.5), (float)(ycor - dist*Math.sin(angle-ang)) + 7.5);
-     s.vertex((float)(xcor + dist * Math.cos(angle + ang) + 7.5), (float)(ycor + dist*Math.sin(angle+ang)) + 7.5);
-     s.endShape();
+    s = createShape();
+    s.beginShape();
+    s.vertex((float)(xcor + dist * Math.cos(angle + ang) + 7.5), (float)(ycor + dist*Math.sin(angle+ang)) + 7.5);
+    s.vertex((float)(xcor + dist * Math.cos(angle - ang) + 7.5), (float)(ycor + dist*Math.sin(angle-ang)) + 7.5);
+    s.vertex((float)(xcor - dist * Math.cos(angle + ang) + 7.5), (float)(ycor - dist*Math.sin(angle+ang)) + 7.5);
+    s.vertex((float)(xcor - dist * Math.cos(angle - ang) + 7.5), (float)(ycor - dist*Math.sin(angle-ang)) + 7.5);
+    s.vertex((float)(xcor + dist * Math.cos(angle + ang) + 7.5), (float)(ycor + dist*Math.sin(angle+ang)) + 7.5);
+    s.endShape();
   }
 
   public void paint() {

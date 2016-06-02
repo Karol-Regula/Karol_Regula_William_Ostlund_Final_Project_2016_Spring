@@ -1,6 +1,8 @@
 public class Passenger{
   
   public int shape;
+  public char targetTrainLine;
+  public Station currentStation;
   
   public Passenger(int shape){
     this.shape = shape;
