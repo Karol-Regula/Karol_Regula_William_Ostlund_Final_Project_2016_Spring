@@ -47,7 +47,7 @@ public class Train implements Locatable {
       boolean board = false;
       int whichTested = 0;
       while (whichTested < end.Passengers.size() && board == false) {
-        for (int i = 0; i < trainLine.typesHere.size(); i++){
+        for (int i = 0; i < trainLine.typesHere.size(); i++) {
           //System.out.print(trainLine.typesHere.get(i) + " " );
         }
         //System.out.println();
@@ -60,7 +60,6 @@ public class Train implements Locatable {
       if (whichTested < end.Passengers.size() && (board == true || end.Passengers.get(whichTested).targetTrainLine != trainLine.identifier)) { // ======================REMINDER, fix the last part of this if statement
         Passengers.add(end.Passengers.remove(whichTested));
         capacity++;
-        
       }
     }
   }
@@ -75,6 +74,7 @@ public class Train implements Locatable {
           removed = true;
           i--;
           capacity--;
+          g1.highScore++; //need to amend this to not cound transferring passengers
         }
       }
     }

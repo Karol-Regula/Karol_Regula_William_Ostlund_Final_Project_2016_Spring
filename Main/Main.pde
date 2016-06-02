@@ -70,14 +70,24 @@ void draw() {
   g1.hover(10, 40, 30, 70);
   //rect(10, 30, 30, 30);
   fill(50);
+  strokeWeight(3);
   //text("New TrainLine", 50, 50);
+  
+  PFont p1 = createFont("Souvenir Bold.ttf", 14);
+  //System.out.println(p1.list());
+  textFont(p1);
+  textSize(20);
+  text("HighScore: "+ g1.highScore, 20, 70);
+  textSize(14);
+  
+  
   g1.hover(10, 40, 100, 130);
 
   fill(g1.currentColor);
   rect(10, 100, 30, 30);
   fill(50);
-  text("Cycle Lines", 50, 120);
-  text(g1.currentNumber, 130, 120);
+  
+  text("Cycle Lines: " + g1.currentNumber, 50, 120);
   if (removingRail) {
     fill(10);
     g1.findRail();
@@ -91,8 +101,7 @@ void draw() {
   fill(0, 225, 225);
 
   fill(50);
-  text("Number of TrainLines: ", 15, 22);
-  text(g1.trainLineSize, 150, 22);
+  text("Number of TrainLines: " + g1.trainLineSize, 15, 22);
   g1.printText();
 
   g1.detectRail();//moved out of draw ino function in GameEngine
@@ -104,8 +113,9 @@ void draw() {
   //createTrain
   rect(10, 310, 30, 30);
   fill(50);
-  text("Spawn Train (Current Train Line)", 50, 340);
+  text("Spawn Train", 50, 330);
   fill(0, 225, 225);
+  strokeWeight(1);
   g1.railCheck(g1.currentNumber);
 }
 

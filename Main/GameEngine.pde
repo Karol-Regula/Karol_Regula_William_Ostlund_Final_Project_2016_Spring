@@ -11,6 +11,7 @@ public class GameEngine {
   public TrainLine currentLine;
   public color currentColor;
   public int currentNumber;
+  public int highScore;
 
 
   public GameEngine() {
@@ -28,13 +29,14 @@ public class GameEngine {
     TrainLines[4].identifier = 'y';
     masterStationList = new Station[10000]; //fix array resizing when this works
     size = 1;
+    highScore = 0;
   }
 
   public void drawExtra() {
     boolean drawStopHere = true;
     if (drawStopHere) {
       for (int i = 0; i < masterSize; i++) {
-        for (int j = 0; j < masterStationList[i].stopHere.size(); j++){
+        for (int j = 0; j < masterStationList[i].stopHere.size(); j++) {
           //System.out.println("DRAWSTOPHERE");
           text(masterStationList[i].stopHere.get(j), masterStationList[i].xcor + j * 15, masterStationList[i].ycor - 20);
         }
@@ -45,23 +47,23 @@ public class GameEngine {
 
   public void drawDuplicateRails() {
     int totalRails = 0; 
-      for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < 5; i++) {
       totalRails += TrainLines[i].railSize;
     }
     Rail[] masterRailList = new Rail[totalRails]; 
-      int index = 0; 
-      for (int i = 0; i < 5; i++) {
+    int index = 0; 
+    for (int i = 0; i < 5; i++) {
       for (int j = 0; j < TrainLines[i].railSize; j++) {
         masterRailList[index] = TrainLines[i].railList[j]; 
-          index++;
+        index++;
       }
     }
     //at this point all existing rails are in one big array
     ArrayList<ArrayList<Rail>> duplicateRailGroups = new ArrayList<ArrayList<Rail>>(); // groups of rails that run between the same stations 
-      for (int i = 0; i < masterRailList.length; i++) {
+    for (int i = 0; i < masterRailList.length; i++) {
       ArrayList<Rail> current = new ArrayList<Rail>(); 
-        current.add(masterRailList[i]); 
-        for (int j = 0; j < masterRailList.length - 1; j++) {
+      current.add(masterRailList[i]); 
+      for (int j = 0; j < masterRailList.length - 1; j++) {
         if (j != i) {
           /*
           for (int d = 0; d < masterRailList.length; d++){
@@ -85,36 +87,36 @@ public class GameEngine {
       }
     }
     //System.out.println("duplicateRailGroups.size() = " + duplicateRailGroups.size()); 
-      //all duplicate Rails are now groups in an ArrayList of ArrayLists
-      for (int i = 0; i < duplicateRailGroups.size(); i++) {
+    //all duplicate Rails are now groups in an ArrayList of ArrayLists
+    for (int i = 0; i < duplicateRailGroups.size(); i++) {
       if (duplicateRailGroups.get(i).size() == 2) {
         System.out.println("Repeating rails: 2"); 
 
-          //the most important part
-          float xOff = abs(duplicateRailGroups.get(i).get(0).start.xcor - duplicateRailGroups.get(i).get(0).end.xcor); //difference in x between stations
-          float yOff = abs(duplicateRailGroups.get(i).get(0).start.ycor - duplicateRailGroups.get(i).get(0).end.ycor); //difference in y between stations
-          float angle = atan(yOff / xOff); 
-          //System.out.println(angle); 
-          float ratio = xOff /(xOff + yOff); 
-          float extra = (0.8 * (1 - abs((1 - (ratio * 2))))); // this magic is meant to fix diagonal lines
-          //System.out.println(ratio); 
-          boolean specialCase =  duplicateRailGroups.get(i).get(0).sXcor > duplicateRailGroups.get(i).get(1).sXcor && duplicateRailGroups.get(i).get(0).sYcor < duplicateRailGroups.get(i).get(1).sYcor; 
+        //the most important part
+        float xOff = abs(duplicateRailGroups.get(i).get(0).start.xcor - duplicateRailGroups.get(i).get(0).end.xcor); //difference in x between stations
+        float yOff = abs(duplicateRailGroups.get(i).get(0).start.ycor - duplicateRailGroups.get(i).get(0).end.ycor); //difference in y between stations
+        float angle = atan(yOff / xOff); 
+        //System.out.println(angle); 
+        float ratio = xOff /(xOff + yOff); 
+        float extra = (0.8 * (1 - abs((1 - (ratio * 2))))); // this magic is meant to fix diagonal lines
+        //System.out.println(ratio); 
+        boolean specialCase =  duplicateRailGroups.get(i).get(0).sXcor > duplicateRailGroups.get(i).get(1).sXcor && duplicateRailGroups.get(i).get(0).sYcor < duplicateRailGroups.get(i).get(1).sYcor; 
 
 
-          if (true) {
+        if (true) {
           duplicateRailGroups.get(i).get(0).sXcor = duplicateRailGroups.get(i).get(0).start.xcor + (2 * (1 - ratio)) + extra; 
-            duplicateRailGroups.get(i).get(0).sYcor = duplicateRailGroups.get(i).get(0).start.ycor - (2 * (ratio)) - extra; 
-            duplicateRailGroups.get(i).get(0).eXcor = duplicateRailGroups.get(i).get(0).end.xcor + (2 * (1 - ratio)) + extra; 
-            duplicateRailGroups.get(i).get(0).eYcor = duplicateRailGroups.get(i).get(0).end.ycor - (2 * (ratio)) - extra; 
-            duplicateRailGroups.get(i).get(0).paintAlternate = true; 
-            duplicateRailGroups.get(i).get(0).paint(); //painting the rail using the special offset coordinates
-            //
-            duplicateRailGroups.get(i).get(1).sXcor = duplicateRailGroups.get(i).get(0).start.xcor - (2 * (1 - ratio)) - extra; 
-            duplicateRailGroups.get(i).get(1).sYcor = duplicateRailGroups.get(i).get(0).start.ycor + (2 * (ratio)) + extra; 
-            duplicateRailGroups.get(i).get(1).eXcor = duplicateRailGroups.get(i).get(0).end.xcor - (2 * (1 - ratio)) - extra; 
-            duplicateRailGroups.get(i).get(1).eYcor = duplicateRailGroups.get(i).get(0).end.ycor + (2 * (ratio)) + extra; 
-            duplicateRailGroups.get(i).get(1).paint(); //painting the rail using the special offset coordinates
-            duplicateRailGroups.get(i).get(1).paintAlternate = true;
+          duplicateRailGroups.get(i).get(0).sYcor = duplicateRailGroups.get(i).get(0).start.ycor - (2 * (ratio)) - extra; 
+          duplicateRailGroups.get(i).get(0).eXcor = duplicateRailGroups.get(i).get(0).end.xcor + (2 * (1 - ratio)) + extra; 
+          duplicateRailGroups.get(i).get(0).eYcor = duplicateRailGroups.get(i).get(0).end.ycor - (2 * (ratio)) - extra; 
+          duplicateRailGroups.get(i).get(0).paintAlternate = true; 
+          duplicateRailGroups.get(i).get(0).paint(); //painting the rail using the special offset coordinates
+          //
+          duplicateRailGroups.get(i).get(1).sXcor = duplicateRailGroups.get(i).get(0).start.xcor - (2 * (1 - ratio)) - extra; 
+          duplicateRailGroups.get(i).get(1).sYcor = duplicateRailGroups.get(i).get(0).start.ycor + (2 * (ratio)) + extra; 
+          duplicateRailGroups.get(i).get(1).eXcor = duplicateRailGroups.get(i).get(0).end.xcor - (2 * (1 - ratio)) - extra; 
+          duplicateRailGroups.get(i).get(1).eYcor = duplicateRailGroups.get(i).get(0).end.ycor + (2 * (ratio)) + extra; 
+          duplicateRailGroups.get(i).get(1).paint(); //painting the rail using the special offset coordinates
+          duplicateRailGroups.get(i).get(1).paintAlternate = true;
         }
         /*
         else{
@@ -143,7 +145,7 @@ public class GameEngine {
     for (int i = 0; i < masterSize; i++) {
       if ((int)(Math.random() * 200) == 2 && masterStationList[i].Passengers.size() < 10 ) {//------------------------------ probability for passengers << change here
         Passenger p1 = new Passenger((int)(Math.random() * 3)); 
-          if (p1.shape != masterStationList[i].shape) {
+        if (p1.shape != masterStationList[i].shape) {
           masterStationList[i].Passengers.add(p1);
           p1.currentStation = masterStationList[i];
         }
@@ -191,8 +193,8 @@ public class GameEngine {
   public void detectRail() {
     if (mouseClickRail) {
       fill(10); 
-        Operations s = new Operations(); 
-        for (int k = 0; k < masterSize; k++) {
+      Operations s = new Operations(); 
+      for (int k = 0; k < masterSize; k++) {
         if (s.dist(masterStationList[k]) < 20) {               
           masterStationList[k].selected = true;
         } else {
@@ -209,28 +211,28 @@ public class GameEngine {
         if (g1.getStation(g1.currentNumber) != -1 && g1.getStation(g1.currentNumber) != x && x!= -1 && 
           g1.masterStationList[getStation(g1.currentNumber)].connections[this.currentNumber] < 2) {
           y = g1.getStation(g1.currentNumber); 
-            this.masterStationList[y].selected = true;
+          this.masterStationList[y].selected = true;
         }
         if (g1.getStation(g1.currentNumber) != -1 && y == -1 && 
           g1.masterStationList[getStation(g1.currentNumber)].connections[this.currentNumber] < 2) {
           x = g1.getStation(g1.currentNumber); 
-            this.masterStationList[x].selected = true;
+          this.masterStationList[x].selected = true;
         }
         //System.out.println("x: " + x);
         //System.out.println("y: " + y);
         //System.out.println(g1.masterStationList[1]);
       } else {
-        
+
         if (g1.currentLine.createRail(g1.masterStationList[x], g1.masterStationList[y], g1.currentColor) == -1) {
           g1.currentLine.createRail(g1.masterStationList[y], g1.masterStationList[x], g1.currentColor);
         }
-        
+
         this.masterStationList[y].selected = false; 
-          this.masterStationList[x].selected = false; 
-          this.masterStationList[x].connections[this.currentNumber]++; 
-          this.masterStationList[y].connections[this.currentNumber]++; 
-          x=-1; 
-          y=-1;
+        this.masterStationList[x].selected = false; 
+        this.masterStationList[x].connections[this.currentNumber]++; 
+        this.masterStationList[y].connections[this.currentNumber]++; 
+        x=-1; 
+        y=-1;
       }
     } else {
       this.hover(10, 40, 240, 270);
@@ -240,8 +242,8 @@ public class GameEngine {
   public void findRail() {
     if (removingRail) {
       fill(10); 
-        Operations s = new Operations(); 
-        for (int k = 0; k < masterSize; k++) {
+      Operations s = new Operations(); 
+      for (int k = 0; k < masterSize; k++) {
         if (s.dist(masterStationList[k]) < 20) {               
           masterStationList[k].selected = true;
         } else {
@@ -258,12 +260,12 @@ public class GameEngine {
         if (g1.getStation(g1.currentNumber) != -1 && g1.getStation(g1.currentNumber) != x && x!= -1 && 
           g1.masterStationList[getStation(g1.currentNumber)].connections[this.currentNumber] > 0) {
           y = g1.getStation(g1.currentNumber); 
-            this.masterStationList[y].selected = true;
+          this.masterStationList[y].selected = true;
         }
         if (g1.getStation(g1.currentNumber) != -1 && y == -1 && 
           g1.masterStationList[getStation(g1.currentNumber)].connections[this.currentNumber] > 0) {
           x = g1.getStation(g1.currentNumber); 
-            this.masterStationList[x].selected = true;
+          this.masterStationList[x].selected = true;
         }
         //System.out.println("x: " + x);
         //System.out.println("y: " + y);
@@ -273,11 +275,11 @@ public class GameEngine {
           g1.currentLine.removeRail(g1.masterStationList[y], g1.masterStationList[x]);
         }
         this.masterStationList[y].selected = false; 
-          this.masterStationList[x].selected = false; 
-          this.masterStationList[x].connections[this.currentNumber]--; 
-          this.masterStationList[y].connections[this.currentNumber]--; 
-          x=-1; 
-          y=-1;
+        this.masterStationList[x].selected = false; 
+        this.masterStationList[x].connections[this.currentNumber]--; 
+        this.masterStationList[y].connections[this.currentNumber]--; 
+        x=-1; 
+        y=-1;
       }
     } else {
       this.hover(10, 40, 170, 200);
@@ -286,13 +288,13 @@ public class GameEngine {
 
   public void spawnStations() {//for now will add to existing trainline, but I want the stations that spawn to be unafiliated until the user connects them, we should discuss this in class
     Operations o1= new Operations(); 
-      if ((int)(Math.random() * 10) == 0) {
+    if ((int)(Math.random() * 10) == 0) {
       boolean good = false; 
-        int counter = 0; 
-        while (!good && counter < 100) {
+      int counter = 0; 
+      while (!good && counter < 100) {
         good = true; 
-          Station s1 = new Station((int)(Math.random() * 1280), (int)(Math.random() * 720), 1, (int)(Math.random() * 3)); 
-          if (masterSize > 0) {
+        Station s1 = new Station((int)(Math.random() * 1280), (int)(Math.random() * 720), 1, (int)(Math.random() * 3)); 
+        if (masterSize > 0) {
           for (int i = 0; i < masterSize; i++) {
             if (o1.dist(s1, masterStationList[i]) < 120 || (s1.xcor < 250 && s1.ycor < 500) || s1.xcor > 1180 || s1.ycor > 670 || s1.ycor < 40 || s1.xcor < 40) {
               good = false;
@@ -301,7 +303,7 @@ public class GameEngine {
         }
         if (good) {
           masterStationList[masterSize] = (s1); 
-            masterSize++;
+          masterSize++;
         }
         counter++;
       }
@@ -324,10 +326,10 @@ public class GameEngine {
     }
     if (mousePressed && timer >= 0) { // commented out if (i<size && i>=0 && mousePressed...
       Station s1  = new Station(Math.round(mouseX/30)*30, Math.round(mouseY/30) * 30, 0, (int)(Math.random() * 2)); 
-        masterStationList[masterSize] = s1; 
-        timer = 0; 
-        masterSize++; 
-        mouseClick = false;
+      masterStationList[masterSize] = s1; 
+      timer = 0; 
+      masterSize++; 
+      mouseClick = false;
     }
     timer++;
   }
@@ -335,34 +337,34 @@ public class GameEngine {
   public void cycleLines() {
     if (currentNumber == trainLineSize - 1) {
       currentLine = TrainLines[0]; 
-        currentColor = currentLine.whatColor; 
-        currentNumber = 0;
+      currentColor = currentLine.whatColor; 
+      currentNumber = 0;
     } else {
       currentLine = TrainLines[currentNumber + 1]; 
-        currentColor = currentLine.whatColor; 
-        currentNumber++;
+      currentColor = currentLine.whatColor; 
+      currentNumber++;
     }
   }
 
 
   public void addText(String s, int x, int y) {
     text = s; 
-      xText = x; 
-      yText = y;
+    xText = x; 
+    yText = y;
   }
 
   public void printText() {
     if (holdText > 0) {
       fill(50); 
-        text(text, xText, yText); 
-        fill(0, 225, 225);
+      text(text, xText, yText); 
+      fill(0, 225, 225);
     }
     holdText--;
   }
 
   public int getStation(int i) {
     Operations s = new Operations(); 
-      for (int k = 0; k < masterSize; k++) {
+    for (int k = 0; k < masterSize; k++) {
       if (s.dist(masterStationList[k]) < 20 && mousePressed) {               
         return k;
       }
@@ -372,7 +374,11 @@ public class GameEngine {
 
   public void hover(int x1, int x2, int y1, int y2) {
     if (mouseX > x1 && mouseY > y1 && mouseX < x2 && mouseY < y2) {
-      fill(0); //FIX COLOR LATER
+      if (mouseX > 10 && mouseX < 40 && mouseY > 310 && mouseY < 340) {
+        fill(currentLine.whatColor);
+      } else {
+        fill(50, 23, 232); //FIX COLOR LATER
+      }
     } else {
       fill(0, 225, 225);
     }
