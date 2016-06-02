@@ -27,7 +27,6 @@ public class Passenger{
   
   public void calculatePath(){//needs to work dynamically all the time as the user will keep shifting connections
   //I'm starting to worry that if we run all of our for loops on a large train system at the same time this game will explode.
-  
   }
   
   

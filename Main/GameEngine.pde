@@ -94,10 +94,10 @@ public class GameEngine {
           float xOff = abs(duplicateRailGroups.get(i).get(0).start.xcor - duplicateRailGroups.get(i).get(0).end.xcor); //difference in x between stations
           float yOff = abs(duplicateRailGroups.get(i).get(0).start.ycor - duplicateRailGroups.get(i).get(0).end.ycor); //difference in y between stations
           float angle = atan(yOff / xOff); 
-          System.out.println(angle); 
+          //System.out.println(angle); 
           float ratio = xOff /(xOff + yOff); 
           float extra = (0.8 * (1 - abs((1 - (ratio * 2))))); // this magic is meant to fix diagonal lines
-          System.out.println(ratio); 
+          //System.out.println(ratio); 
           boolean specialCase =  duplicateRailGroups.get(i).get(0).sXcor > duplicateRailGroups.get(i).get(1).sXcor && duplicateRailGroups.get(i).get(0).sYcor < duplicateRailGroups.get(i).get(1).sYcor; 
 
 

@@ -272,13 +272,13 @@ public class TrainLine { //<>// //<>//
       stationList[stationSize] = end;
       stationSize++;
     }
-    if (!typesHere.contains(start.shape)){
+    if (!typesHere.contains(start.shape)) {
       typesHere.add(start.shape);
     }
-    if (!typesHere.contains(end.shape)){
+    if (!typesHere.contains(end.shape)) {
       typesHere.add(end.shape);
     }
-    
+
 
 
     if (railSize == 0) {
@@ -324,7 +324,7 @@ public class TrainLine { //<>// //<>//
             a[k-1] = railList[k];
           }
           for (Train t1 : trainList) {
-            if (t1!= null) {
+            if (t1!= null && t1.currentNumber > i) {
               t1.currentNumber--;
             }
           }
@@ -342,7 +342,7 @@ public class TrainLine { //<>// //<>//
           for (Train t1 : trainList) {
             if (t1!= null && t1.currentNumber > i) {
               if (t1.currentNumber >= i) {
-                t1.currentNumber -= i;
+                t1.currentNumber -= (i);
                 t1.forward = !t1.forward;
                 t1.recalculate();
               } else {
