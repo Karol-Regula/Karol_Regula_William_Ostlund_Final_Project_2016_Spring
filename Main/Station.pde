@@ -50,7 +50,7 @@ public class Station implements Locatable {
       for (int j = 0; j < g1.TrainLines[i].stationSize; j++) {
         System.out.println("HERE1");
         if (g1.TrainLines[i].stationList[j] == this && ! this.stopHere.contains(g1.TrainLines[i].identifier)) {
-          this.stopHere.add(g1.TrainLines[i].identifier);
+          //this.stopHere.add(g1.TrainLines[i].identifier);
         }
       }
     }

@@ -17,15 +17,15 @@ public class GameEngine {
     TrainLines = new TrainLine[10];
     //TrainLines[0] = new TrainLine(color( (int)(Math.random() * 255), (int)(Math.random() * 255), (int)(Math.random() * 255)));
     TrainLines[0] = new TrainLine(color(255, 0, 0));
-    TrainLines[0].identifier = 'c';
-    TrainLines[1] = new TrainLine(color(0, 255, 255));
-    TrainLines[0].identifier = 'g';
-    TrainLines[2] = new TrainLine(color(0, 255, 0));
-    TrainLines[0].identifier = 'y';
-    TrainLines[3] = new TrainLine(color(0, 0, 255));
-    TrainLines[0].identifier = 'b';
-    TrainLines[4] = new TrainLine(color(255, 255, 0));
     TrainLines[0].identifier = 'r';
+    TrainLines[1] = new TrainLine(color(0, 255, 255));
+    TrainLines[1].identifier = 'c';
+    TrainLines[2] = new TrainLine(color(0, 255, 0));
+    TrainLines[2].identifier = 'g';
+    TrainLines[3] = new TrainLine(color(0, 0, 255));
+    TrainLines[3].identifier = 'b';
+    TrainLines[4] = new TrainLine(color(255, 255, 0));
+    TrainLines[4].identifier = 'y';
     masterStationList = new Station[10000]; //fix array resizing when this works
     size = 1;
   }
@@ -36,7 +36,7 @@ public class GameEngine {
       for (int i = 0; i < masterSize; i++) {
         for (int j = 0; j < masterStationList[i].stopHere.size(); j++){
           System.out.println("DRAWSTOPHERE");
-          text(masterStationList[i].stopHere.get(j), masterStationList[i].xcor + j * 15, masterStationList[i].ycor);
+          text(masterStationList[i].stopHere.get(j), masterStationList[i].xcor + j * 15, masterStationList[i].ycor - 20);
         }
       }
     }
