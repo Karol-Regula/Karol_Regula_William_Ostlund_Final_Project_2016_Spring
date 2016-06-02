@@ -11,6 +11,7 @@ public class TrainLine { //<>// //<>//
   public boolean loop;
   public int[] hasTypes;
   public char identifier;
+  public ArrayList<Integer> typesHere; //related to stopHere, also has to do with TRANSFERRING, lists the types of stations avaliable on each trainline.
 
   public TrainLine(color whatColor) {
     stationList = new Station[10];//make grow method for this
@@ -21,6 +22,7 @@ public class TrainLine { //<>// //<>//
     trainSize = 0;
     this.whatColor = whatColor;
     loop = false;
+    typesHere = new ArrayList<Integer>();
   }
 
 
@@ -270,6 +272,13 @@ public class TrainLine { //<>// //<>//
       stationList[stationSize] = end;
       stationSize++;
     }
+    if (!typesHere.contains(start.shape)){
+      typesHere.add(start.shape);
+    }
+    if (!typesHere.contains(end.shape)){
+      typesHere.add(end.shape);
+    }
+    
 
 
     if (railSize == 0) {

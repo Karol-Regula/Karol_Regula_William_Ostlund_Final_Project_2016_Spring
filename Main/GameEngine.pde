@@ -84,7 +84,7 @@ public class GameEngine {
         duplicateRailGroups.add(current);
       }
     }
-    System.out.println("duplicateRailGroups.size() = " + duplicateRailGroups.size()); 
+    //System.out.println("duplicateRailGroups.size() = " + duplicateRailGroups.size()); 
       //all duplicate Rails are now groups in an ArrayList of ArrayLists
       for (int i = 0; i < duplicateRailGroups.size(); i++) {
       if (duplicateRailGroups.get(i).size() == 2) {
