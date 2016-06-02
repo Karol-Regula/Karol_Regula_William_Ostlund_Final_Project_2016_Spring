@@ -68,9 +68,9 @@ void draw() {
 
   //g1.spawnStations();
   g1.hover(10, 40, 30, 70);
-  rect(10, 30, 30, 30);
+  //rect(10, 30, 30, 30);
   fill(50);
-  text("New TrainLine", 50, 50);
+  //text("New TrainLine", 50, 50);
   g1.hover(10, 40, 100, 130);
 
   fill(g1.currentColor);
