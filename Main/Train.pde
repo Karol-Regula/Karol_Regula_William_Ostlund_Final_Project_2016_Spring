@@ -48,9 +48,9 @@ public class Train implements Locatable {
       int whichTested = 0;
       while (whichTested < end.Passengers.size() && board == false) {
         for (int i = 0; i < trainLine.typesHere.size(); i++){
-          System.out.print(trainLine.typesHere.get(i) + " " );
+          //System.out.print(trainLine.typesHere.get(i) + " " );
         }
-        System.out.println();
+        //System.out.println();
         if (trainLine.typesHere.contains(end.Passengers.get(whichTested).shape)) {
           board = true;
         } else {

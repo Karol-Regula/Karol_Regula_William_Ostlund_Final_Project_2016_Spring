@@ -79,6 +79,7 @@ public class TrainLine { //<>// //<>//
   public void moveTrains() {
     for (int i = 0; i < trainSize; i++) {//chnage this after adding grow and size
       Train t1 = trainList[i];
+      System.out.println(t1.currentNumber);
       if (t1.traveling && t1.soFar >= 20) {
         //System.out.println(t1. dist);
         t1.xcor += (t1.end.Txcor - t1.xcor) / (double)(t1.soFar);
@@ -340,13 +341,18 @@ public class TrainLine { //<>// //<>//
             }
           }
           for (Train t1 : trainList) {
-            if (t1!= null && t1.currentNumber > i) {
-              if (t1.currentNumber >= i) {
+            if (t1!= null) {
+              if (t1.currentNumber > i) {
                 t1.currentNumber -= (i);
+                if(t1.forward){
+                  t1.currentNumber--; 
+                }else{
+                  t1.currentNumber++; 
+                }
                 t1.forward = !t1.forward;
                 t1.recalculate();
               } else {
-                t1.currentNumber = railSize - t1.currentNumber - 2; 
+                t1.currentNumber = railSize - t1.currentNumber - 1; 
                 t1.recalculate();
               }
             }
