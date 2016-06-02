@@ -57,7 +57,7 @@ public class Train implements Locatable {
           whichTested++;
         }
       }
-      if (whichTested < end.Passengers.size() && (board == true || end.Passengers.get(whichTested).targetTrainLine == trainLine.identifier)) {
+      if (whichTested < end.Passengers.size() && (board == true || end.Passengers.get(whichTested).targetTrainLine != trainLine.identifier)) { // ======================REMINDER, fix the last part of this if statement
         Passengers.add(end.Passengers.remove(whichTested));
         capacity++;
         
