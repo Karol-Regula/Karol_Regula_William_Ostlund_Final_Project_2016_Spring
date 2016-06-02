@@ -12,7 +12,9 @@ public class Station implements Locatable {
   private int identifier;
   public ArrayList<Passenger> Passengers;
   public boolean selected;
-  public int[]connections;
+  public int[] connections;
+  public ArrayList<Character> stopHere; //FOR TRANSFERRING, contains all the trainlines that connect to this station 
+
   public float getXcor() {
     return this.xcor;
   }
@@ -28,10 +30,10 @@ public class Station implements Locatable {
     selected = false;
     connections = new int[5];
     this.shape = shape;
-    if (shape == 2){
+    if (shape == 2) {
       Txcor = xcor;
       Tycor = ycor - 8;
-    }else if (shape == 1) {
+    } else if (shape == 1) {
       Txcor = xcor - 7.5;
       Tycor = ycor - 7.5;
     } else {
@@ -39,6 +41,19 @@ public class Station implements Locatable {
       Tycor = ycor;
     }
     Passengers = new ArrayList<Passenger>();
+    stopHere = new ArrayList<Character>(); //FOR TRANSFERRING, contains all the trainlines that connect to this station
+  }
+
+  public void reloadStopHere() {
+    for (int i = 0; i < 5; i++) {
+      //System.out.println("HERE2");
+      for (int j = 0; j < g1.TrainLines[i].stationSize; j++) {
+        System.out.println("HERE1");
+        if (g1.TrainLines[i].stationList[j] == this && ! this.stopHere.contains(g1.TrainLines[i].identifier)) {
+          this.stopHere.add(g1.TrainLines[i].identifier);
+        }
+      }
+    }
   }
 
   public void paint() {
@@ -53,10 +68,10 @@ public class Station implements Locatable {
         avatar = createShape(ELLIPSE, this.getXcor()-2.5, this.getYcor()-2.5, 25, 25);
         break;
       case 2:
-      avatar = createShape(TRIANGLE, xcor, ycor - 22.5, xcor - 12.5, ycor + 2.5, xcor + 12.5, ycor + 2.5);
-      break;
+        avatar = createShape(TRIANGLE, xcor, ycor - 22.5, xcor - 12.5, ycor + 2.5, xcor + 12.5, ycor + 2.5);
+        break;
       case 3:
-      avatar = createShape();
+        avatar = createShape();
         avatar.beginShape();
         avatar.vertex(this.getXcor(), this.getYcor() - 10);
         avatar.vertex(this.getXcor() - sin((2*PI)/5)*10, this.getYcor() - cos((2*PI)/5)*10);
@@ -66,7 +81,7 @@ public class Station implements Locatable {
         avatar.endShape();
         break;
       case 4:
-      avatar = createShape();
+        avatar = createShape();
         avatar = createShape();
         avatar.beginShape();
         avatar.vertex(this.getXcor()+20, this.getYcor());
@@ -90,10 +105,10 @@ public class Station implements Locatable {
         avatar = createShape(ELLIPSE, this.getXcor()-2.5, this.getYcor()-2.5, 20, 20);
         break;
       case 2:
-      avatar = createShape(TRIANGLE, xcor, ycor - 20, xcor - 10, ycor, xcor + 10, ycor);
-      break;
+        avatar = createShape(TRIANGLE, xcor, ycor - 20, xcor - 10, ycor, xcor + 10, ycor);
+        break;
       case 3:
-      avatar = createShape();
+        avatar = createShape();
         avatar.beginShape();
         avatar.vertex(this.getXcor(), this.getYcor() - 10);
         avatar.vertex(this.getXcor() - sin((2*PI)/5)*10, this.getYcor() - cos((2*PI)/5)*10);
@@ -103,7 +118,7 @@ public class Station implements Locatable {
         avatar.endShape();
         break;
       case 4:
-      avatar = createShape();
+        avatar = createShape();
         avatar = createShape();
         avatar.beginShape();
         avatar.vertex(this.getXcor()+20, this.getYcor());

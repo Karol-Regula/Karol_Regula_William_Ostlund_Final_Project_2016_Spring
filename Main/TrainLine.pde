@@ -1,4 +1,4 @@
-public class TrainLine { //<>//
+public class TrainLine { //<>// //<>//
 
   public Station[] stationList;
   public int stationSize;
@@ -9,6 +9,8 @@ public class TrainLine { //<>//
   public color whatColor;
   public boolean isLoop = true;
   public boolean loop;
+  public int[] hasTypes;
+  public char identifier;
 
   public TrainLine(color whatColor) {
     stationList = new Station[10];//make grow method for this
@@ -36,6 +38,9 @@ public class TrainLine { //<>//
    */
 
 
+  public boolean hasType() {
+    return true;
+  }
 
 
   public void isLoop() {
@@ -116,7 +121,7 @@ public class TrainLine { //<>//
           t1.boardPassenger();
         }
         if (t1.waiting == 50) {
-          t1.boardPassenger(); //<>// //<>//
+          t1.boardPassenger(); //<>//
         }
         if (t1.waiting == 40) {
           t1.boardPassenger();
@@ -230,14 +235,49 @@ public class TrainLine { //<>//
     if (railSize >= railList.length) {
       growRail();
     }
+    Rail r1  = new Rail(start, end, whatColor);
+
+
+    if (! start.stopHere.contains(this.identifier)) {
+      start.stopHere.add(this.identifier);
+    }
+    if (! end.stopHere.contains(this.identifier)) {
+      end.stopHere.add(this.identifier);
+    }
+    boolean contains = false;
+    for (int i = 0; i < stationSize; i++) {
+      if (stationList[i] == start) {
+        contains = true;
+      }
+    }
+    if (!contains) {
+      if (stationSize >= stationList.length) {
+        growStation();
+      }
+      stationList[stationSize] = start;
+      stationSize++;
+    }
+    contains = false;
+    for (int i = 0; i < stationSize; i++) {
+      if (stationList[i] == end) {
+        contains = true;
+      }
+    }
+    if (!contains) {
+      if (stationSize >= stationList.length) {
+        growStation();
+      }
+      stationList[stationSize] = end;
+      stationSize++;
+    }
+
+
     if (railSize == 0) {
-      Rail r1  = new Rail(start, end, whatColor);
       railList[railSize] = r1;
       railSize++;
       mouseClickRail = false;
       isLoop();
     } else {
-      Rail r1 = new Rail(start, end, whatColor);
       //System.out.println("fdgvb gvrt");
       if (r1.start == railList[railSize - 1].end) {
         railList[railSize] = r1;
@@ -284,19 +324,19 @@ public class TrainLine { //<>//
         } else if (loop) {
           Rail[] a = new Rail[railList.length];
           for (int k = i+1; k < railSize+i; k++) {
-              if(k<railSize){
-                a[k-i-1] = railList[k];
-              }else{
-                a[k - i - 1] = railList[k%railSize];
-              }
+            if (k<railSize) {
+              a[k-i-1] = railList[k];
+            } else {
+              a[k - i - 1] = railList[k%railSize];
+            }
           }
           for (Train t1 : trainList) {
             if (t1!= null && t1.currentNumber > i) {
-              if(t1.currentNumber >= i){
+              if (t1.currentNumber >= i) {
                 t1.currentNumber -= i;
                 t1.forward = !t1.forward;
                 t1.recalculate();
-              }else{
+              } else {
                 t1.currentNumber = railSize - t1.currentNumber - 2; 
                 t1.recalculate();
               }

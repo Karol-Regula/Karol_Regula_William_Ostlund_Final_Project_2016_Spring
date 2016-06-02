@@ -21,6 +21,10 @@ void setup() {
   //g1.TrainLines = lines;
   g1.trainLineSize = 5;
   g1.cycleLines();
+  g1.cycleLines();
+  g1.cycleLines();
+  g1.cycleLines();
+  g1.cycleLines();
   smooth();
   Station s1  = new Station(400, 200, 0, 0);
   g1.masterStationList[g1.masterSize] = s1;
@@ -47,12 +51,17 @@ void draw() {
   g1.drawDuplicateRails();
   for (int i = 0; i < g1.trainLineSize; i++) {
     g1.TrainLines[i].moveTrains();
+    System.out.println(g1.TrainLines[i].stationSize);
+  }
+  for (int i = 0; i < g1.masterSize; i++) {
+    g1.masterStationList[i].reloadStopHere();
   }
   g1.spawnStations();
   g1.drawPassengersOnTrains();
   g1.drawStations();//draws unconnected stations
   g1.spawnPassengers();
   g1.drawPassengers();
+  g1.drawExtra();
 
 
   //g1.spawnStations();
