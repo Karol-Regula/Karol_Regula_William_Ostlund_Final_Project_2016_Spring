@@ -1,4 +1,4 @@
-public class TrainLine { //<>// //<>// //<>//
+public class TrainLine { //<>// //<>// //<>// //<>//
 
   public Station[] stationList;
   public int stationSize;
@@ -124,7 +124,7 @@ public class TrainLine { //<>// //<>// //<>//
         if (t1.waiting == 60) {
           t1.boardPassenger();
         }
-        if (t1.waiting == 50) { //<>//
+        if (t1.waiting == 50) { //<>// //<>//
           t1.boardPassenger(); //<>//
         }
         if (t1.waiting == 40) {
@@ -345,10 +345,10 @@ public class TrainLine { //<>// //<>// //<>//
             if (t1!= null) {
               if (t1.currentNumber > i) {
                 t1.currentNumber -= (i);
-                if(t1.forward){
-                  t1.currentNumber--; 
-                }else{
-                  t1.currentNumber++; 
+                if (t1.forward) {
+                  t1.currentNumber--;
+                } else {
+                  t1.currentNumber++;
                 }
                 t1.forward = !t1.forward;
                 t1.recalculate();
