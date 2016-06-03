@@ -40,8 +40,13 @@ public class TrainLine { //<>// //<>// //<>// //<>//
    */
 
 
-  public boolean hasType() {
-    return true;
+  public boolean hasType(int i) {
+    for(int k=0; k < stationSize; k++){
+      if (stationList[k].shape == i){
+        return true; 
+      }
+    }
+    return false;
   }
 
 
@@ -119,12 +124,12 @@ public class TrainLine { //<>// //<>// //<>// //<>//
           t1.deboardPassenger();
         }
         if (t1.waiting == 70) {
-          t1.boardPassenger();
+          t1.boardPassenger(); //<>//
         }
         if (t1.waiting == 60) {
           t1.boardPassenger();
         }
-        if (t1.waiting == 50) { //<>// //<>//
+        if (t1.waiting == 50) { //<>//
           t1.boardPassenger(); //<>//
         }
         if (t1.waiting == 40) {

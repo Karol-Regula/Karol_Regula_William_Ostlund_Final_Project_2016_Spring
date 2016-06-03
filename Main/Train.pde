@@ -76,6 +76,14 @@ public class Train implements Locatable {
           capacity--;
           g1.highScore++; //need to amend this to not cound transferring passengers
         }
+        //if(!this.trainLine.hasType(Passengers.get(i).shape)){
+           //for(int k = 0; k < this.end.connections.length; k++){
+             // if(this.end.connects.get(k) != null && this.end.connects.get(k).hasType(Passengers.get(i).shape)){
+               //  this.end.Passengers.add(Passengers.get(i));
+                 //this.Passengers.remove(i);
+              //}
+          // }
+        //}
       }
     }
   }

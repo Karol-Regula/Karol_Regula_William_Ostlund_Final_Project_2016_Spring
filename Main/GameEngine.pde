@@ -243,6 +243,12 @@ public class GameEngine {
 
         this.masterStationList[y].selected = false; 
         this.masterStationList[x].selected = false;
+        if(this.masterStationList[x].connections[this.currentNumber] == 0){
+          this.masterStationList[x].connects.add(this.TrainLines[g1.currentNumber]);
+        }
+        if(this.masterStationList[y].connections[this.currentNumber] == 0){
+          this.masterStationList[y].connects.add(this.TrainLines[g1.currentNumber]);
+        }
         this.masterStationList[x].connections[this.currentNumber]++; 
         this.masterStationList[y].connections[this.currentNumber]++; 
         x=-1; 
@@ -290,6 +296,20 @@ public class GameEngine {
         }
         this.masterStationList[y].selected = false; 
         this.masterStationList[x].selected = false; 
+        if(this.masterStationList[y].connections[this.currentNumber] == 1){
+          for(int k = 0; k < this.masterStationList[y].connects.size(); k++){
+             if( this.masterStationList[y].connects.get(k) == this.TrainLines[g1.currentNumber]){
+                this.masterStationList[y].connects.remove(k);
+             }
+          }
+        }
+        if(this.masterStationList[x].connections[this.currentNumber] == 1){
+          for(int k = 0; k < this.masterStationList[x].connects.size(); k++){
+             if( this.masterStationList[x].connects.get(k) == this.TrainLines[g1.currentNumber]){
+                this.masterStationList[x].connects.remove(k);
+             }
+          }
+        }
         this.masterStationList[x].connections[this.currentNumber]--; 
         this.masterStationList[y].connections[this.currentNumber]--; 
         x=-1; 

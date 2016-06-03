@@ -13,6 +13,7 @@ public class Station implements Locatable {
   public ArrayList<Passenger> Passengers;
   public boolean selected;
   public int[] connections;
+  public ArrayList<TrainLine> connects;
   public ArrayList<Character> stopHere; //FOR TRANSFERRING, contains all the trainlines that connect to this station 
 
   public float getXcor() {
@@ -40,6 +41,7 @@ public class Station implements Locatable {
       Txcor = xcor;
       Tycor = ycor;
     }
+    connects = new ArrayList<TrainLine>();
     Passengers = new ArrayList<Passenger>();
     stopHere = new ArrayList<Character>(); //FOR TRANSFERRING, contains all the trainlines that connect to this station
   }
