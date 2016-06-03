@@ -227,13 +227,22 @@ public class GameEngine {
         //System.out.println("y: " + y);
         //System.out.println(g1.masterStationList[1]);
       } else {
-
+        for(int i = 0; i < this.currentLine.railSize; i++){
+          if((this.currentLine.railList[i].end == this.masterStationList[x] && this.currentLine.railList[i].start == this.masterStationList[y]) ||
+          (this.currentLine.railList[i].end == this.masterStationList[y] && this.currentLine.railList[i].start == this.masterStationList[x])){
+            this.masterStationList[y].selected = false; 
+            this.masterStationList[x].selected = false;  
+            x=-1; 
+            y=-1;
+            return; 
+          }
+        }
         if (g1.currentLine.createRail(g1.masterStationList[x], g1.masterStationList[y], g1.currentColor) == -1) {
           g1.currentLine.createRail(g1.masterStationList[y], g1.masterStationList[x], g1.currentColor);
         }
 
         this.masterStationList[y].selected = false; 
-        this.masterStationList[x].selected = false; 
+        this.masterStationList[x].selected = false;
         this.masterStationList[x].connections[this.currentNumber]++; 
         this.masterStationList[y].connections[this.currentNumber]++; 
         x=-1; 
