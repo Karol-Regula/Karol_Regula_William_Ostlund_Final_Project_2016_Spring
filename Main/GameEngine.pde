@@ -174,7 +174,12 @@ public class GameEngine {
       for (int j = 0; j < TrainLines[i].trainSize; j++) {
         for (int k = 0; k < TrainLines[i].trainList[j].Passengers.size(); k++) {
           if (k <= 2) {
-            TrainLines[i].trainList[j].Passengers.get(k).paint((int)TrainLines[i].trainList[j].xcor + 2 + 10 * k, (int)TrainLines[i].trainList[j].ycor + 1);
+            if(k == 0){
+              /*TrainLines[i].trainList[j].Passengers.get(k).paint((int)(TrainLines[i].trainList[j].xcor + 2 + 5 * 
+              cos(TrainLines[i].trainList[j].angle)), 
+              (int)(TrainLines[i].trainList[j].ycor + 10*sin(TrainLines[i].trainList[j].angle)));*/
+              TrainLines[i].trainList[j].Passengers.get(k).paint((int)TrainLines[i].trainList[j].xcor + 2 + 10 * (k), (int)TrainLines[i].trainList[j].ycor + 1 + 10);
+            }
           }
           if (k > 2) {
             TrainLines[i].trainList[j].Passengers.get(k).paint((int)TrainLines[i].trainList[j].xcor + 2 + 10 * (k - 3), (int)TrainLines[i].trainList[j].ycor + 1);
