@@ -1,4 +1,4 @@
-public class TrainLine { //<>// //<>//
+public class TrainLine { //<>// //<>// //<>//
 
   public Station[] stationList;
   public int stationSize;
@@ -82,7 +82,8 @@ public class TrainLine { //<>// //<>//
       System.out.println(t1.currentNumber);
       if (t1.traveling && t1.soFar >= 20) {
         //System.out.println(t1. dist);
-        t1.xcor += (t1.end.Txcor - t1.xcor) / (double)(t1.soFar);
+        t1.setAngle();
+        t1.xcor += (t1.end.Txcor - (t1.xcor)) / (double)(t1.soFar);
         t1.ycor += (t1.end.Tycor - t1.ycor) / (double)(t1.soFar);
         t1.soFar--;
         trainList[i].paint();
@@ -123,7 +124,7 @@ public class TrainLine { //<>// //<>//
         if (t1.waiting == 60) {
           t1.boardPassenger();
         }
-        if (t1.waiting == 50) {
+        if (t1.waiting == 50) { //<>//
           t1.boardPassenger(); //<>//
         }
         if (t1.waiting == 40) {

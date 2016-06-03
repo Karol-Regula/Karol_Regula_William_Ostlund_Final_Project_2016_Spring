@@ -177,7 +177,7 @@ public class GameEngine {
             TrainLines[i].trainList[j].Passengers.get(k).paint((int)TrainLines[i].trainList[j].xcor + 2 + 10 * k, (int)TrainLines[i].trainList[j].ycor + 1);
           }
           if (k > 2) {
-            TrainLines[i].trainList[j].Passengers.get(k).paint((int)TrainLines[i].trainList[j].xcor + 2 + 10 * (k - 3), (int)TrainLines[i].trainList[j].ycor + 8);
+            TrainLines[i].trainList[j].Passengers.get(k).paint((int)TrainLines[i].trainList[j].xcor + 2 + 10 * (k - 3), (int)TrainLines[i].trainList[j].ycor + 1);
           }
         }
       }
