@@ -1,3 +1,5 @@
+import java.util.*;
+
 public class Passenger {
 
   public int shape;
@@ -7,9 +9,65 @@ public class Passenger {
   public Train t1;
   public boolean onTrain;
   public PShape avatar;
+  public ArrayList<Station> route;
+  public Queue<Node> searcher;
 
   public Passenger(int shape) {
     this.shape = shape;
+  }
+
+  public void solve(Station x, ArrayList<TrainLine> j) {
+    searcher.add(new Node(x, null));
+    for (int i = 0; i<x.connects.size(); i++) {//I used the data type that I made since I thought it was easier to use
+      if (x.connects.get(i) != null) {         // the automatic setting of values to zero makes it more difficult to code
+        j.add(x.connects.get(i));
+      }
+    }
+    while (searcher.peek()!=null) {
+      if (searcher.peek().value.shape == this.shape) {
+        setRoute(searcher.peek());
+        return;
+      }
+      for (int i = 0; i<searcher.peek().value.connects.size(); i++) {
+        if (notChosen(searcher.peek().value.connects.get(i), j)) {         
+          j.add(x.connects.get(i));
+        }
+        int k = findIndex(searcher.peek().value, searcher.peek().value.connects.get(i));
+        if (k!=0) {
+          searcher.add(new Node(searcher.peek().value.connects.get(i).stationList[k-1], searcher.peek()));
+        }
+        if (k!=searcher.peek().value.connects.get(i).stationSize - 1) {
+          searcher.add(new Node(searcher.peek().value.connects.get(i).stationList[k+1], searcher.peek()));
+        }
+      }
+      searcher.remove();
+    }
+  }
+  
+  public boolean notChosen(TrainLine l, ArrayList<TrainLine> k){
+    for(int i = 0; i< k.size(); i++){
+      if(l == k.get(i)){
+        return false; 
+      }
+    }
+    return true;
+  }
+
+  public void setRoute(Node k) {
+    route = new ArrayList<Station>();
+    while (k != null) {
+      route.add(0, k.value);
+      k = k.last;
+    }
+  }
+
+  public int findIndex(Station x, TrainLine l) {
+    for (int i = 0; i < l.stationSize; i++) {
+      if (l.stationList[i] == x) {
+        return i;
+      }
+    }
+    return -1;
   }
 
   public void paint(int xcor, int ycor) {
