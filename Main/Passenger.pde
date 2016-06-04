@@ -22,8 +22,10 @@ public class Passenger {
   public void solve(Station x) {
     ArrayList<TrainLine> j = new ArrayList<TrainLine>();
     solve (x, j);
-    if (route != null) {
-      route.remove(0);
+    if (route != null && route.size() > 0) {
+      while (route.get(0) == currentStation){
+        route.remove(0);
+      }
     }
   }
 
@@ -45,16 +47,16 @@ public class Passenger {
         setRoute(searcher.peek());
         return;
       }
+      counter++;
+      if (counter == 100) {
+        break;
+        //something is crashing, I don't know what, maybe you can fix it, remove this if statement to see the crash
+      }
       for (int i = 0; i<searcher.peek().value.connects.size(); i++) {
-        counter++;
-        if (counter == 1000){
-          break;
-          //something is crashing, I don't know what, maybe you can fix it, remove this if statement to see the crash
-        }
         System.out.println("searcher.peek().value.connects.size(): " + searcher.peek().value.connects.size());
 
         if (notChosen(searcher.peek().value.connects.get(i), j)) {         
-          j.add(searcher.peek().value.connects.get(i)); // -searcher.peek().value + x
+          j.add(x.connects.get(i)); // -searcher.peek().value + x
         }
         //find index of current station
         int k = findIndex(searcher.peek().value, searcher.peek().value.connects.get(i));

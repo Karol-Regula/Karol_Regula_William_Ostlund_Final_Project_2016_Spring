@@ -173,6 +173,7 @@ public class TrainLine { //<>// //<>// //<>// //<>//
         t1.start = t1.end;
         t1.end = last;
         t1.recalculate();
+        t1.deboardExtra = true;
       }
        
         

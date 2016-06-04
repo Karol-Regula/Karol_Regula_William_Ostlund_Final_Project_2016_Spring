@@ -36,6 +36,11 @@ void setup() {
   Station s3  = new Station(800, 150, 0, 2);
   g1.masterStationList[g1.masterSize] = s3;
   g1.masterSize++;
+
+  //remove this
+  Station s4  = new Station(800, 300, 0, 2);
+  g1.masterStationList[g1.masterSize] = s4;
+  g1.masterSize++;
   loop = true;
 }
 

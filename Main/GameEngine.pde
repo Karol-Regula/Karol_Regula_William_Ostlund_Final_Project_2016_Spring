@@ -145,7 +145,7 @@ public class GameEngine {
 
   public void spawnPassengers() {
     for (int i = 0; i < masterSize; i++) {
-      if ((int)(Math.random() * 400) == 2 && masterStationList[i].Passengers.size() < 10 ) {//------------------------------ probability for passengers << change here
+      if ((int)(Math.random() * 600) == 2 && masterStationList[i].Passengers.size() < 10 ) {//------------------------------ probability for passengers << change here
         Passenger p1 = new Passenger((int)(Math.random() * 3)); 
         if (p1.shape != masterStationList[i].shape) {
           masterStationList[i].Passengers.add(p1);
@@ -343,7 +343,7 @@ public class GameEngine {
 
   public void spawnStations() {//for now will add to existing trainline, but I want the stations that spawn to be unafiliated until the user connects them, we should discuss this in class
     Operations o1= new Operations(); 
-    if ((int)(Math.random() * 1000000000) == 0) {
+    if ((int)(Math.random() * 1000000) == 0) {
       boolean good = false; 
       int counter = 0; 
       while (!good && counter < 100) {
