@@ -47,17 +47,15 @@ public class Train implements Locatable {
       boolean board = false;
       int whichTested = 0;
       while (whichTested < start.Passengers.size() && board == false) {
-        for (int i = 0; i < trainLine.typesHere.size(); i++) {
-          //System.out.print(trainLine.typesHere.get(i) + " " );
-        }
-        //System.out.println();
-        if (trainLine.typesHere.contains(start.Passengers.get(whichTested).shape)) {
+        if (start.Passengers.get(whichTested).route.get(0) == end) {
+          board = true;
+        } else if (trainLine.typesHere.contains(start.Passengers.get(whichTested).shape)) {
           board = true;
         } else {
           whichTested++;
         }
       }
-      if (whichTested < start.Passengers.size() && (board == true || start.Passengers.get(whichTested).targetTrainLine != trainLine.identifier)) { // ======================REMINDER, fix the last part of this if statement
+      if (whichTested < start.Passengers.size() && (board == true)) {
         Passengers.add(start.Passengers.remove(whichTested));
         capacity++;
         System.out.println("board");
@@ -69,21 +67,30 @@ public class Train implements Locatable {
     System.out.println("deboard");
     boolean removed = false;
     for (int i = 0; i < capacity; i++) {
-      if (removed == false) {
-        if (Passengers.get(i).shape == start.shape) {
-          Passengers.remove(i);
-          removed = true;
-          i--;
-          capacity--;
-          g1.highScore++; //need to amend this to not cound transferring passengers
+      if (Passengers.get(i).route.size() == 0 && Passengers.get(i).shape == start.shape) {
+        System.out.println("debaording passenger completely");
+        Passengers.remove(i);
+        capacity--;
+        i--;
+        g1.highScore++;
+      } else {
+        Passengers.get(i).route.remove(0);
+        if (removed == false) {
+          if (Passengers.get(i).shape != start.shape && Passengers.get(i).route.get(0) != end) {
+            start.Passengers.add(0, Passengers.get(i));
+            Passengers.remove(i);
+            removed = true;
+            i--;
+            capacity--;
+          }
         }
         //if(!this.trainLine.hasType(Passengers.get(i).shape)){
-           //for(int k = 0; k < this.end.connections.length; k++){
-             // if(this.end.connects.get(k) != null && this.end.connects.get(k).hasType(Passengers.get(i).shape)){
-               //  this.end.Passengers.add(Passengers.get(i));
-                 //this.Passengers.remove(i);
-              //}
-          // }
+        //for(int k = 0; k < this.end.connections.length; k++){
+        // if(this.end.connects.get(k) != null && this.end.connects.get(k).hasType(Passengers.get(i).shape)){
+        //  this.end.Passengers.add(Passengers.get(i));
+        //this.Passengers.remove(i);
+        //}
+        // }
         //}
       }
     }

@@ -32,7 +32,7 @@ void setup() {
   Station s2  = new Station(500, 350, 0, 1);
   g1.masterStationList[g1.masterSize] = s2;
   g1.masterSize++;
-  Station s3  = new Station(800, 150, 0, 0);
+  Station s3  = new Station(800, 150, 0, 2);
   g1.masterStationList[g1.masterSize] = s3;
   g1.masterSize++;
 }

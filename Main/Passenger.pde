@@ -10,13 +10,21 @@ public class Passenger {
   public boolean onTrain;
   public PShape avatar;
   public ArrayList<Station> route;
-  public Queue<Node> searcher;
+  public Queue<Node> searcher = new LinkedList<Node>();
 
   public Passenger(int shape) {
     this.shape = shape;
+    searcher = new LinkedList<Node>();
+  }
+  
+  public void solve(Station x){
+    ArrayList<TrainLine> j = new ArrayList<TrainLine>();
+    solve (x, j);
   }
 
   public void solve(Station x, ArrayList<TrainLine> j) {
+    System.out.println("solve");
+    System.out.println(x);
     searcher.add(new Node(x, null));
     for (int i = 0; i<x.connects.size(); i++) {//I used the data type that I made since I thought it was easier to use
       if (x.connects.get(i) != null) {         // the automatic setting of values to zero makes it more difficult to code
@@ -30,7 +38,7 @@ public class Passenger {
       }
       for (int i = 0; i<searcher.peek().value.connects.size(); i++) {
         if (notChosen(searcher.peek().value.connects.get(i), j)) {         
-          j.add(x.connects.get(i));
+          j.add(searcher.peek().value.connects.get(i)); // -searcher.peek().value + x
         }
         int k = findIndex(searcher.peek().value, searcher.peek().value.connects.get(i));
         if (k!=0) {
@@ -47,13 +55,16 @@ public class Passenger {
   public boolean notChosen(TrainLine l, ArrayList<TrainLine> k){
     for(int i = 0; i< k.size(); i++){
       if(l == k.get(i)){
+        System.out.println("notChosen: false");
         return false; 
       }
     }
+    System.out.println("notChosen: true");
     return true;
   }
 
   public void setRoute(Node k) {
+    System.out.println("setRoute");
     route = new ArrayList<Station>();
     while (k != null) {
       route.add(0, k.value);

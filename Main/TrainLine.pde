@@ -86,7 +86,7 @@ public class TrainLine { //<>// //<>// //<>// //<>//
       Train t1 = trainList[i];
       //System.out.println(t1.currentNumber);
       if (t1.traveling && t1.soFar >= 20) {
-        System.out.println("T: traveling");
+        //System.out.println("T: traveling");
         //System.out.println(t1. dist);
         t1.setAngle();
         t1.xcor += (t1.end.Txcor - (t1.xcor)) / (double)(t1.soFar);
@@ -98,7 +98,7 @@ public class TrainLine { //<>// //<>// //<>// //<>//
         
         
       } else if (t1.traveling && t1.soFar <= 50 && t1.soFar >= 0.1) {
-        System.out.println("T: deccelarating");
+       // System.out.println("T: deccelarating");
         //System.out.println(t1. dist);
         t1.xcor += (t1.end.Txcor - t1.xcor) / (double)(t1.soFar)  * (0.02 * t1.soFar);
         t1.ycor += (t1.end.Tycor - t1.ycor) / (double)(t1.soFar)  * (0.02 * t1.soFar);
@@ -133,7 +133,7 @@ public class TrainLine { //<>// //<>// //<>// //<>//
        
        
       else if (t1.forward && t1.dist == 0) {  
-        System.out.println("T: recalculate 1");
+        //System.out.println("T: recalculate 1");
         Station next;
         if (t1.currentNumber == railSize) {
           if (this.loop) {
@@ -156,7 +156,7 @@ public class TrainLine { //<>// //<>// //<>// //<>//
         
       } else if (t1.dist == 0){
         Station last;
-        System.out.println("T: recalculate 2");
+        //System.out.println("T: recalculate 2");
         if (t1.currentNumber == -1) {
           if (this.loop) { 
             last = railList[railSize - 1].end;
@@ -177,7 +177,7 @@ public class TrainLine { //<>// //<>// //<>// //<>//
        
         
         else if (t1.waiting > 0) {
-        System.out.println("T: waiting");
+        //System.out.println("T: waiting");
         t1.waiting--;
         if (t1.waiting == 130) {
           t1.deboardPassenger();
