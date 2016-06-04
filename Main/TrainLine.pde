@@ -267,6 +267,9 @@ public class TrainLine { //<>// //<>// //<>// //<>//
       growRail();
     }
     Rail r1  = new Rail(start, end, whatColor);
+    start.connectedStations.add(end);
+    end.connectedStations.add(start);
+    
 
 
     if (! start.stopHere.contains(this.identifier)) {
@@ -342,6 +345,18 @@ public class TrainLine { //<>// //<>// //<>// //<>//
   }
 
   public int removeRail(Station x, Station y) {
+    for (int i = 0; i < x.connectedStations.size(); i++){
+      if (x.connectedStations.get(i) == y){
+        x.connectedStations.remove(i);
+      }
+    }
+    for (int i = 0; i < y.connectedStations.size(); i++){
+      if (y.connectedStations.get(i) == x){
+        y.connectedStations.remove(i);
+      }
+    }
+    
+    
     for (int i = 0; i < railSize; i++) {
       if (railList[i].start == x && railList[i].end == y) {
         if (i == railSize - 1) {

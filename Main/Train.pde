@@ -48,12 +48,14 @@ public class Train implements Locatable {
       boolean board = false;
       int whichTested = 0;
       while (whichTested < start.Passengers.size() && board == false) {
+        if (start.Passengers.get(whichTested).route != null){
         if (start.Passengers.get(whichTested).route.size() > 0 && start.Passengers.get(whichTested).route.get(0) == end) {
           board = true;
           //} else if (trainLine.typesHere.contains(start.Passengers.get(whichTested).shape)) {
           //board = true;
         } else {
           whichTested++;
+        }
         }
       }
       if (whichTested < start.Passengers.size() && (board == true)) {
@@ -76,7 +78,6 @@ public class Train implements Locatable {
         if (Passengers.get(j).route.size() > 0) {
           Passengers.get(j).route.remove(0);
         }
-        Passengers.get(j).solve(Passengers.get(j).currentStation);
       }
     }
     System.out.println("deboard");

@@ -10,68 +10,111 @@ public class Passenger {
   public boolean onTrain;
   public PShape avatar;
   public ArrayList<Station> route;
-  public Queue<Node> searcher = new LinkedList<Node>();
   public boolean processed;
 
   public Passenger(int shape) {
     this.shape = shape;
-    searcher = new LinkedList<Node>();
     processed = false;
   }
 
-  public void solve(Station x) {
-    ArrayList<TrainLine> j = new ArrayList<TrainLine>();
+  public void solve(Station x) { //alternate that uses connected stations
+    ArrayList<Station> j = new ArrayList<Station>();
     solve (x, j);
-    if (route != null && route.size() > 0) {
-      while (route.get(0) == currentStation){
+    if (route != null) {
+      while (route.get(0).equals(currentStation)) {
         route.remove(0);
       }
     }
   }
 
-  public void solve(Station x, ArrayList<TrainLine> j) {
+  public void solve(Station x, ArrayList<Station> j) {
+    Queue<Node> searcher = new LinkedList<Node>();
+    ArrayList<Station> checkedStations = new ArrayList<Station>();
+    checkedStations.add(x);
     System.out.println("solve");
-    System.out.println(x);
-    int counter = 0;
     searcher.add(new Node(x, null));
-    for (int i = 0; i<x.connects.size(); i++) {//I used the data type that I made since I thought it was easier to use
-      if (x.connects.get(i) != null) {         // the automatic setting of values to zero makes it more difficult to code
-        j.add(x.connects.get(i));
-      }
-    }
-    while (searcher.peek()!=null) {
-      if (mouseClickRail) {
-        break;
-      }
-      if (searcher.peek().value.shape == this.shape) {
-        setRoute(searcher.peek());
-        return;
-      }
-      counter++;
-      if (counter == 100) {
-        break;
-        //something is crashing, I don't know what, maybe you can fix it, remove this if statement to see the crash
-      }
-      for (int i = 0; i<searcher.peek().value.connects.size(); i++) {
-        System.out.println("searcher.peek().value.connects.size(): " + searcher.peek().value.connects.size());
 
-        if (notChosen(searcher.peek().value.connects.get(i), j)) {         
-          j.add(x.connects.get(i)); // -searcher.peek().value + x
-        }
-        //find index of current station
-        int k = findIndex(searcher.peek().value, searcher.peek().value.connects.get(i));
-        //add preceding station if one exists
-        if (k!=0) {
-          searcher.add(new Node(searcher.peek().value.connects.get(i).stationList[k-1], searcher.peek()));
-        }
-        //add next station if one exists
-        if (k!=searcher.peek().value.connects.get(i).stationSize - 1) {
-          searcher.add(new Node(searcher.peek().value.connects.get(i).stationList[k+1], searcher.peek()));
+    while (searcher.peek().value.shape != this.shape) {
+      for (int i = 0; i<searcher.peek().value.connectedStations.size(); i++) {
+        if (!checkedStations.contains(searcher.peek().value.connectedStations.get(i))) {
+          searcher.add(new Node (searcher.peek().value.connectedStations.get(i), searcher.peek()));
+          checkedStations.add(searcher.peek().value.connectedStations.get(i));
         }
       }
       searcher.remove();
+      if (searcher.isEmpty()) {
+        break;
+      }
     }
+    if (!searcher.isEmpty()) {
+      setRoute(searcher.peek());
+    }
+    return;
   }
+
+  /*
+  public void solve(Station x) { //alternate that uses connected stations
+   ArrayList<TrainLine> j = new ArrayList<TrainLine>();
+   solve (x, j);
+   if (route != null) {
+   while (route.get(0) == currentStation) {
+   route.remove(0);
+   }
+   }
+   }
+   
+   public void solve(Station x, ArrayList<TrainLine> j) {
+   System.out.println("solve");
+   System.out.println(x);
+   int counter = 0;
+   searcher.add(new Node(x, null));
+   for (int i = 0; i<x.connects.size(); i++) {//I used the data type that I made since I thought it was easier to use
+   if (x.connects.get(i) != null) {         // the automatic setting of values to zero makes it more difficult to code
+   j.add(x.connects.get(i));
+   }
+   }
+   while (searcher.peek()!=null) {
+   
+   if (mouseClickRail) {
+   break;
+   }
+   counter++;
+   if (counter == 100) {
+   break;
+   //something is crashing, I don't know what, maybe you can fix it, remove this if statement to see the crash
+   }
+   
+   if (searcher.peek().value.shape == this.shape) {
+   setRoute(searcher.peek());
+   return;
+   
+   
+   }
+   for (int i = 0; i<searcher.peek().value.connects.size(); i++) {
+   //System.out.println("searcher.peek().value.connects.size(): " + searcher.peek().value.connects.size());
+   
+   if (notChosen(searcher.peek().value.connects.get(i), j)) {         
+   j.add(searcher.peek().value.connects.get(i)); // -searcher.peek().value + x
+   }
+   //find index of current station
+   int k = findIndex(searcher.peek().value, searcher.peek().value.connects.get(i));
+   //add preceding station if one exists
+   if (k!=0) {
+   if (! searcher.contains(searcher.peek().value.connects.get(i).stationList[k-1])) {
+   searcher.add(new Node(searcher.peek().value.connects.get(i).stationList[k-1], searcher.peek()));
+   }
+   }
+   //add next station if one exists
+   if (k!=searcher.peek().value.connects.get(i).stationSize - 1) {
+   if (! searcher.contains(searcher.peek().value.connects.get(i).stationList[k+1])) {
+   searcher.add(new Node(searcher.peek().value.connects.get(i).stationList[k+1], searcher.peek()));
+   }
+   }
+   }
+   searcher.remove();
+   }
+   }
+   */
 
   public boolean notChosen(TrainLine l, ArrayList<TrainLine> k) {
     for (int i = 0; i< k.size(); i++) {
@@ -87,10 +130,14 @@ public class Passenger {
   public void setRoute(Node k) {
     System.out.println("setRoute");
     route = new ArrayList<Station>();
+    while (route.size() > 0){
+      route.remove(0);
+    }
     while (k != null) {
       route.add(0, k.value);
       k = k.last;
     }
+    route.remove(0);
   }
 
   public int findIndex(Station x, TrainLine l) {
