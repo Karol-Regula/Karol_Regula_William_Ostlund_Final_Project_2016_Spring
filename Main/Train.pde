@@ -43,7 +43,7 @@ public class Train implements Locatable {
   }
 
   public void boardPassenger() {
-    if (capacity <= 5 && end.Passengers.size() > 0) {
+    if (capacity <= 5 && start.Passengers.size() > 0) {
       boolean board = false;
       int whichTested = 0;
       while (whichTested < start.Passengers.size() && board == false) {
@@ -65,34 +65,53 @@ public class Train implements Locatable {
 
   public void deboardPassenger() {
     System.out.println("deboard");
-    boolean removed = false;
-    for (int i = 0; i < capacity; i++) {
-              Passengers.get(i).route.remove(0);
-      if (Passengers.get(i).route.size() == 0 && Passengers.get(i).shape == start.shape) {
+    //boolean removed = false;
+    int i = 0;
+
+    //cutting off a station of passenger's route 
+    for (int j = 0; j < capacity; j++) {
+      Passengers.get(j).processed = false;
+      Passengers.get(j).currentStation = start;
+      Passengers.get(j).solve(Passengers.get(j).currentStation);
+    }
+
+    //moving to next passenger to be processed
+    while (i < Passengers.size() && Passengers.get(i).processed) {
+      i++;
+    }
+    if (i < Passengers.size()) {
+      //if passenger needs to get off and his/her journey is finished
+      if (Passengers.get(i).shape == start.shape) {
         System.out.println("debaording passenger completely");
         Passengers.remove(i);
         capacity--;
-        i--;
+        //i--;
         g1.highScore++;
+
+        //if passenger needs to stay on train
+      } else if (Passengers.get(i).route.get(0) == end) {
+        Passengers.get(i).processed = true;
+
+        //if passenger needs to get off and wait for another train
       } else {
-        if (removed == false) {
-          if (Passengers.get(i).shape != start.shape && Passengers.get(i).route.get(0) != end) {
-            start.Passengers.add(0, Passengers.get(i));
-            Passengers.remove(i);
-            removed = true;
-            i--;
-            capacity--;
-          }
+        // if (removed == false) {
+        if (Passengers.get(i).shape != start.shape && Passengers.get(i).route.get(0) != end) {
+          start.Passengers.add(0, Passengers.get(i));
+          Passengers.remove(i);
+          //removed = true;
+          //i--;
+          capacity--;
+          //}
         }
-        //if(!this.trainLine.hasType(Passengers.get(i).shape)){
-        //for(int k = 0; k < this.end.connections.length; k++){
-        // if(this.end.connects.get(k) != null && this.end.connects.get(k).hasType(Passengers.get(i).shape)){
-        //  this.end.Passengers.add(Passengers.get(i));
-        //this.Passengers.remove(i);
-        //}
-        // }
-        //}
       }
+      //if(!this.trainLine.hasType(Passengers.get(i).shape)){
+      //for(int k = 0; k < this.end.connections.length; k++){
+      // if(this.end.connects.get(k) != null && this.end.connects.get(k).hasType(Passengers.get(i).shape)){
+      //  this.end.Passengers.add(Passengers.get(i));
+      //this.Passengers.remove(i);
+      //}
+      // }
+      //}
     }
   }
 

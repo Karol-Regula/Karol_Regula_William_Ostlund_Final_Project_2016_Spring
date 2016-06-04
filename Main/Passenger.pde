@@ -11,10 +11,12 @@ public class Passenger {
   public PShape avatar;
   public ArrayList<Station> route;
   public Queue<Node> searcher = new LinkedList<Node>();
+  public boolean processed;
 
   public Passenger(int shape) {
     this.shape = shape;
     searcher = new LinkedList<Node>();
+    processed = false;
   }
 
   public void solve(Station x) {
@@ -28,6 +30,7 @@ public class Passenger {
   public void solve(Station x, ArrayList<TrainLine> j) {
     System.out.println("solve");
     System.out.println(x);
+    int counter = 0;
     searcher.add(new Node(x, null));
     for (int i = 0; i<x.connects.size(); i++) {//I used the data type that I made since I thought it was easier to use
       if (x.connects.get(i) != null) {         // the automatic setting of values to zero makes it more difficult to code
@@ -35,12 +38,21 @@ public class Passenger {
       }
     }
     while (searcher.peek()!=null) {
+      if (mouseClickRail) {
+        break;
+      }
       if (searcher.peek().value.shape == this.shape) {
         setRoute(searcher.peek());
         return;
       }
       for (int i = 0; i<searcher.peek().value.connects.size(); i++) {
+        counter++;
+        if (counter == 1000){
+          break;
+          //something is crashing, I don't know what, maybe you can fix it, remove this if statement to see the crash
+        }
         System.out.println("searcher.peek().value.connects.size(): " + searcher.peek().value.connects.size());
+
         if (notChosen(searcher.peek().value.connects.get(i), j)) {         
           j.add(searcher.peek().value.connects.get(i)); // -searcher.peek().value + x
         }
