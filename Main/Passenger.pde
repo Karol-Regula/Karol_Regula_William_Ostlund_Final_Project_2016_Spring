@@ -21,9 +21,22 @@ public class Passenger {
     ArrayList<Station> j = new ArrayList<Station>();
     solve (x, j);
     if (route != null) {
-      while (route.get(0).equals(currentStation)) {
-        route.remove(0);
+      ArrayList<Station> temp = new ArrayList<Station>();
+      System.out.println(currentStation);
+      System.out.println(route.get(0).xcor + " " + currentStation.xcor);
+      System.out.println(route.get(0).ycor + " " + currentStation.ycor);
+      if (route.get(0).xcor == currentStation.xcor && route.get(0).ycor == currentStation.ycor) {
+        for (int i = 1; i < route.size(); i++) {
+          temp.add(route.get(i));
+        }
       }
+      route = temp;
+      if (route.get(0).xcor == currentStation.xcor && route.get(0).ycor == currentStation.ycor) {
+        for (int i = 1; i < route.size(); i++) {
+          temp.add(route.get(i));
+        }
+      }
+      route = temp;
     }
   }
 
@@ -130,14 +143,14 @@ public class Passenger {
   public void setRoute(Node k) {
     System.out.println("setRoute");
     route = new ArrayList<Station>();
-    while (route.size() > 0){
+    while (route.size() > 0) {
       route.remove(0);
     }
     while (k != null) {
       route.add(0, k.value);
       k = k.last;
     }
-    route.remove(0);
+    //route.remove(0);
   }
 
   public int findIndex(Station x, TrainLine l) {

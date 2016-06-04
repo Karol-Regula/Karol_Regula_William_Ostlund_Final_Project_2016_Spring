@@ -1,4 +1,4 @@
-public class TrainLine { //<>// //<>// //<>// //<>//
+public class TrainLine { //<>// //<>// //<>// //<>// //<>//
 
   public Station[] stationList;
   public int stationSize;
@@ -41,9 +41,9 @@ public class TrainLine { //<>// //<>// //<>// //<>//
 
 
   public boolean hasType(int i) {
-    for(int k=0; k < stationSize; k++){
-      if (stationList[k].shape == i){
-        return true; 
+    for (int k=0; k < stationSize; k++) {
+      if (stationList[k].shape == i) {
+        return true;
       }
     }
     return false;
@@ -93,12 +93,8 @@ public class TrainLine { //<>// //<>// //<>// //<>//
         t1.ycor += (t1.end.Tycor - t1.ycor) / (double)(t1.soFar);
         t1.soFar--;
         trainList[i].paint();
-        
-        
-        
-        
       } else if (t1.traveling && t1.soFar <= 50 && t1.soFar >= 0.1) {
-       // System.out.println("T: deccelarating");
+        // System.out.println("T: deccelarating");
         //System.out.println(t1. dist);
         t1.xcor += (t1.end.Txcor - t1.xcor) / (double)(t1.soFar)  * (0.02 * t1.soFar);
         t1.ycor += (t1.end.Tycor - t1.ycor) / (double)(t1.soFar)  * (0.02 * t1.soFar);
@@ -111,8 +107,8 @@ public class TrainLine { //<>// //<>// //<>// //<>//
           t1.dist = 0;
         }
       }
-         //<>// //<>// //<>//
-      
+      //<>// //<>//
+
       /*
       }else if(t1.end.hasNext()){
        trainList[i].paint();
@@ -130,8 +126,8 @@ public class TrainLine { //<>// //<>// //<>// //<>//
        t1.end.xcor = temp1;
        t1.end.ycor = temp2;
        */
-       
-       
+
+
       else if (t1.forward && t1.dist == 0) {  
         //System.out.println("T: recalculate 1");
         Station next;
@@ -151,10 +147,8 @@ public class TrainLine { //<>// //<>// //<>// //<>//
         t1.start = t1.end;
         t1.end = next;
         t1.recalculate();
-        
-        
-        
-      } else if (t1.dist == 0){
+        t1.deboardExtra = true;
+      } else if (t1.dist == 0) {
         Station last;
         //System.out.println("T: recalculate 2");
         if (t1.currentNumber == -1) {
@@ -174,10 +168,7 @@ public class TrainLine { //<>// //<>// //<>// //<>//
         t1.end = last;
         t1.recalculate();
         t1.deboardExtra = true;
-      }
-       
-        
-        else if (t1.waiting > 0) {
+      } else if (t1.waiting > 0) {
         //System.out.println("T: waiting");
         t1.waiting--;
         if (t1.waiting == 130) {
@@ -225,7 +216,7 @@ public class TrainLine { //<>// //<>// //<>// //<>//
         }
       }
       //System.out.println(t1.soFar);
-  }
+    }
   }
 
   public void growStation() {
@@ -269,7 +260,7 @@ public class TrainLine { //<>// //<>// //<>// //<>//
     Rail r1  = new Rail(start, end, whatColor);
     start.connectedStations.add(end);
     end.connectedStations.add(start);
-    
+
 
 
     if (! start.stopHere.contains(this.identifier)) {
@@ -345,18 +336,18 @@ public class TrainLine { //<>// //<>// //<>// //<>//
   }
 
   public int removeRail(Station x, Station y) {
-    for (int i = 0; i < x.connectedStations.size(); i++){
-      if (x.connectedStations.get(i) == y){
+    for (int i = 0; i < x.connectedStations.size(); i++) {
+      if (x.connectedStations.get(i) == y) {
         x.connectedStations.remove(i);
       }
     }
-    for (int i = 0; i < y.connectedStations.size(); i++){
-      if (y.connectedStations.get(i) == x){
+    for (int i = 0; i < y.connectedStations.size(); i++) {
+      if (y.connectedStations.get(i) == x) {
         y.connectedStations.remove(i);
       }
     }
-    
-    
+
+
     for (int i = 0; i < railSize; i++) {
       if (railList[i].start == x && railList[i].end == y) {
         if (i == railSize - 1) {

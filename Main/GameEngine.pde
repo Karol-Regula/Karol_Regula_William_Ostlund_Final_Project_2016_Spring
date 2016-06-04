@@ -158,14 +158,7 @@ public class GameEngine {
   public void drawPassengers() {
     for (int i = 0; i < masterSize; i++) {
       for (int j = 0; j < masterStationList[i].Passengers.size(); j++) {
-        masterStationList[i].Passengers.get(j).solve(masterStationList[i].Passengers.get(j).currentStation);
-        if (masterStationList[i].Passengers.get(j).route != null){
-          if (masterStationList[i].Passengers.get(j).route.get(0) == masterStationList[i].Passengers.get(j).currentStation){
-            masterStationList[i].Passengers.get(j).route.remove(0);
-          }
-        }
-        
-        
+
         if (masterStationList[i].shape == 0) {
           masterStationList[i].Passengers.get(j).paint((int)masterStationList[i].xcor + j * 10 + 24, (int)masterStationList[i].ycor - 8);
         }
@@ -178,21 +171,22 @@ public class GameEngine {
       }
     }
   }
-  
+
   public void drawPassengerRoutes() {
     for (int i = 0; i < masterSize; i++) {
       for (int j = 0; j < masterStationList[i].Passengers.size(); j++) {
+        masterStationList[i].Passengers.get(j).solve(masterStationList[i].Passengers.get(j).currentStation);
         System.out.println("--------------------------------------------");
         System.out.println("Passenger number " + j + " in Station " + masterStationList[i].toString() + ".");
-        if(masterStationList[i].Passengers.get(j).route != null){
+        if (masterStationList[i].Passengers.get(j).route != null) {
           System.out.println("ROUTE");
-        for (int k = 0; k < masterStationList[i].Passengers.get(j).route.size(); k++){
-          System.out.println(masterStationList[i].Passengers.get(j).route.get(k));
-        }
-        }else{
+          for (int k = 0; k < masterStationList[i].Passengers.get(j).route.size(); k++) {
+            System.out.println(masterStationList[i].Passengers.get(j).route.get(k));
+          }
+        } else {
           System.out.println("Route is null.");
         }
-              System.out.println("----------------------------------------------------------------------------");
+        System.out.println("----------------------------------------------------------------------------");
       }
     }
   }
@@ -203,10 +197,10 @@ public class GameEngine {
         for (int k = 0; k < TrainLines[i].trainList[j].Passengers.size(); k++) {
           if (k <= 2) {
             //if(k == 0){
-              /*TrainLines[i].trainList[j].Passengers.get(k).paint((int)(TrainLines[i].trainList[j].xcor + 2 + 5 * 
-              cos(TrainLines[i].trainList[j].angle)), 
-              (int)(TrainLines[i].trainList[j].ycor + 10*sin(TrainLines[i].trainList[j].angle)));*/
-              TrainLines[i].trainList[j].Passengers.get(k).paint((int)TrainLines[i].trainList[j].xcor + 2 + 10 * (k), (int)TrainLines[i].trainList[j].ycor + 1 + 10);
+            /*TrainLines[i].trainList[j].Passengers.get(k).paint((int)(TrainLines[i].trainList[j].xcor + 2 + 5 * 
+             cos(TrainLines[i].trainList[j].angle)), 
+             (int)(TrainLines[i].trainList[j].ycor + 10*sin(TrainLines[i].trainList[j].angle)));*/
+            TrainLines[i].trainList[j].Passengers.get(k).paint((int)TrainLines[i].trainList[j].xcor + 2 + 10 * (k), (int)TrainLines[i].trainList[j].ycor + 1 + 10);
             //}
           }
           if (k > 2) {
@@ -255,14 +249,14 @@ public class GameEngine {
         //System.out.println("y: " + y);
         //System.out.println(g1.masterStationList[1]);
       } else {
-        for(int i = 0; i < this.currentLine.railSize; i++){
-          if((this.currentLine.railList[i].end == this.masterStationList[x] && this.currentLine.railList[i].start == this.masterStationList[y]) ||
-          (this.currentLine.railList[i].end == this.masterStationList[y] && this.currentLine.railList[i].start == this.masterStationList[x])){
+        for (int i = 0; i < this.currentLine.railSize; i++) {
+          if ((this.currentLine.railList[i].end == this.masterStationList[x] && this.currentLine.railList[i].start == this.masterStationList[y]) ||
+            (this.currentLine.railList[i].end == this.masterStationList[y] && this.currentLine.railList[i].start == this.masterStationList[x])) {
             this.masterStationList[y].selected = false; 
             this.masterStationList[x].selected = false;  
             x=-1; 
             y=-1;
-            return; 
+            return;
           }
         }
         if (g1.currentLine.createRail(g1.masterStationList[x], g1.masterStationList[y], g1.currentColor) == -1) {
@@ -271,10 +265,10 @@ public class GameEngine {
 
         this.masterStationList[y].selected = false; 
         this.masterStationList[x].selected = false;
-        if(this.masterStationList[x].connections[this.currentNumber] == 0){
+        if (this.masterStationList[x].connections[this.currentNumber] == 0) {
           this.masterStationList[x].connects.add(this.TrainLines[g1.currentNumber]);
         }
-        if(this.masterStationList[y].connections[this.currentNumber] == 0){
+        if (this.masterStationList[y].connections[this.currentNumber] == 0) {
           this.masterStationList[y].connects.add(this.TrainLines[g1.currentNumber]);
         }
         this.masterStationList[x].connections[this.currentNumber]++; 
@@ -324,18 +318,18 @@ public class GameEngine {
         }
         this.masterStationList[y].selected = false; 
         this.masterStationList[x].selected = false; 
-        if(this.masterStationList[y].connections[this.currentNumber] == 1){
-          for(int k = 0; k < this.masterStationList[y].connects.size(); k++){
-             if( this.masterStationList[y].connects.get(k) == this.TrainLines[g1.currentNumber]){
-                this.masterStationList[y].connects.remove(k);
-             }
+        if (this.masterStationList[y].connections[this.currentNumber] == 1) {
+          for (int k = 0; k < this.masterStationList[y].connects.size(); k++) {
+            if ( this.masterStationList[y].connects.get(k) == this.TrainLines[g1.currentNumber]) {
+              this.masterStationList[y].connects.remove(k);
+            }
           }
         }
-        if(this.masterStationList[x].connections[this.currentNumber] == 1){
-          for(int k = 0; k < this.masterStationList[x].connects.size(); k++){
-             if( this.masterStationList[x].connects.get(k) == this.TrainLines[g1.currentNumber]){
-                this.masterStationList[x].connects.remove(k);
-             }
+        if (this.masterStationList[x].connections[this.currentNumber] == 1) {
+          for (int k = 0; k < this.masterStationList[x].connects.size(); k++) {
+            if ( this.masterStationList[x].connects.get(k) == this.TrainLines[g1.currentNumber]) {
+              this.masterStationList[x].connects.remove(k);
+            }
           }
         }
         this.masterStationList[x].connections[this.currentNumber]--; 
