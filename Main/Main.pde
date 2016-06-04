@@ -9,6 +9,7 @@ public boolean mouseClickRail = false;
 public boolean removingRail = false;
 public int x = -1;
 public int y = -1;
+public boolean loop;
 
 void setup() {
   size = 40;
@@ -35,6 +36,7 @@ void setup() {
   Station s3  = new Station(800, 150, 0, 2);
   g1.masterStationList[g1.masterSize] = s3;
   g1.masterSize++;
+  loop = true;
 }
 
 void draw() {
@@ -63,6 +65,7 @@ void draw() {
   g1.drawStations();//draws unconnected stations
   g1.spawnPassengers();
   g1.drawPassengers();
+  g1.drawPassengerRoutes();
   g1.drawExtra();
 
 
@@ -72,21 +75,21 @@ void draw() {
   fill(50);
   strokeWeight(3);
   //text("New TrainLine", 50, 50);
-  
+
   PFont p1 = createFont("Souvenir Bold.ttf", 14);
   //System.out.println(p1.list());
   textFont(p1);
   textSize(20);
   text("HighScore: "+ g1.highScore, 20, 70);
   textSize(14);
-  
-  
+
+
   g1.hover(10, 40, 100, 130);
 
   fill(g1.currentColor);
   rect(10, 100, 30, 30);
   fill(50);
-  
+
   text("Cycle Lines: " + g1.currentNumber, 50, 120);
   if (removingRail) {
     fill(10);
@@ -115,6 +118,13 @@ void draw() {
   fill(50);
   text("Spawn Train", 50, 330);
   fill(0, 225, 225);
+
+  //pause button
+  g1.hover(1230, 1260, 10, 40);
+  rect(1230, 10, 10, 30);
+  rect(1250, 10, 10, 30);
+
+
   strokeWeight(1);
   g1.railCheck(g1.currentNumber);
 }
@@ -171,6 +181,19 @@ void mouseClicked() {
   }
   if (mouseX > 10 && mouseX < 40 && mouseY > 310 && mouseY < 340) {
     g1.spawnTrain();
+  }
+
+  if (mouseX > 1230 && mouseX < 1260 && mouseY > 10 && mouseY < 40) {
+    if (loop) {
+      textSize(20);
+      fill(40);
+      text("PAUSED", 600, 30);
+      textSize(15);
+      noLoop();
+    } else {
+      loop();
+    }
+    loop = !loop;
   }
 }
 

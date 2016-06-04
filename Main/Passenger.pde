@@ -16,10 +16,13 @@ public class Passenger {
     this.shape = shape;
     searcher = new LinkedList<Node>();
   }
-  
-  public void solve(Station x){
+
+  public void solve(Station x) {
     ArrayList<TrainLine> j = new ArrayList<TrainLine>();
     solve (x, j);
+    if (route != null) {
+      route.remove(0);
+    }
   }
 
   public void solve(Station x, ArrayList<TrainLine> j) {
@@ -37,13 +40,17 @@ public class Passenger {
         return;
       }
       for (int i = 0; i<searcher.peek().value.connects.size(); i++) {
+        System.out.println("searcher.peek().value.connects.size(): " + searcher.peek().value.connects.size());
         if (notChosen(searcher.peek().value.connects.get(i), j)) {         
           j.add(searcher.peek().value.connects.get(i)); // -searcher.peek().value + x
         }
+        //find index of current station
         int k = findIndex(searcher.peek().value, searcher.peek().value.connects.get(i));
+        //add preceding station if one exists
         if (k!=0) {
           searcher.add(new Node(searcher.peek().value.connects.get(i).stationList[k-1], searcher.peek()));
         }
+        //add next station if one exists
         if (k!=searcher.peek().value.connects.get(i).stationSize - 1) {
           searcher.add(new Node(searcher.peek().value.connects.get(i).stationList[k+1], searcher.peek()));
         }
@@ -51,12 +58,12 @@ public class Passenger {
       searcher.remove();
     }
   }
-  
-  public boolean notChosen(TrainLine l, ArrayList<TrainLine> k){
-    for(int i = 0; i< k.size(); i++){
-      if(l == k.get(i)){
+
+  public boolean notChosen(TrainLine l, ArrayList<TrainLine> k) {
+    for (int i = 0; i< k.size(); i++) {
+      if (l == k.get(i)) {
         System.out.println("notChosen: false");
-        return false; 
+        return false;
       }
     }
     System.out.println("notChosen: true");

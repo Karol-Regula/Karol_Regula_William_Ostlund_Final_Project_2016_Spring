@@ -145,7 +145,7 @@ public class GameEngine {
 
   public void spawnPassengers() {
     for (int i = 0; i < masterSize; i++) {
-      if ((int)(Math.random() * 900) == 2 && masterStationList[i].Passengers.size() < 10 ) {//------------------------------ probability for passengers << change here
+      if ((int)(Math.random() * 400) == 2 && masterStationList[i].Passengers.size() < 10 ) {//------------------------------ probability for passengers << change here
         Passenger p1 = new Passenger((int)(Math.random() * 3)); 
         if (p1.shape != masterStationList[i].shape) {
           masterStationList[i].Passengers.add(p1);
@@ -168,6 +168,24 @@ public class GameEngine {
         if (masterStationList[i].shape == 2) {
           masterStationList[i].Passengers.get(j).paint((int)masterStationList[i].xcor + j * 10 + 10, (int)masterStationList[i].ycor - 20);
         }
+      }
+    }
+  }
+  
+  public void drawPassengerRoutes() {
+    for (int i = 0; i < masterSize; i++) {
+      for (int j = 0; j < masterStationList[i].Passengers.size(); j++) {
+        System.out.println("--------------------------------------------");
+        System.out.println("Passenger number " + j + " in Station " + masterStationList[i].toString() + ".");
+        if(masterStationList[i].Passengers.get(j).route != null){
+          System.out.println("ROUTE");
+        for (int k = 0; k < masterStationList[i].Passengers.get(j).route.size(); k++){
+          System.out.println(masterStationList[i].Passengers.get(j).route.get(k));
+        }
+        }else{
+          System.out.println("Route is null.");
+        }
+              System.out.println("----------------------------------------------------------------------------");
       }
     }
   }

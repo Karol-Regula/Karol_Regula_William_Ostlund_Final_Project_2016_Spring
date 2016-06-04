@@ -67,6 +67,7 @@ public class Train implements Locatable {
     System.out.println("deboard");
     boolean removed = false;
     for (int i = 0; i < capacity; i++) {
+              Passengers.get(i).route.remove(0);
       if (Passengers.get(i).route.size() == 0 && Passengers.get(i).shape == start.shape) {
         System.out.println("debaording passenger completely");
         Passengers.remove(i);
@@ -74,7 +75,6 @@ public class Train implements Locatable {
         i--;
         g1.highScore++;
       } else {
-        Passengers.get(i).route.remove(0);
         if (removed == false) {
           if (Passengers.get(i).shape != start.shape && Passengers.get(i).route.get(0) != end) {
             start.Passengers.add(0, Passengers.get(i));
