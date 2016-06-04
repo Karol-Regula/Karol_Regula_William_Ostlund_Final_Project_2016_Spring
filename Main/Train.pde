@@ -46,20 +46,21 @@ public class Train implements Locatable {
     if (capacity <= 5 && end.Passengers.size() > 0) {
       boolean board = false;
       int whichTested = 0;
-      while (whichTested < end.Passengers.size() && board == false) {
+      while (whichTested < start.Passengers.size() && board == false) {
         for (int i = 0; i < trainLine.typesHere.size(); i++) {
           //System.out.print(trainLine.typesHere.get(i) + " " );
         }
         //System.out.println();
-        if (trainLine.typesHere.contains(end.Passengers.get(whichTested).shape)) {
+        if (trainLine.typesHere.contains(start.Passengers.get(whichTested).shape)) {
           board = true;
         } else {
           whichTested++;
         }
       }
-      if (whichTested < end.Passengers.size() && (board == true || end.Passengers.get(whichTested).targetTrainLine != trainLine.identifier)) { // ======================REMINDER, fix the last part of this if statement
-        Passengers.add(end.Passengers.remove(whichTested));
+      if (whichTested < start.Passengers.size() && (board == true || start.Passengers.get(whichTested).targetTrainLine != trainLine.identifier)) { // ======================REMINDER, fix the last part of this if statement
+        Passengers.add(start.Passengers.remove(whichTested));
         capacity++;
+        System.out.println("board");
       }
     }
   }
@@ -69,7 +70,7 @@ public class Train implements Locatable {
     boolean removed = false;
     for (int i = 0; i < capacity; i++) {
       if (removed == false) {
-        if (Passengers.get(i).shape == end.shape) {
+        if (Passengers.get(i).shape == start.shape) {
           Passengers.remove(i);
           removed = true;
           i--;

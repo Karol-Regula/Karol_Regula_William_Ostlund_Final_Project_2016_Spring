@@ -84,15 +84,21 @@ public class TrainLine { //<>// //<>// //<>// //<>//
   public void moveTrains() {
     for (int i = 0; i < trainSize; i++) {//chnage this after adding grow and size
       Train t1 = trainList[i];
-      System.out.println(t1.currentNumber);
+      //System.out.println(t1.currentNumber);
       if (t1.traveling && t1.soFar >= 20) {
+        System.out.println("T: traveling");
         //System.out.println(t1. dist);
         t1.setAngle();
         t1.xcor += (t1.end.Txcor - (t1.xcor)) / (double)(t1.soFar);
         t1.ycor += (t1.end.Tycor - t1.ycor) / (double)(t1.soFar);
         t1.soFar--;
         trainList[i].paint();
+        
+        
+        
+        
       } else if (t1.traveling && t1.soFar <= 50 && t1.soFar >= 0.1) {
+        System.out.println("T: deccelarating");
         //System.out.println(t1. dist);
         t1.xcor += (t1.end.Txcor - t1.xcor) / (double)(t1.soFar)  * (0.02 * t1.soFar);
         t1.ycor += (t1.end.Tycor - t1.ycor) / (double)(t1.soFar)  * (0.02 * t1.soFar);
@@ -102,8 +108,76 @@ public class TrainLine { //<>// //<>// //<>// //<>//
         if (t1.soFar < 0.3) {
           t1.waiting = 140;// ======================= NOTE: for future purposes, this code executes way too may times
           t1.traveling = false;
+          t1.dist = 0;
         }
-      } else if (t1.waiting > 0) {
+      }
+         //<>// //<>// //<>//
+      
+      /*
+      }else if(t1.end.hasNext()){
+       trainList[i].paint();
+       t1.start.xcor = t1.end.xcor;
+       t1.start.ycor = t1.end.ycor;
+       t1.end.xcor = t1.end.next().end.getXcor();
+       t1.end.ycor = t1.end.next().end.getYcor();
+       t1.recalculate();
+       }else {
+       trainList[i].paint();
+       float temp1 = t1.start.xcor;
+       float temp2 = t1.start.ycor;
+       t1.start.xcor = t1.end.xcor;
+       t1.start.ycor = t1.end.ycor;
+       t1.end.xcor = temp1;
+       t1.end.ycor = temp2;
+       */
+       
+       
+      else if (t1.forward && t1.dist == 0) {  
+        System.out.println("T: recalculate 1");
+        Station next;
+        if (t1.currentNumber == railSize) {
+          if (this.loop) {
+            next = railList[0].start;
+            t1.currentNumber = 0;
+          } else {
+            next = t1.start;
+            t1.currentNumber = railSize - 1;
+            t1.forward = false;
+          }
+        } else {
+          next = railList[t1.currentNumber].end;
+          t1.currentNumber++;
+        }
+        t1.start = t1.end;
+        t1.end = next;
+        t1.recalculate();
+        
+        
+        
+      } else if (t1.dist == 0){
+        Station last;
+        System.out.println("T: recalculate 2");
+        if (t1.currentNumber == -1) {
+          if (this.loop) { 
+            last = railList[railSize - 1].end;
+            t1.currentNumber = railSize - 1;
+          } else {
+            last = t1.end;
+            t1.currentNumber = 0;
+            t1.forward = true;
+          }
+        } else {
+          last = railList[t1.currentNumber].start;
+          t1.currentNumber--;
+        }
+        t1.start = t1.end;
+        t1.end = last;
+        t1.recalculate();
+      }
+       
+        
+        else if (t1.waiting > 0) {
+        System.out.println("T: waiting");
         t1.waiting--;
         if (t1.waiting == 130) {
           t1.deboardPassenger();
@@ -124,13 +198,13 @@ public class TrainLine { //<>// //<>// //<>// //<>//
           t1.deboardPassenger();
         }
         if (t1.waiting == 70) {
-          t1.boardPassenger(); //<>//
+          t1.boardPassenger();
         }
         if (t1.waiting == 60) {
           t1.boardPassenger();
         }
-        if (t1.waiting == 50) { //<>//
-          t1.boardPassenger(); //<>//
+        if (t1.waiting == 50) {
+          t1.boardPassenger();
         }
         if (t1.waiting == 40) {
           t1.boardPassenger();
@@ -145,65 +219,12 @@ public class TrainLine { //<>// //<>// //<>// //<>//
         //passengers board here
         if (t1.waiting == 0) {
           t1.traveling = true;
-          t1.soFar = 0;
+          //t1.soFar = 0;
+          //t1.dist = 0;
         }
       }
-      /*
-      }else if(t1.end.hasNext()){
-       trainList[i].paint();
-       t1.start.xcor = t1.end.xcor;
-       t1.start.ycor = t1.end.ycor;
-       t1.end.xcor = t1.end.next().end.getXcor();
-       t1.end.ycor = t1.end.next().end.getYcor();
-       t1.recalculate();
-       }else {
-       trainList[i].paint();
-       float temp1 = t1.start.xcor;
-       float temp2 = t1.start.ycor;
-       t1.start.xcor = t1.end.xcor;
-       t1.start.ycor = t1.end.ycor;
-       t1.end.xcor = temp1;
-       t1.end.ycor = temp2;
-       */
-      else if (t1.forward) {  
-        Station next;
-        if (t1.currentNumber == railSize) {
-          if (this.loop) {
-            next = railList[0].start;
-            t1.currentNumber = 0;
-          } else {
-            next = t1.start;
-            t1.currentNumber = railSize - 1;
-            t1.forward = false;
-          }
-        } else {
-          next = railList[t1.currentNumber].end;
-          t1.currentNumber++;
-        }
-        t1.start = t1.end;
-        t1.end = next;
-        t1.recalculate();
-      } else {
-        Station last;
-        if (t1.currentNumber == -1) {
-          if (this.loop) { 
-            last = railList[railSize - 1].end;
-            t1.currentNumber = railSize - 1;
-          } else {
-            last = t1.end;
-            t1.currentNumber = 0;
-            t1.forward = true;
-          }
-        } else {
-          last = railList[t1.currentNumber].start;
-          t1.currentNumber--;
-        }
-        t1.start = t1.end;
-        t1.end = last;
-        t1.recalculate();
-      }
-      //System.out.println(t1.forward + ":" + t1.currentNumber);
-    }
+      //System.out.println(t1.soFar);
+  }
   }
 
   public void growStation() {
