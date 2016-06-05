@@ -129,6 +129,7 @@ public class TrainLine { //<>// //<>// //<>// //<>// //<>//
 
 
       else if (t1.forward && t1.dist == 0) {  
+        //System.out.println("frfyheuiastkdghberjkyuikvdjlfgs'gyunredhjfsc,iyuferghbdbyugjfdcerfhbfcdcfrecrfgecrtgtgybvtbyhvert");
         //System.out.println("T: recalculate 1");
         Station next;
         if (t1.currentNumber == railSize) {
@@ -149,6 +150,7 @@ public class TrainLine { //<>// //<>// //<>// //<>// //<>//
         t1.recalculate();
         t1.deboardExtra = true;
       } else if (t1.dist == 0) {
+        //System.out.println("frfyheuiastkdghberjkyuikvdjlfgs'gyunredhjfsc,iyuferghbdbyugjfdcerfhbfcdcfrecrfgecrtgtgybvtbyhvert");
         Station last;
         //System.out.println("T: recalculate 2");
         if (t1.currentNumber == -1) {

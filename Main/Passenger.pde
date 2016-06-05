@@ -44,14 +44,16 @@ public class Passenger {
     Queue<Node> searcher = new LinkedList<Node>();
     ArrayList<Station> checkedStations = new ArrayList<Station>();
     checkedStations.add(x);
-    System.out.println("solve");
+    System.out.println("solve" + x.connects);
     searcher.add(new Node(x, null));
 
     while (searcher.peek().value.shape != this.shape) {
       for (int i = 0; i<searcher.peek().value.connectedStations.size(); i++) {
-        if (!checkedStations.contains(searcher.peek().value.connectedStations.get(i))) {
-          searcher.add(new Node (searcher.peek().value.connectedStations.get(i), searcher.peek()));
-          checkedStations.add(searcher.peek().value.connectedStations.get(i));
+        if (checkedStations.contains(searcher.peek().value.connectedStations.get(i))) {
+          //if(checkLoop(searcher.peek().value.connectedStations.get(i), searcher.peek().value)){
+            searcher.add(new Node (searcher.peek().value.connectedStations.get(i), searcher.peek()));
+          //}
+          checkedStations.add(searcher.peek().value.connectedStations.get(i));          
         }
       }
       searcher.remove();
@@ -64,6 +66,64 @@ public class Passenger {
     }
     return;
   }
+  
+  public boolean checkLoop(Station x, Station y){
+    System.out.println("yay");
+    TrainLine[] v = new TrainLine[5];
+    TrainLine[] w = new TrainLine[5];
+    for(int i = 0; i< x.connects.size(); i++){
+      v[i] = x.connects.get(i);
+    }
+    for(int i = 0; i< y.connects.size(); i++){
+      w[i] = y.connects.get(i);
+    }
+    TrainLine[] q = intersection(v,w);
+    return worksWithLoop(x, y, q);
+  }
+  
+  public TrainLine[] intersection(TrainLine[]x, TrainLine[]w){
+    TrainLine[]ans = new TrainLine[5];
+    int g = 0;
+    for(int i = 0; i<x.length;i++){
+      for(int k = 0; k<w.length; i++){
+         if(x[i] != null && w[k] != null){
+            if(x[i] == w[k] && x[i].loop){
+               ans[g] = x[i];
+               g++;
+            }
+         }
+      }
+    }
+    return ans;
+  }
+  
+  public boolean worksWithLoop(Station x, Station y, TrainLine[] z){
+    System.out.println("shit");
+    for(int i = 0; i<z.length; i++){
+      int forward = 0;
+        int backwords = 0;
+      for(int k = 0; k < z[i].trainSize && z[i] != null; k++){
+        if(z[i].trainList[k].forward){
+          forward++; 
+        }else{
+          backwords++; 
+        }
+        if(forward > 0 && backwords > 0){
+           return true; 
+        }else{
+           int first = findIndex(y, z[i]);
+           int second = findIndex(x, z[i]);
+           if(forward > 0 &&  first < second){
+              return true; 
+           }
+           if(backwords > 0 && second > first){
+              return true; 
+           }
+        }
+      }
+    }
+    return false;
+  } 
 
   /*
   public void solve(Station x) { //alternate that uses connected stations
