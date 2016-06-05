@@ -22,16 +22,16 @@ public class Passenger {
     solve (x, j);
     if (route != null) {
       ArrayList<Station> temp = new ArrayList<Station>();
-      System.out.println(currentStation);
-      System.out.println(route.get(0).xcor + " " + currentStation.xcor);
-      System.out.println(route.get(0).ycor + " " + currentStation.ycor);
+      //System.out.println(currentStation);
+      //System.out.println(route.get(0).xcor + " " + currentStation.xcor);
+      //System.out.println(route.get(0).ycor + " " + currentStation.ycor);
       if (route.get(0).xcor == currentStation.xcor && route.get(0).ycor == currentStation.ycor) {
         for (int i = 1; i < route.size(); i++) {
           temp.add(route.get(i));
         }
       }
       route = temp;
-      if (route.get(0).xcor == currentStation.xcor && route.get(0).ycor == currentStation.ycor) {
+      if (route.get(0) == currentStation) {
         for (int i = 1; i < route.size(); i++) {
           temp.add(route.get(i));
         }
@@ -49,11 +49,11 @@ public class Passenger {
 
     while (searcher.peek().value.shape != this.shape) {
       for (int i = 0; i<searcher.peek().value.connectedStations.size(); i++) {
-        if (checkedStations.contains(searcher.peek().value.connectedStations.get(i))) {
-          //if(checkLoop(searcher.peek().value.connectedStations.get(i), searcher.peek().value)){
+        if (!checkedStations.contains(searcher.peek().value.connectedStations.get(i))) {
+          if (checkLoop(searcher.peek().value.connectedStations.get(i), searcher.peek().value)) {
             searcher.add(new Node (searcher.peek().value.connectedStations.get(i), searcher.peek()));
-          //}
-          checkedStations.add(searcher.peek().value.connectedStations.get(i));          
+          }
+          checkedStations.add(searcher.peek().value.connectedStations.get(i));
         }
       }
       searcher.remove();
@@ -66,63 +66,80 @@ public class Passenger {
     }
     return;
   }
-  
-  public boolean checkLoop(Station x, Station y){
-    System.out.println("yay");
-    TrainLine[] v = new TrainLine[5];
-    TrainLine[] w = new TrainLine[5];
-    for(int i = 0; i< x.connects.size(); i++){
+
+  public boolean checkLoop(Station x, Station y) {
+    System.out.println("yay"); //<>//
+    TrainLine[] v = new TrainLine[10];
+    TrainLine[] w = new TrainLine[10];
+    System.out.println(x.connects.size());
+    //boolean t1 = false;
+    //boolean t2 = false;
+    for (int i = 0; i< x.connects.size(); i++) {
       v[i] = x.connects.get(i);
     }
-    for(int i = 0; i< y.connects.size(); i++){
+    for (int i = 0; i< y.connects.size(); i++) {
       w[i] = y.connects.get(i);
     }
-    TrainLine[] q = intersection(v,w);
+    TrainLine[] q = intersection(v, w);
+    System.out.println(q);
     return worksWithLoop(x, y, q);
   }
-  
-  public TrainLine[] intersection(TrainLine[]x, TrainLine[]w){
-    TrainLine[]ans = new TrainLine[5];
+
+  public TrainLine[] intersection(TrainLine[]x, TrainLine[]w) {
+    TrainLine[]ans = new TrainLine[10];
     int g = 0;
-    for(int i = 0; i<x.length;i++){
-      for(int k = 0; k<w.length; i++){
-         if(x[i] != null && w[k] != null){
-            if(x[i] == w[k] && x[i].loop){
-               ans[g] = x[i];
-               g++;
-            }
-         }
+    for (int i = 0; i<x.length; i++) {
+      for (int k = 0; k<w.length; k++) {
+        if (x[i] != null && w[k] != null) {
+          if (x[i] == w[k] && x[i].loop) {
+            ans[g] = x[i];
+            g++;
+            //System.out.println
+            //("Could not run the sketch (Target VM failed to initialize).For more information, read revisions.txt and Help ? Troubleshooting.");
+
+          }
+        }
       }
     }
     return ans;
   }
-  
-  public boolean worksWithLoop(Station x, Station y, TrainLine[] z){
-    System.out.println("shit");
-    for(int i = 0; i<z.length; i++){
+
+  public boolean worksWithLoop(Station x, Station y, TrainLine[] z) {
+    System.out.println("shi");
+    boolean train = false;
+    for (int i = 0; i<z.length; i++) {
       int forward = 0;
-        int backwords = 0;
-      for(int k = 0; k < z[i].trainSize && z[i] != null; k++){
-        if(z[i].trainList[k].forward){
-          forward++; 
-        }else{
-          backwords++; 
+      int backwords = 0;
+      for (int k = 0; z[i] != null && k < z[i].trainSize; k++) {
+        train = true;
+        if (z[i].trainList[k].forward) {
+          forward++;
+        } else {
+          backwords++;
         }
-        if(forward > 0 && backwords > 0){
-           return true; 
-        }else{
-           int first = findIndex(y, z[i]);
-           int second = findIndex(x, z[i]);
-           if(forward > 0 &&  first < second){
-              return true; 
-           }
-           if(backwords > 0 && second > first){
-              return true; 
-           }
+        if (forward < 0 && backwords < 0) {
+          return false;
+        } else {
+          int first = findIndex(y, z[i]);
+          int second = findIndex(x, z[i]);
+          if (forward > 0) {
+            if (second == 0) {
+              return first == z[i].stationSize - 1;
+            } else {
+              return first < second;
+            }
+          }
+          if (backwords > 0){
+            if (first == 0) {
+              return second == z[i].stationSize - 1;
+            } else {
+              return first > second;
+            }
+          }
         }
       }
     }
-    return false;
+    return z.length == 0 || !train;
   } 
 
   /*
