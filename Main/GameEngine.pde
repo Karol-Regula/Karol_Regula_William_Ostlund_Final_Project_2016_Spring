@@ -343,6 +343,8 @@ public class GameEngine {
     } else {
       this.hover(10, 40, 170, 200);
     }
+    drawPassengerRoutes();
+    drawPassengersOnTrains();
   }
 
   public void spawnStations() {//for now will add to existing trainline, but I want the stations that spawn to be unafiliated until the user connects them, we should discuss this in class

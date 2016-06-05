@@ -60,6 +60,7 @@ public class Passenger {
             searcher.add(new Node (searcher.peek().value.connectedStations.get(i), searcher.peek()));
             checkedStations.add(searcher.peek().value.connectedStations.get(i));
           }
+          //checkedStations.add(searcher.peek().value.connectedStations.get(i));
         }
       }
       searcher.remove();
