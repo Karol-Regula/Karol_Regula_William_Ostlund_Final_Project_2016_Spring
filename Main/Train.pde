@@ -10,6 +10,7 @@ public class Train implements Locatable {
   public float ycor;
   public int dist;//I think we should change this to float
   public float soFar;
+  public float soFarOriginal;
   public float angle;
   public int currentNumber;
   public color whatColor;
@@ -36,6 +37,7 @@ public class Train implements Locatable {
     traveling  = true; //true for now, determined by consrtuctor later
     dist = (int) Math.sqrt( (start.Txcor - end.Txcor) * (start.Txcor - end.Txcor) +  (start.Tycor - end.Tycor) * (start.Tycor - end.Tycor));//calculate distance between stations
     soFar = dist / 2;
+    soFarOriginal = soFar;
     currentNumber = 0;
     this.whatColor = whatColor;
     Passengers = new ArrayList<Passenger>();
@@ -48,14 +50,16 @@ public class Train implements Locatable {
       boolean board = false;
       int whichTested = 0;
       while (whichTested < start.Passengers.size() && board == false) {
-        if (start.Passengers.get(whichTested).route != null){
-        if (start.Passengers.get(whichTested).route.size() > 0 && start.Passengers.get(whichTested).route.get(0) == end) {
-          board = true;
-          //} else if (trainLine.typesHere.contains(start.Passengers.get(whichTested).shape)) {
-          //board = true;
+        if (start.Passengers.get(whichTested).route != null) {
+          if (start.Passengers.get(whichTested).route.size() > 0 && start.Passengers.get(whichTested).route.get(0) == end) {
+            board = true;
+            //} else if (trainLine.typesHere.contains(start.Passengers.get(whichTested).shape)) {
+            //board = true;
+          } else {
+            whichTested++;
+          }
         } else {
           whichTested++;
-        }
         }
       }
       if (whichTested < start.Passengers.size() && (board == true)) {
@@ -120,51 +124,52 @@ public class Train implements Locatable {
   // }
   //}
 
-public void setAngle() {
-  this.angle = atan((start.Tycor - end.Tycor)/(start.Txcor - end.Txcor));//Does not work when implemented, moved improperly, I think we should work on
-}
+  public void setAngle() {
+    this.angle = atan((start.Tycor - end.Tycor)/(start.Txcor - end.Txcor));//Does not work when implemented, moved improperly, I think we should work on
+  }
 
-public void sha() {
-  float ang = atan(0.5);
-  float dist = (float)Math.sqrt(15*15 + 7.5 * 7.5);
-  s = createShape();
-  s.beginShape();
-  s.vertex((float)(xcor + dist * Math.cos(angle + ang) + 7.5), (float)(ycor + dist*Math.sin(angle+ang)) + 7.5);
-  s.vertex((float)(xcor + dist * Math.cos(angle - ang) + 7.5), (float)(ycor + dist*Math.sin(angle-ang)) + 7.5);
-  s.vertex((float)(xcor - dist * Math.cos(angle + ang) + 7.5), (float)(ycor - dist*Math.sin(angle+ang)) + 7.5);
-  s.vertex((float)(xcor - dist * Math.cos(angle - ang) + 7.5), (float)(ycor - dist*Math.sin(angle-ang)) + 7.5);
-  s.vertex((float)(xcor + dist * Math.cos(angle + ang) + 7.5), (float)(ycor + dist*Math.sin(angle+ang)) + 7.5);
-  s.endShape();
-}
+  public void sha() {
+    float ang = atan(0.5);
+    float dist = (float)Math.sqrt(15*15 + 7.5 * 7.5);
+    s = createShape();
+    s.beginShape();
+    s.vertex((float)(xcor + dist * Math.cos(angle + ang) + 7.5), (float)(ycor + dist*Math.sin(angle+ang)) + 7.5);
+    s.vertex((float)(xcor + dist * Math.cos(angle - ang) + 7.5), (float)(ycor + dist*Math.sin(angle-ang)) + 7.5);
+    s.vertex((float)(xcor - dist * Math.cos(angle + ang) + 7.5), (float)(ycor - dist*Math.sin(angle+ang)) + 7.5);
+    s.vertex((float)(xcor - dist * Math.cos(angle - ang) + 7.5), (float)(ycor - dist*Math.sin(angle-ang)) + 7.5);
+    s.vertex((float)(xcor + dist * Math.cos(angle + ang) + 7.5), (float)(ycor + dist*Math.sin(angle+ang)) + 7.5);
+    s.endShape();
+  }
 
-public void paint() {
-  //System.out.println(xcor + " " + ycor);
-  //pushMatrix();
-  //translate(-xcor + 10, -ycor + 5);
-  //rotate(-angle);
-  //rect(xcor, ycor, 30, 15);
-  //popMatrix();
-  fill(whatColor);
-  this.sha();//need to chnage facing direction later
-  shape(s);
-  fill(50);
-  //pushMatrix();
-  //rotate(angle);
-  //popMatrix();
+  public void paint() {
+    //System.out.println(xcor + " " + ycor);
+    //pushMatrix();
+    //translate(-xcor + 10, -ycor + 5);
+    //rotate(-angle);
+    //rect(xcor, ycor, 30, 15);
+    //popMatrix();
+    fill(whatColor);
+    this.sha();//need to chnage facing direction later
+    shape(s);
+    fill(50);
+    //pushMatrix();
+    //rotate(angle);
+    //popMatrix();
 
-  //popMatrix();
-  //translate(xcor - 10, ycor - 5);
-  //pushMatrix();
-  //rotate(-angle);
-  //popMatrix();
-  //popMatrix();
-  //rotate(-1*this.getAngle(start));
-}
+    //popMatrix();
+    //translate(xcor - 10, ycor - 5);
+    //pushMatrix();
+    //rotate(-angle);
+    //popMatrix();
+    //popMatrix();
+    //rotate(-1*this.getAngle(start));
+  }
 
-public void recalculate() {
-  dist = (int) Math.sqrt( (start.Txcor - end.Txcor) * (start.Txcor - end.Txcor) +  (start.Tycor - end.Tycor) * (start.Tycor - end.Tycor));//calculate distance between stations
-  soFar = dist / 2;
-  setAngle();
-  //System.out.println(angle);
-}
+  public void recalculate() {
+    dist = (int) Math.sqrt( (start.Txcor - end.Txcor) * (start.Txcor - end.Txcor) +  (start.Tycor - end.Tycor) * (start.Tycor - end.Tycor));//calculate distance between stations
+    soFar = dist / 2;
+    soFarOriginal = soFar;
+    setAngle();
+    //System.out.println(angle);
+  }
 }

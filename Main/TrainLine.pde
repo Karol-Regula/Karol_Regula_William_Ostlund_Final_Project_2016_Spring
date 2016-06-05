@@ -85,7 +85,14 @@ public class TrainLine { //<>// //<>// //<>// //<>// //<>//
     for (int i = 0; i < trainSize; i++) {//chnage this after adding grow and size
       Train t1 = trainList[i];
       //System.out.println(t1.currentNumber);
-      if (t1.traveling && t1.soFar >= 20) {
+       if (t1.traveling && t1.soFarOriginal - t1.soFar < 40) {
+        System.out.println("T: accelerating");
+        t1.setAngle();
+        trainList[i].paint();
+        t1.xcor += (t1.end.Txcor - t1.xcor) / (double)(t1.soFar) * ((t1.soFarOriginal - t1.soFar) * (0.025));
+        t1.ycor += (t1.end.Tycor - t1.ycor) / (double)(t1.soFar) * ((t1.soFarOriginal - t1.soFar) * (0.025));
+        t1.soFar -= (41 - ((t1.soFarOriginal - t1.soFar))) * (0.03);
+      } else if (t1.traveling && t1.soFar >= 20) {
         //System.out.println("T: traveling");
         //System.out.println(t1. dist);
         t1.setAngle();
