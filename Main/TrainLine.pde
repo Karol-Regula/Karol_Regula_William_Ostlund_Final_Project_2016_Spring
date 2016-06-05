@@ -86,7 +86,7 @@ public class TrainLine { //<>// //<>// //<>// //<>// //<>//
       Train t1 = trainList[i];
       //System.out.println(t1.currentNumber);
        if (t1.traveling && t1.soFarOriginal - t1.soFar < 40) {
-        System.out.println("T: accelerating");
+        //System.out.println("T: accelerating");
         t1.setAngle();
         trainList[i].paint();
         t1.xcor += (t1.end.Txcor - t1.xcor) / (double)(t1.soFar) * ((t1.soFarOriginal - t1.soFar) * (0.025));

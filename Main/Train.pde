@@ -65,7 +65,7 @@ public class Train implements Locatable {
       if (whichTested < start.Passengers.size() && (board == true)) {
         Passengers.add(start.Passengers.remove(whichTested));
         capacity++;
-        System.out.println("board");
+        //System.out.println("board");
       }
     }
   }
@@ -75,7 +75,7 @@ public class Train implements Locatable {
   public void deboardPassenger() {
     if (deboardExtra) {
       deboardExtra = false;
-      System.out.println("DeboardExtra");
+      //System.out.println("DeboardExtra");
       for (int j = 0; j < Passengers.size(); j++) {
         Passengers.get(j).currentStation = start;
         Passengers.get(j).processed = false;
@@ -84,7 +84,7 @@ public class Train implements Locatable {
         }
       }
     }
-    System.out.println("deboard");
+    //System.out.println("deboard");
     //boolean removed = false;
     int i = 0;
     //cutting off a station of passenger's route 
@@ -103,12 +103,12 @@ public class Train implements Locatable {
 
         //if passenger needs to stay on train
       } else if (Passengers.get(i).route.get(0) == end) {
-        System.out.println("passenger staying on train"); 
+        //System.out.println("passenger staying on train"); 
         Passengers.get(i).processed = true;
 
         //if passenger needs to get off and wait for another train
       } else if (Passengers.get(i).shape != start.shape && Passengers.get(i).route.get(0) != end) {
-        System.out.println("deboarding and waiting passenger");
+//System.out.println("deboarding and waiting passenger");
         start.Passengers.add(0, Passengers.get(i));
         Passengers.remove(i);
         capacity--;

@@ -1,4 +1,4 @@
-import java.util.*;
+import java.util.*; //<>//
 
 public class Passenger {
 
@@ -26,13 +26,13 @@ public class Passenger {
       //System.out.println(currentStation);
       //System.out.println(route.get(0).xcor + " " + currentStation.xcor);
       //System.out.println(route.get(0).ycor + " " + currentStation.ycor);
-      if (route.get(0).xcor == currentStation.xcor && route.get(0).ycor == currentStation.ycor) {
+      if (route.size() != 0 && route.get(0).xcor == currentStation.xcor && route.get(0).ycor == currentStation.ycor) {
         for (int i = 1; i < route.size(); i++) {
           temp.add(route.get(i));
         }
       }
       route = temp;
-      if (route.get(0) == currentStation) {
+      if (!route.isEmpty() && route.get(0) == currentStation) {
         for (int i = 1; i < route.size(); i++) {
           temp.add(route.get(i));
         }
@@ -45,16 +45,21 @@ public class Passenger {
     Queue<Node> searcher = new LinkedList<Node>();
     ArrayList<Station> checkedStations = new ArrayList<Station>();
     checkedStations.add(x);
-    System.out.println("solve" + x.connects);
+    //System.out.println("solve" + x.connects);
     searcher.add(new Node(x, null));
 
     while (searcher.peek().value.shape != this.shape) {
       for (int i = 0; i<searcher.peek().value.connectedStations.size(); i++) {
         if (!checkedStations.contains(searcher.peek().value.connectedStations.get(i))) {
+          boolean emf = checkLoop(searcher.peek().value.connectedStations.get(i), searcher.peek().value);
+          for(int d = 0; d < 1; d++){
+            
+         System.out.println(emf);
+         }
           if (checkLoop(searcher.peek().value.connectedStations.get(i), searcher.peek().value)) {
             searcher.add(new Node (searcher.peek().value.connectedStations.get(i), searcher.peek()));
+            checkedStations.add(searcher.peek().value.connectedStations.get(i));
           }
-          checkedStations.add(searcher.peek().value.connectedStations.get(i));
         }
       }
       searcher.remove();
@@ -64,16 +69,18 @@ public class Passenger {
     }
     if (!searcher.isEmpty()) {
       setRoute(searcher.peek());
-    }
+    }/*else{
+     route.add(this.currentStation); 
+     }*/
     return;
   }
 
   public boolean checkLoop(Station x, Station y) {
     tem = false;
-    System.out.println("yay"); //<>//
+     //System.out.println("yay");
     TrainLine[] v = new TrainLine[10];
     TrainLine[] w = new TrainLine[10];
-    System.out.println(x.connects.size());
+    //System.out.println(x.connects.size());
     //boolean t1 = false;
     //boolean t2 = false;
     for (int i = 0; i< x.connects.size(); i++) {
@@ -83,7 +90,7 @@ public class Passenger {
       w[i] = y.connects.get(i);
     }
     TrainLine[] q = intersection(v, w);
-    System.out.println(q);
+    //System.out.println(q);
     return tem || worksWithLoop(x, y, q);
   }
 
@@ -94,13 +101,16 @@ public class Passenger {
       for (int k = 0; k<w.length; k++) {
         if (x[i] != null && w[k] != null) {
           if (x[i] == w[k] && x[i].loop) {
+            //for(int d = 0; d < 200; d++){
+            //System.out.println("fretghbn");
+            //}
             ans[g] = x[i];
             g++;
             //System.out.println
             //("Could not run the sketch (Target VM failed to initialize).For more information, read revisions.txt and Help ? Troubleshooting.");
-
-          }else if (x[i] == w[k] && !x[i].loop){
+          } else if (x[i] == w[k] && !x[i].loop) {
             tem = true;
+            //return ans;
           }
         }
       }
@@ -109,9 +119,9 @@ public class Passenger {
   }
 
   public boolean worksWithLoop(Station x, Station y, TrainLine[] z) {
-    System.out.println("shi");
+    //System.out.println("shi");
     boolean train = false;
-    for (int i = 0; i<z.length; i++) {
+    for (int i = 0; i < z.length; i++) {
       int forward = 0;
       int backwords = 0;
       for (int k = 0; z[i] != null && k < z[i].trainSize; k++) {
@@ -123,19 +133,21 @@ public class Passenger {
         }
         if (forward < 0 && backwords < 0) {
           return false;
+        } else if (forward> 0 && backwords > 0) {
+          return true;
         } else {
           int first = findIndex(y, z[i]);
           int second = findIndex(x, z[i]);
           if (forward > 0) {
             if (second == 0) {
-              return first == z[i].stationSize - 1;
+              return first == (z[i].stationSize - 1);
             } else {
               return first < second;
             }
           }
-          if (backwords > 0){
+          if (backwords > 0) {
             if (first == 0) {
-              return second == z[i].stationSize - 1;
+              return second == (z[i].stationSize - 1);
             } else {
               return first > second;
             }
@@ -143,7 +155,7 @@ public class Passenger {
         }
       }
     }
-    return z.length == 0 || !train;
+    return z.length == 0;// || !train;
   } 
 
   /*
@@ -213,16 +225,16 @@ public class Passenger {
   public boolean notChosen(TrainLine l, ArrayList<TrainLine> k) {
     for (int i = 0; i< k.size(); i++) {
       if (l == k.get(i)) {
-        System.out.println("notChosen: false");
+        //System.out.println("notChosen: false");
         return false;
       }
     }
-    System.out.println("notChosen: true");
+    //System.out.println("notChosen: true");
     return true;
   }
 
   public void setRoute(Node k) {
-    System.out.println("setRoute");
+    //System.out.println("setRoute");
     route = new ArrayList<Station>();
     while (route.size() > 0) {
       route.remove(0);

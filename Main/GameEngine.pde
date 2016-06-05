@@ -92,7 +92,7 @@ public class GameEngine {
     //all duplicate Rails are now groups in an ArrayList of ArrayLists
     for (int i = 0; i < duplicateRailGroups.size(); i++) {
       if (duplicateRailGroups.get(i).size() == 2) {
-        System.out.println("Repeating rails: 2"); 
+        //System.out.println("Repeating rails: 2"); 
 
         //the most important part
         float xOff = abs(duplicateRailGroups.get(i).get(0).start.xcor - duplicateRailGroups.get(i).get(0).end.xcor); //difference in x between stations
@@ -176,17 +176,17 @@ public class GameEngine {
     for (int i = 0; i < masterSize; i++) {
       for (int j = 0; j < masterStationList[i].Passengers.size(); j++) {
         masterStationList[i].Passengers.get(j).solve(masterStationList[i].Passengers.get(j).currentStation);
-        System.out.println("--------------------------------------------");
-        System.out.println("Passenger number " + j + " in Station " + masterStationList[i].toString() + ".");
+        //System.out.println("--------------------------------------------");
+        //System.out.println("Passenger number " + j + " in Station " + masterStationList[i].toString() + ".");
         if (masterStationList[i].Passengers.get(j).route != null) {
-          System.out.println("ROUTE");
+          //System.out.println("ROUTE");
           for (int k = 0; k < masterStationList[i].Passengers.get(j).route.size(); k++) {
-            System.out.println(masterStationList[i].Passengers.get(j).route.get(k));
+            //System.out.println(masterStationList[i].Passengers.get(j).route.get(k));
           }
         } else {
-          System.out.println("Route is null.");
+          //System.out.println("Route is null.");
         }
-        System.out.println("----------------------------------------------------------------------------");
+        //System.out.println("----------------------------------------------------------------------------");
       }
     }
   }
@@ -273,12 +273,15 @@ public class GameEngine {
         }
         this.masterStationList[x].connections[this.currentNumber]++; 
         this.masterStationList[y].connections[this.currentNumber]++; 
+        //this.TrainLines[this.currentNumber].stationSize++;
         x=-1; 
         y=-1;
       }
     } else {
       this.hover(10, 40, 240, 270);
     }
+    drawPassengerRoutes();
+    drawPassengersOnTrains();
   }
 
   public void findRail() {
