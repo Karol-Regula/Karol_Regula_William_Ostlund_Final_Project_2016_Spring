@@ -11,6 +11,7 @@ public class Passenger {
   public PShape avatar;
   public ArrayList<Station> route;
   public boolean processed;
+  public boolean tem = false;
 
   public Passenger(int shape) {
     this.shape = shape;
@@ -68,6 +69,7 @@ public class Passenger {
   }
 
   public boolean checkLoop(Station x, Station y) {
+    tem = false;
     System.out.println("yay"); //<>//
     TrainLine[] v = new TrainLine[10];
     TrainLine[] w = new TrainLine[10];
@@ -82,7 +84,7 @@ public class Passenger {
     }
     TrainLine[] q = intersection(v, w);
     System.out.println(q);
-    return worksWithLoop(x, y, q);
+    return tem || worksWithLoop(x, y, q);
   }
 
   public TrainLine[] intersection(TrainLine[]x, TrainLine[]w) {
@@ -97,6 +99,8 @@ public class Passenger {
             //System.out.println
             //("Could not run the sketch (Target VM failed to initialize).For more information, read revisions.txt and Help ? Troubleshooting.");
 
+          }else if (x[i] == w[k] && !x[i].loop){
+            tem = true;
           }
         }
       }

@@ -10,17 +10,41 @@ public boolean removingRail = false;
 public int x = -1;
 public int y = -1;
 public boolean loop;
+public int state = 1;
 
-void setup() {
+void setup1() {
+
   size = 40;
   frameRate(60);
   size(1280, 720);//window size
-  background(0, 0, 0);//background color
+  background(0, 0, 0);
+}
+
+void menu() {
+  background(255, 255, 230);
+  fill(0);
+  PFont p1 = createFont("Souvenir Bold.ttf", 14);
+  textFont(p1);
+  textSize(64);
+  text("Mini Metro", 450, 200);
+  textSize(32);
+  text("A Computer Science Project by Karol Regula and Will Ostlund", 100, 250);
+  textSize(72);
+  text("Start", 540, 400);
+  textSize(48);
+  text("Instructions", 500, 525);
+}
+
+void setup() {
+  //background color
   //noStroke();//disables border
   //mode?
   //lines[0] = t1;
   //g1.TrainLines = lines;
-  g1.trainLineSize = 5;
+  size = 40;
+  frameRate(60);
+  size(1280, 720);//window size
+  background(0, 0, 0);  g1.trainLineSize = 5;
   g1.cycleLines();
   g1.cycleLines();
   g1.cycleLines();
@@ -45,93 +69,98 @@ void setup() {
 }
 
 void draw() {
-  background(255, 255, 230);
-  //mouseClicked();
-  for (int i = 0; i < g1.trainLineSize; i++) {
-    //if (mousePressed){
-    //lines[i].lineSetup();
-    //lines[i].addStation(mouseX, mouseY);
-    //}
-    g1.TrainLines[i].drawRails();
-    g1.TrainLines[i].drawStations();
+  if (state == 0) {
+    menu();
   }
-  g1.drawDuplicateRails();
-  for (int i = 0; i < g1.trainLineSize; i++) {
-    g1.TrainLines[i].moveTrains();
-    if (g1.TrainLines[i].typesHere.size() > 0) {
-      //System.out.println(g1.TrainLines[i].typesHere.get(0));
+  if (state == 1) {
+    background(255, 255, 230);
+    //mouseClicked();
+    for (int i = 0; i < g1.trainLineSize; i++) {
+      //if (mousePressed){
+      //lines[i].lineSetup();
+      //lines[i].addStation(mouseX, mouseY);
+      //}
+      g1.TrainLines[i].drawRails();
+      g1.TrainLines[i].drawStations();
     }
+    g1.drawDuplicateRails();
+    for (int i = 0; i < g1.trainLineSize; i++) {
+      g1.TrainLines[i].moveTrains();
+      if (g1.TrainLines[i].typesHere.size() > 0) {
+        //System.out.println(g1.TrainLines[i].typesHere.get(0));
+      }
+    }
+    for (int i = 0; i < g1.masterSize; i++) {
+      g1.masterStationList[i].reloadStopHere();
+    }
+    g1.spawnStations();
+    g1.drawPassengersOnTrains();
+    g1.drawStations();//draws unconnected stations
+    g1.spawnPassengers();
+    g1.drawPassengers();
+    g1.drawPassengerRoutes();
+    g1.drawExtra();
+
+
+    //g1.spawnStations();
+    g1.hover(10, 40, 30, 70);
+    //rect(10, 30, 30, 30);
+    fill(50);
+    strokeWeight(3);
+    //text("New TrainLine", 50, 50);
+
+    PFont p1 = createFont("Souvenir Bold.ttf", 14);
+    //System.out.println(p1.list());
+    textFont(p1);
+    textSize(20);
+    text("HighScore: "+ g1.highScore, 20, 70);
+    textSize(14);
+
+
+    g1.hover(10, 40, 100, 130);
+
+    fill(g1.currentColor);
+    rect(10, 100, 30, 30);
+    fill(50);
+
+    text("Cycle Lines: " + g1.currentNumber, 50, 120);
+    if (removingRail) {
+      fill(10);
+      g1.findRail();
+    } else {
+      g1.hover(10, 40, 170, 200);
+    }
+    //System.out.println(mouseClick);
+    rect(10, 170, 30, 30);
+    fill(50);
+    text("Remove Rail", 50, 190);
+    fill(0, 225, 225);
+
+    fill(50);
+    text("Number of TrainLines: " + g1.trainLineSize, 15, 22);
+    g1.printText();
+
+    g1.detectRail();//moved out of draw ino function in GameEngine
+    rect(10, 240, 30, 30);
+    fill(50);
+    text("Add Rail", 50, 260);
+    g1.hover(10, 40, 310, 340);
+
+    //createTrain
+    rect(10, 310, 30, 30);
+    fill(50);
+    text("Spawn Train", 50, 330);
+    fill(0, 225, 225);
+
+    //pause button
+    g1.hover(1230, 1260, 10, 40);
+    rect(1230, 10, 10, 30);
+    rect(1250, 10, 10, 30);
+
+
+    strokeWeight(1);
+    g1.railCheck(g1.currentNumber);
   }
-  for (int i = 0; i < g1.masterSize; i++) {
-    g1.masterStationList[i].reloadStopHere();
-  }
-  g1.spawnStations();
-  g1.drawPassengersOnTrains();
-  g1.drawStations();//draws unconnected stations
-  g1.spawnPassengers();
-  g1.drawPassengers();
-  g1.drawPassengerRoutes();
-  g1.drawExtra();
-
-
-  //g1.spawnStations();
-  g1.hover(10, 40, 30, 70);
-  //rect(10, 30, 30, 30);
-  fill(50);
-  strokeWeight(3);
-  //text("New TrainLine", 50, 50);
-
-  PFont p1 = createFont("Souvenir Bold.ttf", 14);
-  //System.out.println(p1.list());
-  textFont(p1);
-  textSize(20);
-  text("HighScore: "+ g1.highScore, 20, 70);
-  textSize(14);
-
-
-  g1.hover(10, 40, 100, 130);
-
-  fill(g1.currentColor);
-  rect(10, 100, 30, 30);
-  fill(50);
-
-  text("Cycle Lines: " + g1.currentNumber, 50, 120);
-  if (removingRail) {
-    fill(10);
-    g1.findRail();
-  } else {
-    g1.hover(10, 40, 170, 200);
-  }
-  //System.out.println(mouseClick);
-  rect(10, 170, 30, 30);
-  fill(50);
-  text("Remove Rail", 50, 190);
-  fill(0, 225, 225);
-
-  fill(50);
-  text("Number of TrainLines: " + g1.trainLineSize, 15, 22);
-  g1.printText();
-
-  g1.detectRail();//moved out of draw ino function in GameEngine
-  rect(10, 240, 30, 30);
-  fill(50);
-  text("Add Rail", 50, 260);
-  g1.hover(10, 40, 310, 340);
-
-  //createTrain
-  rect(10, 310, 30, 30);
-  fill(50);
-  text("Spawn Train", 50, 330);
-  fill(0, 225, 225);
-
-  //pause button
-  g1.hover(1230, 1260, 10, 40);
-  rect(1230, 10, 10, 30);
-  rect(1250, 10, 10, 30);
-
-
-  strokeWeight(1);
-  g1.railCheck(g1.currentNumber);
 }
 
 void mouseClicked() {
