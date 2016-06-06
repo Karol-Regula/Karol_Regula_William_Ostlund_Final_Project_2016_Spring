@@ -51,11 +51,11 @@ public class Passenger {
     while (searcher.peek().value.shape != this.shape) {
       for (int i = 0; i<searcher.peek().value.connectedStations.size(); i++) {
         if (!checkedStations.contains(searcher.peek().value.connectedStations.get(i))) {
-          boolean emf = checkLoop(searcher.peek().value.connectedStations.get(i), searcher.peek().value);
-          for(int d = 0; d < 1; d++){
+          //boolean emf = checkLoop(searcher.peek().value.connectedStations.get(i), searcher.peek().value);
+          //for(int d = 0; d < 1; d++){
             
-         System.out.println(emf);
-         }
+         //System.out.println(emf);
+         //}
           if (checkLoop(searcher.peek().value.connectedStations.get(i), searcher.peek().value)) {
             searcher.add(new Node (searcher.peek().value.connectedStations.get(i), searcher.peek()));
             checkedStations.add(searcher.peek().value.connectedStations.get(i));

@@ -12,9 +12,11 @@ public int y = -1;
 public boolean loop;
 public int state = 0;
 public boolean ok = false;
+public PFont p1;
 
 void setup() {
-
+  
+  p1 = createFont("Souvenir Bold.ttf", 14); 
   size = 40;
   frameRate(60);
   size(1280, 720);//window size
@@ -24,7 +26,7 @@ void setup() {
 void menu() {
   background(255, 255, 230);
   fill(0);
-  PFont p1 = createFont("Souvenir Bold.ttf", 14);
+  //PFont p1 = createFont("Souvenir Bold.ttf", 14);
   textFont(p1);
   textSize(64);
   text("Mini Metro", 450, 200);
@@ -83,7 +85,7 @@ void setup1() {
 void instructions() {
   background(255, 255, 230);
   fill(0);
-  PFont p1 = createFont("Souvenir Bold.ttf", 14);
+  //PFont p1 = createFont("Souvenir Bold.ttf", 14);
   textFont(p1);
   textSize(64);
   text("Instructions", 450, 100);
@@ -145,9 +147,8 @@ void draw() {
     fill(50);
     strokeWeight(3);
     //text("New TrainLine", 50, 50);
-
-    PFont p1 = createFont("Souvenir Bold.ttf", 14);
     //System.out.println(p1.list());
+    //PFont p1 = createFont("Souvenir Bold.ttf", 14);
     textFont(p1);
     textSize(20);
     text("HighScore: "+ g1.highScore, 20, 70);
