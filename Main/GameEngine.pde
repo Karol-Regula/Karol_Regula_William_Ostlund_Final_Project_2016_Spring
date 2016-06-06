@@ -12,7 +12,8 @@ public class GameEngine {
   public color currentColor;
   public int currentNumber;
   public int highScore;
-  public int level
+  public int level;
+  public int trains;
 
 
   public GameEngine() {
@@ -32,6 +33,7 @@ public class GameEngine {
     masterStationList = new Station[10000]; //fix array resizing when this works
     size = 1;
     highScore = 0;
+    trains = 5;
   }
 
   public void drawExtra() {
@@ -395,7 +397,8 @@ public class GameEngine {
   }
 
   public void spawnTrain() {
-    if (currentLine.railSize > 0) {    
+    if (currentLine.railSize > 0 && trains > 0) {
+      trains--;
       currentLine.createTrain();
     }
   }
@@ -476,6 +479,8 @@ public class GameEngine {
   public void levelUp(){
     if(this.highScore%75 == 0 && level == highScore/75){
        state = 5;
+       trains+=2;
+       level++;
     }
   }
 }                         

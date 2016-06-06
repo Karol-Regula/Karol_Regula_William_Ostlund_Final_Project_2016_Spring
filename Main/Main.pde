@@ -23,6 +23,30 @@ void setup() {
   background(0, 0, 0);
 }
 
+void levels() {
+  
+  background(255, 255, 230);
+ Operations s = new Operations();
+ 
+ textFont(p1);
+ textSize(32);
+ fill(0);
+ text("Congratulations, you have now reached level "+g1.level +"!", 225, 200);
+ text("You may now use " + g1.trains + " trains", 400, 250);
+ fill(0);
+ if(s.dist(640, 400) < 100){
+   ellipse(640, 400, 225, 225);
+   fill(255);
+   textSize(40);
+   text("Continue", 550, 412);
+ }else{
+   ellipse(640, 400, 200, 200);
+   fill(255);
+   textSize(32);
+   text("Continue", 570, 410);
+ }
+}
+
 void menu() {
   background(255, 255, 230);
   fill(0);
@@ -111,7 +135,9 @@ void draw() {
     menu();
   } else if (state == 2) {
     instructions();
-  } else if (state == 1) {
+  }else if(state == 5){
+    levels(); 
+  }else if (state == 1) {
     background(255, 255, 230);
     //mouseClicked();
     for (int i = 0; i < g1.trainLineSize; i++) {
@@ -152,6 +178,8 @@ void draw() {
     textFont(p1);
     textSize(20);
     text("HighScore: "+ g1.highScore, 20, 70);
+    text("Level: " + g1.level, 200, 70);
+    text("Trains Available: " + g1.trains, 10, 390);
     textSize(14);
 
 
@@ -188,7 +216,9 @@ void draw() {
     rect(10, 310, 30, 30);
     fill(50);
     text("Spawn Train", 50, 330);
+    
     fill(0, 225, 225);
+    
 
     //pause button
     g1.hover(1230, 1260, 10, 40);
@@ -198,6 +228,7 @@ void draw() {
 
     strokeWeight(1);
     g1.railCheck(g1.currentNumber);
+    g1.levelUp();
   }
 }
 
@@ -215,6 +246,12 @@ void mouseClicked() {
     }
     if (mouseX > 475 && mouseY > 495 && mouseX < 825 && mouseY < 530) {
       state = 2;
+    }
+  }
+  if(state == 5){
+    Operations s = new Operations();
+    if(s.dist(640, 400) < 100){
+      state = 1;
     }
   }
   if(state == 2){
