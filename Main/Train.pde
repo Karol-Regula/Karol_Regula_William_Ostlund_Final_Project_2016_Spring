@@ -53,8 +53,8 @@ public class Train implements Locatable {
         if (start.Passengers.get(whichTested).route != null) {
           if (start.Passengers.get(whichTested).route.size() > 0 && start.Passengers.get(whichTested).route.get(0) == end) {
             board = true;
-            //} else if (trainLine.typesHere.contains(start.Passengers.get(whichTested).shape)) {
-            //board = true;
+          } else if (trainLine.typesHere.contains(start.Passengers.get(whichTested).shape) && trainLine.loop) {
+            board = true;
           } else {
             whichTested++;
           }
@@ -108,7 +108,7 @@ public class Train implements Locatable {
 
         //if passenger needs to get off and wait for another train
       } else if (Passengers.get(i).shape != start.shape && Passengers.get(i).route.get(0) != end) {
-//System.out.println("deboarding and waiting passenger");
+        //System.out.println("deboarding and waiting passenger");
         start.Passengers.add(0, Passengers.get(i));
         Passengers.remove(i);
         capacity--;

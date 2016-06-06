@@ -176,17 +176,17 @@ public class GameEngine {
     for (int i = 0; i < masterSize; i++) {
       for (int j = 0; j < masterStationList[i].Passengers.size(); j++) {
         masterStationList[i].Passengers.get(j).solve(masterStationList[i].Passengers.get(j).currentStation);
-        //System.out.println("--------------------------------------------");
-        //System.out.println("Passenger number " + j + " in Station " + masterStationList[i].toString() + ".");
+        System.out.println("--------------------------------------------");
+        System.out.println("Passenger number " + j + " in Station " + masterStationList[i].toString() + ".");
         if (masterStationList[i].Passengers.get(j).route != null) {
-          //System.out.println("ROUTE");
+          System.out.println("ROUTE");
           for (int k = 0; k < masterStationList[i].Passengers.get(j).route.size(); k++) {
-            //System.out.println(masterStationList[i].Passengers.get(j).route.get(k));
+            System.out.println(masterStationList[i].Passengers.get(j).route.get(k));
           }
         } else {
-          //System.out.println("Route is null.");
+          System.out.println("Route is null.");
         }
-        //System.out.println("----------------------------------------------------------------------------");
+        System.out.println("----------------------------------------------------------------------------");
       }
     }
   }

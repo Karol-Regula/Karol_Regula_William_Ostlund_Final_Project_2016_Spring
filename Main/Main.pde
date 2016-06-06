@@ -137,7 +137,7 @@ void draw() {
     g1.drawStations();//draws unconnected stations
     g1.spawnPassengers();
     g1.drawPassengers();
-    g1.drawPassengerRoutes();
+    //g1.drawPassengerRoutes();
     g1.drawExtra();
 
 
