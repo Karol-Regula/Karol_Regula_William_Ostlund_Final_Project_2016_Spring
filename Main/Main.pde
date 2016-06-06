@@ -10,9 +10,10 @@ public boolean removingRail = false;
 public int x = -1;
 public int y = -1;
 public boolean loop;
-public int state = 1;
+public int state = 0;
+public boolean ok = false;
 
-void setup1() {
+void setup() {
 
   size = 40;
   frameRate(60);
@@ -29,13 +30,23 @@ void menu() {
   text("Mini Metro", 450, 200);
   textSize(32);
   text("A Computer Science Project by Karol Regula and Will Ostlund", 100, 250);
-  textSize(72);
-  text("Start", 540, 400);
-  textSize(48);
-  text("Instructions", 500, 525);
+  if (mouseX > 525 && mouseY > 320 && mouseX < 740 && mouseY < 410) {
+    textSize(80);
+    text("Start", 535, 403);
+  } else {
+    textSize(72); 
+    text("Start", 540, 400);
+  }
+  if (mouseX > 475 && mouseY > 495 && mouseX < 825 && mouseY < 530) {
+    textSize(54);
+    text("Instructions", 490, 528);
+  } else {
+    textSize(48); 
+    text("Instructions", 500, 525);
+  }
 }
 
-void setup() {
+void setup1() {
   //background color
   //noStroke();//disables border
   //mode?
@@ -44,7 +55,8 @@ void setup() {
   size = 40;
   frameRate(60);
   size(1280, 720);//window size
-  background(0, 0, 0);  g1.trainLineSize = 5;
+  background(0, 0, 0);  
+  g1.trainLineSize = 5;
   g1.cycleLines();
   g1.cycleLines();
   g1.cycleLines();
@@ -68,7 +80,7 @@ void setup() {
   loop = true;
 }
 
-void instructions(){
+void instructions() {
   background(255, 255, 230);
   fill(0);
   PFont p1 = createFont("Souvenir Bold.ttf", 14);
@@ -83,15 +95,21 @@ void instructions(){
   text("of the corresponding shape", 100, 400);
   text("4. To add or remove a rail, press the button (this will be obvious due labeling)", 100, 450);
   text("and click on the two stations between which you want the rail to be created/removed", 100, 500);
-  textSize(72);
-  text("Start", 540, 600);
+  if (mouseX > 525 && mouseY > 520 && mouseX < 740 && mouseY < 610) {
+    textSize(80);
+    text("Start", 535, 603);
+  } else {
+    textSize(72); 
+    text("Start", 540, 600);
+  }
 }
 
 void draw() {
   if (state == 0) {
+    menu();
+  } else if (state == 2) {
     instructions();
-  }
-  if (state == 1) {
+  } else if (state == 1) {
     background(255, 255, 230);
     //mouseClicked();
     for (int i = 0; i < g1.trainLineSize; i++) {
@@ -182,71 +200,94 @@ void draw() {
   }
 }
 
+void mouseReleased(){
+  if(state == 2){
+    ok = true; 
+  }
+}
+
 void mouseClicked() {
-  if (mouseX > 10 && mouseX < 40 && mouseY > 30 && mouseY < 70) {
-    //I think the User should add a station here, I think its time we switch to a manual user interface rather than 
+  if (state == 0) {
+    if (mouseX > 525 && mouseY > 320 && mouseX < 740 && mouseY < 410) {
+      state = 1;
+      setup1();
+    }
+    if (mouseX > 475 && mouseY > 495 && mouseX < 825 && mouseY < 530) {
+      state = 2;
+    }
+  }
+  if(state == 2){
+      if (mouseX > 525 && mouseY > 520 && mouseX < 740 && mouseY < 610 && ok) {
+        state = 1;
+        setup1();
+      }
+  }
+  if (state == 1) {
+    if (mouseX > 10 && mouseX < 40 && mouseY > 30 && mouseY < 70) {
+      //I think the User should add a station here, I think its time we switch to a manual user interface rather than 
 
-    //TrainLine t1 = new TrainLine(color( (int)(Math.random() * 255), (int)(Math.random() * 255), (int)(Math.random() * 255) ));
-    //g1.TrainLines[g1.trainLineSize] = t1;
-    //g1.trainLineSize++;
-    //textSize(12);
-    //g1.addText("New TrainLine has been created.", 200, 30);
-    //g1.holdText = 300;
-  }
-  if (mouseX > 10 && mouseX < 40 && mouseY > 100 && mouseY < 130) {
-    g1.cycleLines();
-  }
-  if (mouseX > 10 && mouseX < 40 && mouseY > 170 && mouseY < 200) {
-    if (removingRail) {
-      removingRail = false;
-      for (int i = 0; i < g1.masterSize; i++) {
-        g1.masterStationList[i].selected = false;
-      }
-      x = -1;
-      y = -1;
-    } else {
-      mouseClickRail = false;
-      for (int i = 0; i < g1.masterSize; i++) {
-        g1.masterStationList[i].selected = false;
-      }
-      x = -1;
-      y = -1;
-      removingRail = true;
+      //TrainLine t1 = new TrainLine(color( (int)(Math.random() * 255), (int)(Math.random() * 255), (int)(Math.random() * 255) ));
+      //g1.TrainLines[g1.trainLineSize] = t1;
+      //g1.trainLineSize++;
+      //textSize(12);
+      //g1.addText("New TrainLine has been created.", 200, 30);
+      //g1.holdText = 300;
     }
-  }
-  if (mouseX > 10 && mouseX < 40 && mouseY > 240 && mouseY < 270) {
-    if (mouseClickRail) {
-      mouseClickRail = false;
-      for (int i = 0; i < g1.masterSize; i++) {
-        g1.masterStationList[i].selected = false;
-      }
-      x = -1;
-      y = -1;
-    } else {
-      removingRail = false;
-      for (int i = 0; i < g1.masterSize; i++) {
-        g1.masterStationList[i].selected = false;
-      }
-      x = -1;
-      y = -1;
-      mouseClickRail = true;
+    if (mouseX > 10 && mouseX < 40 && mouseY > 100 && mouseY < 130) {
+      g1.cycleLines();
     }
-  }
-  if (mouseX > 10 && mouseX < 40 && mouseY > 310 && mouseY < 340) {
-    g1.spawnTrain();
-  }
+    if (mouseX > 10 && mouseX < 40 && mouseY > 170 && mouseY < 200) {
+      if (removingRail) {
+        removingRail = false;
+        for (int i = 0; i < g1.masterSize; i++) {
+          g1.masterStationList[i].selected = false;
+        }
+        x = -1;
+        y = -1;
+      } else {
+        mouseClickRail = false;
+        for (int i = 0; i < g1.masterSize; i++) {
+          g1.masterStationList[i].selected = false;
+        }
+        x = -1;
+        y = -1;
+        removingRail = true;
+      }
+    }
+    if (mouseX > 10 && mouseX < 40 && mouseY > 240 && mouseY < 270) {
+      if (mouseClickRail) {
+        mouseClickRail = false;
+        for (int i = 0; i < g1.masterSize; i++) {
+          g1.masterStationList[i].selected = false;
+        }
+        x = -1;
+        y = -1;
+      } else {
+        removingRail = false;
+        for (int i = 0; i < g1.masterSize; i++) {
+          g1.masterStationList[i].selected = false;
+        }
+        x = -1;
+        y = -1;
+        mouseClickRail = true;
+      }
+    }
+    if (mouseX > 10 && mouseX < 40 && mouseY > 310 && mouseY < 340) {
+      g1.spawnTrain();
+    }
 
-  if (mouseX > 1230 && mouseX < 1260 && mouseY > 10 && mouseY < 40) {
-    if (loop) {
-      textSize(20);
-      fill(40);
-      text("PAUSED", 600, 30);
-      textSize(15);
-      noLoop();
-    } else {
-      loop();
+    if (mouseX > 1230 && mouseX < 1260 && mouseY > 10 && mouseY < 40) {
+      if (loop) {
+        textSize(20);
+        fill(40);
+        text("PAUSED", 600, 30);
+        textSize(15);
+        noLoop();
+      } else {
+        loop();
+      }
+      loop = !loop;
     }
-    loop = !loop;
   }
 }
 
