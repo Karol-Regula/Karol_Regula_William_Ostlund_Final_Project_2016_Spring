@@ -280,8 +280,18 @@ public class GameEngine {
     } else {
       this.hover(10, 40, 240, 270);
     }
-    drawPassengerRoutes();
-    drawPassengersOnTrains();
+    for(int i = 0; i < masterSize; i++){
+       for(int k = 0; k < masterStationList[i].Passengers.size(); k++){
+           masterStationList[i].Passengers.get(k).solve(masterStationList[i]);
+       }
+    }
+    for(int i = 0; i < trainLineSize; i++){
+       for(int k = 0; k < TrainLines[i].trainSize; k++){
+           for(int j = 0; j < TrainLines[i].trainList[k].Passengers.size(); j++){
+           TrainLines[i].trainList[k].Passengers.get(j).solve(TrainLines[i].trainList[k].Passengers.get(j).currentStation);
+         }
+       }
+    }
   }
 
   public void findRail() {
@@ -343,8 +353,18 @@ public class GameEngine {
     } else {
       this.hover(10, 40, 170, 200);
     }
-    drawPassengerRoutes();
-    drawPassengersOnTrains();
+    for(int i = 0; i < masterSize; i++){
+       for(int k = 0; k < masterStationList[i].Passengers.size(); k++){
+           masterStationList[i].Passengers.get(k).solve(masterStationList[i]);
+       }
+    }
+    for(int i = 0; i < trainLineSize; i++){
+       for(int k = 0; k < TrainLines[i].trainSize; k++){
+           for(int j = 0; j < TrainLines[i].trainList[k].Passengers.size(); j++){
+           TrainLines[i].trainList[k].Passengers.get(j).solve(TrainLines[i].trainList[k].Passengers.get(j).currentStation);
+         }
+       }
+    }
   }
 
   public void spawnStations() {//for now will add to existing trainline, but I want the stations that spawn to be unafiliated until the user connects them, we should discuss this in class

@@ -68,9 +68,28 @@ void setup() {
   loop = true;
 }
 
+void instructions(){
+  background(255, 255, 230);
+  fill(0);
+  PFont p1 = createFont("Souvenir Bold.ttf", 14);
+  textFont(p1);
+  textSize(64);
+  text("Instructions", 450, 100);
+  textSize(24);
+  text("1. Your main objective is to create a functional train system connecting randomly", 100, 200);
+  text("located stations", 100, 250);
+  text("2. If a station becomes overcrowded for too long, you lose!", 100, 300);
+  text("3. To successfully transfer a passenger, you must move them to the station ", 100, 350);
+  text("of the corresponding shape", 100, 400);
+  text("4. To add or remove a rail, press the button (this will be obvious due labeling)", 100, 450);
+  text("and click on the two stations between which you want the rail to be created/removed", 100, 500);
+  textSize(72);
+  text("Start", 540, 600);
+}
+
 void draw() {
   if (state == 0) {
-    menu();
+    instructions();
   }
   if (state == 1) {
     background(255, 255, 230);
