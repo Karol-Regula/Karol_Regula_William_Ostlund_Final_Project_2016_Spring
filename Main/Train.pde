@@ -103,7 +103,7 @@ public class Train implements Locatable {
 
         //if passenger needs to stay on train
       } else if (Passengers.get(i).route.get(0) == end) {
-        //System.out.println("passenger staying on train"); 
+        //System.out.println("passenger staying on btrain"); 
         Passengers.get(i).processed = true;
 
         //if passenger needs to get off and wait for another train

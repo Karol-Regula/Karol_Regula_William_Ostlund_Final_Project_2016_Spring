@@ -1,4 +1,4 @@
-public class TrainLine { //<>// //<>// //<>// //<>// //<>//
+public class TrainLine { //<>// //<>// //<>// //<>// //<>// //<>//
 
   public Station[] stationList;
   public int stationSize;
@@ -85,7 +85,7 @@ public class TrainLine { //<>// //<>// //<>// //<>// //<>//
     for (int i = 0; i < trainSize; i++) {//chnage this after adding grow and size
       Train t1 = trainList[i];
       //System.out.println(t1.currentNumber);
-       if (t1.traveling && t1.soFarOriginal - t1.soFar < 40) {
+      if (t1.traveling && t1.soFarOriginal - t1.soFar < 40) {
         //System.out.println("T: accelerating");
         t1.setAngle();
         trainList[i].paint();
@@ -114,7 +114,7 @@ public class TrainLine { //<>// //<>// //<>// //<>// //<>//
           t1.dist = 0;
         }
       }
-      //<>// //<>//
+      //<>//
 
       /*
       }else if(t1.end.hasNext()){
@@ -149,8 +149,16 @@ public class TrainLine { //<>// //<>// //<>// //<>// //<>//
             t1.forward = false;
           }
         } else {
-          next = railList[t1.currentNumber].end;
-          t1.currentNumber++;
+          try{
+            next = railList[t1.currentNumber].end;
+            t1.currentNumber++;
+          }catch(NullPointerException e){
+             for(int k = 0; k<t1.Passengers.size(); k++){
+               t1.end.Passengers.add(t1.Passengers.remove(k));
+             }
+             t1.trainLine.trainSize--;
+             continue;
+          }
         }
         t1.start = t1.end;
         t1.end = next;

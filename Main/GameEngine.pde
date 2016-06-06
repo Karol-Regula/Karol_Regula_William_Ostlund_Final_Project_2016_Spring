@@ -12,9 +12,11 @@ public class GameEngine {
   public color currentColor;
   public int currentNumber;
   public int highScore;
+  public int level
 
 
   public GameEngine() {
+    level = 1;
     TrainLines = new TrainLine[10];
     //TrainLines[0] = new TrainLine(color( (int)(Math.random() * 255), (int)(Math.random() * 255), (int)(Math.random() * 255)));
     TrainLines[0] = new TrainLine(color(255, 0, 0));
@@ -468,6 +470,12 @@ public class GameEngine {
   public void railCheck(int i) {
     for (int k = 0; k < TrainLines[i].railSize - 1; k++) {
       //System.out.println(TrainLines[i].railList[k].end == TrainLines[i].railList[k+1].start);
+    }
+  }
+  
+  public void levelUp(){
+    if(this.highScore%75 == 0 && level == highScore/75){
+       state = 5;
     }
   }
 }                         
