@@ -55,6 +55,8 @@ public class Train implements Locatable {
             board = true;
           } else if (trainLine.typesHere.contains(start.Passengers.get(whichTested).shape) && trainLine.loop) {
             board = true;
+          }else if (Arrays.asList(trainLine.stationList).contains(start.Passengers.get(whichTested).route.get(0)) && trainLine.loop){
+            board = true;
           } else {
             whichTested++;
           }
@@ -96,7 +98,7 @@ public class Train implements Locatable {
     if (i < Passengers.size()) {
       //if passenger needs to get off and his/her journey is finished
       if (Passengers.get(i).shape == start.shape) {
-        System.out.println("deboarding passenger completely");
+        //System.out.println("deboarding passenger completely");
         Passengers.remove(i);
         capacity--;
         g1.highScore++;

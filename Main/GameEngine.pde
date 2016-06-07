@@ -14,6 +14,7 @@ public class GameEngine {
   public int highScore;
   public int level;
   public int trains;
+  public int tick = 0;
 
 
   public GameEngine() {
@@ -34,6 +35,7 @@ public class GameEngine {
     size = 1;
     highScore = 0;
     trains = 5;
+    tick = 0;
   }
 
   public void drawExtra() {
@@ -177,20 +179,26 @@ public class GameEngine {
   }
 
   public void drawPassengerRoutes() {
-    for (int i = 0; i < masterSize; i++) {
-      for (int j = 0; j < masterStationList[i].Passengers.size(); j++) {
-        masterStationList[i].Passengers.get(j).solve(masterStationList[i].Passengers.get(j).currentStation);
-        System.out.println("--------------------------------------------");
-        System.out.println("Passenger number " + j + " in Station " + masterStationList[i].toString() + ".");
-        if (masterStationList[i].Passengers.get(j).route != null) {
-          System.out.println("ROUTE");
-          for (int k = 0; k < masterStationList[i].Passengers.get(j).route.size(); k++) {
-            System.out.println(masterStationList[i].Passengers.get(j).route.get(k));
+    tick++;
+    if (tick == 10000000){
+      tick = 0;
+    }
+    if (tick % 60 == 1) {
+      for (int i = 0; i < masterSize; i++) {
+        for (int j = 0; j < masterStationList[i].Passengers.size(); j++) {
+          masterStationList[i].Passengers.get(j).solve(masterStationList[i].Passengers.get(j).currentStation);
+          System.out.println("--------------------------------------------");
+          System.out.println("Passenger number " + j + " in Station " + masterStationList[i].toString() + ".");
+          if (masterStationList[i].Passengers.get(j).route != null) {
+            System.out.println("ROUTE");
+            for (int k = 0; k < masterStationList[i].Passengers.get(j).route.size(); k++) {
+              System.out.println(masterStationList[i].Passengers.get(j).route.get(k));
+            }
+          } else {
+            System.out.println("Route is null.");
           }
-        } else {
-          System.out.println("Route is null.");
+          System.out.println("----------------------------------------------------------------------------");
         }
-        System.out.println("----------------------------------------------------------------------------");
       }
     }
   }
@@ -284,17 +292,17 @@ public class GameEngine {
     } else {
       this.hover(10, 40, 240, 270);
     }
-    for(int i = 0; i < masterSize; i++){
-       for(int k = 0; k < masterStationList[i].Passengers.size(); k++){
-           masterStationList[i].Passengers.get(k).solve(masterStationList[i]);
-       }
+    for (int i = 0; i < masterSize; i++) {
+      for (int k = 0; k < masterStationList[i].Passengers.size(); k++) {
+        masterStationList[i].Passengers.get(k).solve(masterStationList[i]);
+      }
     }
-    for(int i = 0; i < trainLineSize; i++){
-       for(int k = 0; k < TrainLines[i].trainSize; k++){
-           for(int j = 0; TrainLines[i].trainList[k] !=null && j < TrainLines[i].trainList[k].Passengers.size(); j++){
-           TrainLines[i].trainList[k].Passengers.get(j).solve(TrainLines[i].trainList[k].Passengers.get(j).currentStation);
-         }
-       }
+    for (int i = 0; i < trainLineSize; i++) {
+      for (int k = 0; k < TrainLines[i].trainSize; k++) {
+        for (int j = 0; TrainLines[i].trainList[k] !=null && j < TrainLines[i].trainList[k].Passengers.size(); j++) {
+          TrainLines[i].trainList[k].Passengers.get(j).solve(TrainLines[i].trainList[k].Passengers.get(j).currentStation);
+        }
+      }
     }
   }
 
@@ -357,17 +365,17 @@ public class GameEngine {
     } else {
       this.hover(10, 40, 170, 200);
     }
-    for(int i = 0; i < masterSize; i++){
-       for(int k = 0; k < masterStationList[i].Passengers.size(); k++){
-           masterStationList[i].Passengers.get(k).solve(masterStationList[i]);
-       }
+    for (int i = 0; i < masterSize; i++) {
+      for (int k = 0; k < masterStationList[i].Passengers.size(); k++) {
+        masterStationList[i].Passengers.get(k).solve(masterStationList[i]);
+      }
     }
-    for(int i = 0; i < trainLineSize; i++){
-       for(int k = 0; k < TrainLines[i].trainSize; k++){
-           for(int j = 0; j < TrainLines[i].trainList[k].Passengers.size(); j++){
-           TrainLines[i].trainList[k].Passengers.get(j).solve(TrainLines[i].trainList[k].Passengers.get(j).currentStation);
-         }
-       }
+    for (int i = 0; i < trainLineSize; i++) {
+      for (int k = 0; k < TrainLines[i].trainSize; k++) {
+        for (int j = 0; j < TrainLines[i].trainList[k].Passengers.size(); j++) {
+          TrainLines[i].trainList[k].Passengers.get(j).solve(TrainLines[i].trainList[k].Passengers.get(j).currentStation);
+        }
+      }
     }
   }
 
@@ -395,16 +403,16 @@ public class GameEngine {
       //createStation((int)(Math.random() * 1280), (int)(Math.random() * 720));
     }
   }
-  
-  public boolean checkFirst(){
-    for(int i = 0; i < currentLine.trainSize; i++){
-      if(currentLine.trainList[i].start == currentLine.stationList[0] || currentLine.trainList[i].end == currentLine.stationList[0]){
+
+  public boolean checkFirst() {
+    for (int i = 0; i < currentLine.trainSize; i++) {
+      if (currentLine.trainList[i].start == currentLine.stationList[0] || currentLine.trainList[i].end == currentLine.stationList[0]) {
         return false;
       }
     }
     return true;
   }
- 
+
 
   public void spawnTrain() {
     if (/*checkFirst() &&*/ currentLine.railSize > 0 && trains > 0) {
@@ -485,13 +493,13 @@ public class GameEngine {
       //System.out.println(TrainLines[i].railList[k].end == TrainLines[i].railList[k+1].start);
     }
   }
-  
-  public void levelUp(){
-    if(this.highScore%75 == 0 && level == highScore/75){
-       state = 5;
-       trains+=2;
-       level++;
+
+  public void levelUp() {
+    if (this.highScore%75 == 0 && level == highScore/75) {
+      state = 5;
+      trains+=2;
+      level++;
     }
-    System.out.println(currentLine.trainSize);
+    //System.out.println(currentLine.trainSize);
   }
 }                         

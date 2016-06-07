@@ -188,7 +188,7 @@ void draw() {
     g1.spawnPassengers();
     g1.drawPassengers();
     //g1.drawPassengerRoutes();
-    g1.drawExtra();
+    //g1.drawExtra();
 
 
     //g1.spawnStations();
