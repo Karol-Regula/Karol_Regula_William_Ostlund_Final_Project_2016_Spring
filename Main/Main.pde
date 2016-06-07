@@ -15,7 +15,7 @@ public boolean ok = false;
 public PFont p1;
 
 void setup() {
-  
+
   p1 = createFont("Souvenir Bold.ttf", 14); 
   size = 40;
   frameRate(60);
@@ -24,27 +24,27 @@ void setup() {
 }
 
 void levels() {
-  
+
   background(255, 255, 230);
- Operations s = new Operations();
- 
- textFont(p1);
- textSize(32);
- fill(0);
- text("Congratulations, you have now reached level "+g1.level +"!", 225, 200);
- text("You may now use " + g1.trains + " trains", 400, 250);
- fill(0);
- if(s.dist(640, 400) < 100){
-   ellipse(640, 400, 225, 225);
-   fill(255);
-   textSize(40);
-   text("Continue", 550, 412);
- }else{
-   ellipse(640, 400, 200, 200);
-   fill(255);
-   textSize(32);
-   text("Continue", 570, 410);
- }
+  Operations s = new Operations();
+
+  textFont(p1);
+  textSize(32);
+  fill(0);
+  text("Congratulations, you have now reached level "+g1.level +"!", 225, 200);
+  text("You may now use " + g1.trains + " trains", 400, 250);
+  fill(0);
+  if (s.dist(640, 400) < 100) {
+    ellipse(640, 400, 225, 225);
+    fill(255);
+    textSize(40);
+    text("Continue", 550, 412);
+  } else {
+    ellipse(640, 400, 200, 200);
+    fill(255);
+    textSize(32);
+    text("Continue", 570, 410);
+  }
 }
 
 void menu() {
@@ -78,6 +78,7 @@ void setup1() {
   //mode?
   //lines[0] = t1;
   //g1.TrainLines = lines;
+  g1 = new GameEngine();
   size = 40;
   frameRate(60);
   size(1280, 720);//window size
@@ -104,6 +105,22 @@ void setup1() {
   g1.masterStationList[g1.masterSize] = s4;
   g1.masterSize++;
   loop = true;
+}
+
+void loss() {
+  background(255, 255, 230);
+  fill(0);
+  //PFont p1 = createFont("Souvenir Bold.ttf", 14);
+  textFont(p1);
+  textSize(24);
+  text("One of your stations was overcrowded for too long, and everyone decided to walk instead.", 40, 300);
+  text("Thank you for playing!", 450, 250);
+  text("Restart game:", 485, 430);
+  fill(color(0, 255, 255));
+  strokeWeight(4);
+  g1.hover(680, 720, 400, 440);
+  rect(680, 400, 40, 40);
+  strokeWeight(1);
 }
 
 void instructions() {
@@ -135,9 +152,11 @@ void draw() {
     menu();
   } else if (state == 2) {
     instructions();
-  }else if(state == 5){
-    levels(); 
-  }else if (state == 1) {
+  } else if (state == 5) {
+    levels();
+  } else if (state == 10) {
+    loss();
+  } else if (state == 1) {
     background(255, 255, 230);
     //mouseClicked();
     for (int i = 0; i < g1.trainLineSize; i++) {
@@ -158,6 +177,9 @@ void draw() {
     for (int i = 0; i < g1.masterSize; i++) {
       g1.masterStationList[i].reloadStopHere();
       g1.masterStationList[i].advanceTicks();
+      if (g1.masterStationList[i].loss == true) {
+        state = 10;
+      }
     }
     g1.spawnStations();
     g1.drawPassengersOnTrains();
@@ -217,9 +239,9 @@ void draw() {
     rect(10, 310, 30, 30);
     fill(50);
     text("Spawn Train", 50, 330);
-    
+
     fill(0, 225, 225);
-    
+
 
     //pause button
     g1.hover(1230, 1260, 10, 40);
@@ -233,9 +255,9 @@ void draw() {
   }
 }
 
-void mouseReleased(){
-  if(state == 2){
-    ok = true; 
+void mouseReleased() {
+  if (state == 2) {
+    ok = true;
   }
 }
 
@@ -249,17 +271,17 @@ void mouseClicked() {
       state = 2;
     }
   }
-  if(state == 5){
+  if (state == 5) {
     Operations s = new Operations();
-    if(s.dist(640, 400) < 100){
+    if (s.dist(640, 400) < 100) {
       state = 1;
     }
   }
-  if(state == 2){
-      if (mouseX > 525 && mouseY > 520 && mouseX < 740 && mouseY < 610 && ok) {
-        state = 1;
-        setup1();
-      }
+  if (state == 2) {
+    if (mouseX > 525 && mouseY > 520 && mouseX < 740 && mouseY < 610 && ok) {
+      state = 1;
+      setup1();
+    }
   }
   if (state == 1) {
     if (mouseX > 10 && mouseX < 40 && mouseY > 30 && mouseY < 70) {
@@ -326,6 +348,12 @@ void mouseClicked() {
         loop();
       }
       loop = !loop;
+    }
+  }
+  if (state == 10) {
+    if (mouseX > 680 && mouseX < 720 && mouseY > 400 && mouseY < 440) {
+      setup1();
+      state = 1;
     }
   }
 }

@@ -52,7 +52,7 @@ public class Station implements Locatable {
     stopHere = new ArrayList<Character>(); //FOR TRANSFERRING, contains all the trainlines that connect to this station
     connectedStations  = new ArrayList<Station>();
     tick = 0;
-    seconds = 60;
+    seconds = 40;
     loss = false;
   }
 
@@ -93,7 +93,7 @@ public class Station implements Locatable {
         }
       }
     } else {
-      seconds = 60;
+      seconds = 40;
       tick = 0;
     }
   }
