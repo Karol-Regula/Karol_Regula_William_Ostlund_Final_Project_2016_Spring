@@ -1,4 +1,4 @@
-public class TrainLine { //<>// //<>// //<>// //<>// //<>// //<>//
+public class TrainLine { //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
 
   public Station[] stationList;
   public int stationSize;
@@ -149,15 +149,18 @@ public class TrainLine { //<>// //<>// //<>// //<>// //<>// //<>//
             t1.forward = false;
           }
         } else {
-          try{
+          try {
             next = railList[t1.currentNumber].end;
             t1.currentNumber++;
-          }catch(NullPointerException e){
-             for(int k = 0; k<t1.Passengers.size(); k++){
-               t1.end.Passengers.add(t1.Passengers.remove(k));
-             }
-             t1.trainLine.trainSize--;
-             continue;
+          }
+          catch(NullPointerException e) {
+            for (int k = 0; k<t1.Passengers.size();) {
+              t1.end.Passengers.add(t1.Passengers.remove(k));
+            }
+            //System.out.println("j");
+            g1.trains++;
+            trainSize--;
+            continue;
           }
         }
         t1.start = t1.end;
@@ -178,8 +181,20 @@ public class TrainLine { //<>// //<>// //<>// //<>// //<>// //<>//
             t1.forward = true;
           }
         } else {
-          last = railList[t1.currentNumber].start;
-          t1.currentNumber--;
+          try {
+            last = railList[t1.currentNumber].start;
+            t1.currentNumber--;
+          }
+          catch(NullPointerException e) {
+            for (int k = 0; k<t1.Passengers.size();) {
+              t1.end.Passengers.add(t1.Passengers.remove(k));
+            }
+            //System.out.println("s");
+            g1.trains++;
+            t1.trainLine.trainSize--;
+            trainList[i] = null;
+            continue;
+          }
         }
         t1.start = t1.end;
         t1.end = last;

@@ -198,7 +198,7 @@ public class GameEngine {
   public void drawPassengersOnTrains() {
     for (int i = 0; i < trainLineSize; i++) {
       for (int j = 0; j < TrainLines[i].trainSize; j++) {
-        for (int k = 0; k < TrainLines[i].trainList[j].Passengers.size(); k++) {
+        for (int k = 0; TrainLines[i].trainList[j]!=null && k < TrainLines[i].trainList[j].Passengers.size(); k++) {
           if (k <= 2) {
             //if(k == 0){
             /*TrainLines[i].trainList[j].Passengers.get(k).paint((int)(TrainLines[i].trainList[j].xcor + 2 + 5 * 
@@ -291,7 +291,7 @@ public class GameEngine {
     }
     for(int i = 0; i < trainLineSize; i++){
        for(int k = 0; k < TrainLines[i].trainSize; k++){
-           for(int j = 0; j < TrainLines[i].trainList[k].Passengers.size(); j++){
+           for(int j = 0; TrainLines[i].trainList[k] !=null && j < TrainLines[i].trainList[k].Passengers.size(); j++){
            TrainLines[i].trainList[k].Passengers.get(j).solve(TrainLines[i].trainList[k].Passengers.get(j).currentStation);
          }
        }
@@ -395,9 +395,19 @@ public class GameEngine {
       //createStation((int)(Math.random() * 1280), (int)(Math.random() * 720));
     }
   }
+  
+  public boolean checkFirst(){
+    for(int i = 0; i < currentLine.trainSize; i++){
+      if(currentLine.trainList[i].start == currentLine.stationList[0] || currentLine.trainList[i].end == currentLine.stationList[0]){
+        return false;
+      }
+    }
+    return true;
+  }
+ 
 
   public void spawnTrain() {
-    if (currentLine.railSize > 0 && trains > 0) {
+    if (/*checkFirst() &&*/ currentLine.railSize > 0 && trains > 0) {
       trains--;
       currentLine.createTrain();
     }
@@ -482,5 +492,6 @@ public class GameEngine {
        trains+=2;
        level++;
     }
+    System.out.println(currentLine.trainSize);
   }
 }                         

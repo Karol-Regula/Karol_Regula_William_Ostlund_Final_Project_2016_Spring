@@ -102,12 +102,12 @@ public class Train implements Locatable {
         g1.highScore++;
 
         //if passenger needs to stay on train
-      } else if (Passengers.get(i).route.get(0) == end) {
+      } else if (Passengers.get(i).route.size() > 0 && Passengers.get(i).route.get(0) == end) {
         //System.out.println("passenger staying on btrain"); 
         Passengers.get(i).processed = true;
 
         //if passenger needs to get off and wait for another train
-      } else if (Passengers.get(i).shape != start.shape && Passengers.get(i).route.get(0) != end) {
+      } else if (Passengers.get(i).route.size() > 0 && Passengers.get(i).shape != start.shape && Passengers.get(i).route.get(0) != end) {
         //System.out.println("deboarding and waiting passenger");
         start.Passengers.add(0, Passengers.get(i));
         Passengers.remove(i);
