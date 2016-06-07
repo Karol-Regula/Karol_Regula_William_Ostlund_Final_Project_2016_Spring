@@ -42,11 +42,15 @@ May 20, 2016
 
 (Karol) Worked on user interface, first button creates new trainLine and increments the counter visible to the user, second button cycles the current trainLine and turn its color to match. Each TrainLine now has its own color. Moved the trainLine creation out of Main into GameEngine class.
 
+(Will) Started working on rail connection. This allows the user to use his/her mouse to select two stations and a rail will be built in between. It is triggered by a global variable that is also triggered by the click of a button. The distance formula is used to determine which Station is to be selected.
+
 May 21, 2016
 
 (Karol) Rails that are created by the user are in the color of the line to which they correspond to. The cycleLines button is now assumes the color of the active lines upon game startup, (previously it had to be clicked once for this to happen. Working on stopping the addition of rails from discriminating between randomly spawned and user made stations.
 
 (Karol) Rail creation no longer discriminates between user made and randomly spawned stations, all new stations are added to the masterStationList in GameEngine. Moved rail creation code out of the draw function into a function in the GameENgine class. Will work on making trains run on each TrainLine now.
+
+(Will) Improved the visual feedback for users. Before, the user would have a difficult time figuring out whether it is in range of buttons or not. Now colors change with mouse clicks and mouse hovers. It also affects stations that need to be selected to build rails in between.
 
 May 22, 2016
 
@@ -60,11 +64,15 @@ May 23, 2016
 
 (Karol) Restricted the Trainlines to 5 unique Trainlines with predetermined colors. Increased station and train size. Changed background color.
 
+(Will) Fixed a considerable error in the createRail() function (not really an error, more like a flaw). Before, our program would not match the fronts and backs of rails creating many discontinuities for the train's journey accross them. Now, the programs checks to see if the fronts and backs of rails match up before adding them into the train line.
+
 May 24, 2016
 
 (Karol) Worked on adding another type of station, turned out rails look uncentered on ellipse stations, had to add 4 cases of adjustment for rails. Each station has Txcor and Tycor variables that are offset properly to make sure the trains do not stray off the offset rails.
 
 (Karol) Started to implement Passenger class, passengers are spawned at a random rate at all Stations using the spawnPassengers() function in GameEngine, the drawPassengers() function draws the passengers next to their respective stations. The passengers still need to be properly offset and need to be able to interact with trains.
+
+(Will) Fixed a big flaw in the moveTrain() function, before our program treated every train line like a loop so when reaching the end of the station, a train would travel accross emptiness to the otherside of the train line. Now it knows to turn around and go to the other end the way it came from. I did this by creating an instance variable in the train (a boolean) called forward. This changes whenever it reaches the end of a linear trainline.
 
 (Karol) Aesthetic changes to passengers at Stations, changed their size, spawn rate, color and created offsets that place them in the correct spot for both elliptical and rectangular stations. Also changed draw location for elliptical Passengers to make them line up with the rectangular ones.
 
@@ -73,6 +81,10 @@ May 24, 2016
 May 25, 2016
 
 (Karol) Changed Station aesthetics, strokeWeight changed to 4, color changed to white. (Small changes during class)
+
+May 26, 2016
+
+(Will) Changed the aesthetic of trains, now they are angled more correctly along the rails than they were previously. I also changed how they were drawn completely: before, they were just sketches, now they are actual PShapes. I used four vertices centered around the instance variables in the train class, xcor and ycor, along with some trigonometry (to calculate where they were according to the angle of the rail).
 
 May 27, 2016
 
@@ -83,6 +95,10 @@ May 27, 2016
 (Karol) Worked on the random station spawning in spawnStations(), now the function checks if a another station is in the vicinity (radius) of the station it is trying to spawn and retires 100 times until it can find a spot. Stations can no longer spawn on top of each other.
 
 (Karol) Created 3 stations that are always present upon game start. Changed the passenger boarding behavior, now passengers board and deboard one by one. (Not done in the cleanest way possible, I'll just make it use modulo if needed). Did some more work on function that offsets rails that are on top of one another.
+
+(Will) Changed station sketched to PShapes (they look the same but are easier to use since many shapes that we may use in the future may require intricate designs that only PShapes can bring and all Stations should be the same).
+
+(Will) Added highlighted versions of stations and the conditions in which these would be implemented (highlighted versions of stations are just bigger PShapes with a different color)
 
 May 29, 2016
 
@@ -96,6 +112,10 @@ May 30, 2016
 
 (Karol) Small tweak, passengers no longer spawn at a station with the same type as them, this is possible since we now have 3 station types.
 
+June 1, 2016
+
+(Will) Tweaked the removeRail() function for looped train lines. Before problems existed whenever a rail was removed from a looped train line for almost all trains, now the only problem that occurs is when one of the trains is on top of the removed rail.
+
 June 2, 2016
 
 (Karol) Working on transferring of passengers between different lines. Made each station hold an array of lines that stop at it. Made each TrainLine actaully update its array of Stations (StationList[]) when adding a new Station.
@@ -107,6 +127,30 @@ June 2, 2016
 (Karol) Now a Passenger will only board a Train if the TrainLine of that Train has a Station of the same shape the passenger is. Exceptions are made for passengers who need to use that TrainLine to transfer to another TrainLine. This has been accounted for in the board function, however, the Passengers are not yer able to compute their path to the target TrainLine through all the TrainLines they need transfers on. Additionally, Trains now have a referenceto which TrainLine they belong to.
 
 (Karol) Minor commit, wrote method name, decided to work on it tomorrow, want to commit anyway so I don't have to rewrite the method name.
+
+June 3, 2016
+
+(Will) Created a very rough BFS in order to optimize passenger travel. The passenger will precede to follow this exact route until it reaches its location. However, when it is located on a looped rail and the train does not follow the exact route, the passenger will be permanently stuck at its original station.
+
+June 4, 2016
+
+(Will) Tried to get the search function to work compatibly with looped rails, now that I've implemented it, it works for the most part however, there are several anomalies in which the Passenger stays idle (this is usually when its target station lies immediately in the opposite direction of the train.
+
+June 5, 2016
+
+(Will) Tried a bit more to fix the passenger travel on looped rails but to no avail.
+
+(Will) Created the design for a menu, I haven't yet created its user interface or implemeted it into our program but everything looks good and is ready to go.
+
+June 6, 2016
+
+(Will) Created an instruction menu, it (like the other menu) is not connected to the program but is clean looking and is prepared to be implemented.
+
+(Will) Created the user interface within the start and instruction menus and implemented them into program, this includes hovering and clicking.
+
+(Will) Fixed a bug in the code that occurs when a rail is removed from the end while a train is there, usually the train has no where to go and a NullPointerException is thrown, now it moves the train to a station, removes the passengers from the train to the station then removes the train, itself from the game.
+
+(Will) Created levels, every 75 passengers dropped off, the user will level up. I also added limits to the amount of trains that can be spawned in order to increase difficulty. With every level up, the user is granted two more trains.
 
 
 
