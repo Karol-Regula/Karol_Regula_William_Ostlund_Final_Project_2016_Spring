@@ -57,7 +57,7 @@ public class Station implements Locatable {
   }
 
   public void advanceTicks() {
-    System.out.println(tick);
+    //System.out.println(tick);
     if (Passengers.size() > 8) {
       tick++;
       if (tick % 30 == 0) {

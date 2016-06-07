@@ -113,8 +113,9 @@ void loss() {
   //PFont p1 = createFont("Souvenir Bold.ttf", 14);
   textFont(p1);
   textSize(24);
+  text("Highscore: " + g1.highScore, 550, 150);
   text("One of your stations was overcrowded for too long, and everyone decided to walk instead.", 40, 300);
-  text("Thank you for playing!", 450, 250);
+  text("Thank you for playing!", 470, 250);
   text("Restart game:", 485, 430);
   fill(color(0, 255, 255));
   strokeWeight(4);
