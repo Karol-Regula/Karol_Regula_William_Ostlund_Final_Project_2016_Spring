@@ -101,9 +101,9 @@ void setup1() {
   g1.masterSize++;
 
   //remove this
-  Station s4  = new Station(800, 300, 0, 2);
-  g1.masterStationList[g1.masterSize] = s4;
-  g1.masterSize++;
+  //Station s4  = new Station(800, 300, 0, 2);
+  //g1.masterStationList[g1.masterSize] = s4;
+  //g1.masterSize++;
   loop = true;
 }
 
@@ -187,6 +187,7 @@ void draw() {
     g1.drawStations();//draws unconnected stations
     g1.spawnPassengers();
     g1.drawPassengers();
+    g1.tickStations();
     //g1.drawPassengerRoutes();
     //g1.drawExtra();
 

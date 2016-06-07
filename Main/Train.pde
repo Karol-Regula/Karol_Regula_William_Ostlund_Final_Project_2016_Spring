@@ -50,7 +50,8 @@ public class Train implements Locatable {
       boolean board = false;
       int whichTested = 0;
       while (whichTested < start.Passengers.size() && board == false) {
-        if (start.Passengers.get(whichTested).route != null) {
+        if (start.Passengers.get(whichTested).route != null && start.Passengers.get(whichTested).route.size() > 0) {
+          System.out.println(Arrays.asList(trainLine.stationList).contains(start.Passengers.get(whichTested).route.get(0)));
           if (start.Passengers.get(whichTested).route.size() > 0 && start.Passengers.get(whichTested).route.get(0) == end) {
             board = true;
           } else if (trainLine.typesHere.contains(start.Passengers.get(whichTested).shape) && trainLine.loop) {

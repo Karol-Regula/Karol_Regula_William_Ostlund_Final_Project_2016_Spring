@@ -15,6 +15,9 @@ public class GameEngine {
   public int level;
   public int trains;
   public int tick = 0;
+  public boolean allow;
+  public boolean force;
+  public int tickStation;
 
 
   public GameEngine() {
@@ -36,6 +39,9 @@ public class GameEngine {
     highScore = 0;
     trains = 5;
     tick = 0;
+    tickStation = 0;
+    allow = false;
+    force = false;
   }
 
   public void drawExtra() {
@@ -151,7 +157,7 @@ public class GameEngine {
 
   public void spawnPassengers() {
     for (int i = 0; i < masterSize; i++) {
-      if ((int)(Math.random() * 600) == 2 && masterStationList[i].Passengers.size() < 10 ) {//------------------------------ probability for passengers << change here
+      if ((int)(Math.random() * 500) == 2 && masterStationList[i].Passengers.size() < 10 ) {//------------------------------ probability for passengers << change here
         Passenger p1 = new Passenger((int)(Math.random() * 3)); 
         if (p1.shape != masterStationList[i].shape) {
           masterStationList[i].Passengers.add(p1);
@@ -381,7 +387,7 @@ public class GameEngine {
 
   public void spawnStations() {//for now will add to existing trainline, but I want the stations that spawn to be unafiliated until the user connects them, we should discuss this in class
     Operations o1= new Operations(); 
-    if ((int)(Math.random() * 1000) == 0) {
+    if (((int)(Math.random() * 2000) == 0 && allow ) || force) {
       boolean good = false; 
       int counter = 0; 
       while (!good && counter < 100) {
@@ -397,10 +403,26 @@ public class GameEngine {
         if (good) {
           masterStationList[masterSize] = (s1); 
           masterSize++;
+          tickStation = 0;
         }
         counter++;
       }
       //createStation((int)(Math.random() * 1280), (int)(Math.random() * 720));
+    }
+  }
+  
+  public void tickStations(){
+    tickStation++;
+    System.out.println(tickStation);
+    if (tickStation < 500){
+      allow = false;
+      force = false;
+    } else if (tickStation >= 500 && tickStation <= 2000){
+      allow = true;
+      force = false;
+    }else{
+      force = true;
+      tickStation = 0;
     }
   }
 
