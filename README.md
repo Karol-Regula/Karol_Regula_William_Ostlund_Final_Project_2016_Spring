@@ -134,11 +134,27 @@ June 3, 2016
 
 June 4, 2016
 
+(Karol) Finally managed to change the moveTrains() function so that the recalculation of the next station happens before the boarding of pasengers. This was done so that the Train knows what the next station is and can choose to board passengers with the same next station. Also added a debug statement that paints the memory ID of each station above eahc station. Fixed the drawPassengersOnTrains() function to not draw the passengers on top of each other.
+
+(Karol) Removed multiple crash points in the solve() function(bfs path calculating function). Changed the Train.board() and Train.deboard() functions to accomodate Passengers' routes. Changed one of the default spawning station to a triangle. The transferring / pathing seems to crash much less than it did (it still does sometimes), but it doesn't work. Working currently on making it work.
+
+(Karol) Continueing to work on train transferring, managed to witness a passenger perform a valid transfer. Added a pause button. Added a function that lists the station, number and route of each passenger in a nicely formatted way for debugging.
+
+(Karol) Transferring seems to work on a smale scale. Added temporary override for an error in the Breath First Search function. Completely re-wrote the deboard() function. Will speed up station spawning and passenger spawning and test some more.
+
+(Karol) Working on board() and deboard(). BFS function still breaks everything by sometimes choosing not to work.
+
+(Karol) Completely re-did the breath first search. Now each station knows to what stations it is connected to, and the breath first search is based on that. Previously it was based on the position of a station in a trainline and it was much more complicated. Still have a problem in which sometimes the first station in passenger's route is the station the passenger is in. This is proving to be difficult to remove. Other than that, the transferring works perfectly.
+
+(Karol) IT IS FINALLY WORKING. I hope I didn't miss any bugs but most lileky I did. Turns out the currentStation of the passengers was not updated correctly. Pushing finally.
+
 (Will) Tried to get the search function to work compatibly with looped rails, now that I've implemented it, it works for the most part however, there are several anomalies in which the Passenger stays idle (this is usually when its target station lies immediately in the opposite direction of the train.
 
 June 5, 2016
 
 (Will) Tried a bit more to fix the passenger travel on looped rails but to no avail.
+
+(Karol) Implemented train acceleration out of Stations. Has been added in the moveTrains() function. Fixed a bug in the board() function. An infinite loop occurred if a passenger with a null route tried to board a train. Now fixed.
 
 (Will) Created the design for a menu, I haven't yet created its user interface or implemeted it into our program but everything looks good and is ready to go.
 
@@ -148,9 +164,27 @@ June 6, 2016
 
 (Will) Created the user interface within the start and instruction menus and implemented them into program, this includes hovering and clicking.
 
+(Karol) Made a fix to passenger loop pathing. Now passengers waiting on a looped line that contains their station will get on regardless of the direction the train is going.
+
 (Will) Fixed a bug in the code that occurs when a rail is removed from the end while a train is there, usually the train has no where to go and a NullPointerException is thrown, now it moves the train to a station, removes the passengers from the train to the station then removes the train, itself from the game.
 
 (Will) Created levels, every 75 passengers dropped off, the user will level up. I also added limits to the amount of trains that can be spawned in order to increase difficulty. With every level up, the user is granted two more trains.
+
+(Karol) Added Passenger overflow tracking through the tick variable. If the amount of passengers in a station is above a specific threshold, the station will start blinking orange. Will now work on actual loss condition.
+
+(Karol) Added a counter for each station that becomes visible underneath the station and counts down from 60 to zero if a station is overcrowded. Counter auto adjusts its position to appear centered on stations of all types and shifts to the right when transitioning from double digit to single digit numbers.
+
+(Karol) Finished adding loss state. Once seconds tick down to zero at any particular station, the player is transferred to the loss screen. From the loss screen the player may restart the game.
+
+(Karol) Tiny change: made HighScore show up in loss screen. Moved some text around.
+
+June 7, 2016
+
+(Karol) Fixed bug with transferring in which trains going in one direction on a looped trainline would not pick up a passenger who wanted to go in the opposite diretion to get to a transfer station. On looped Trainlines, passengers whose next STATION is on that trainline are forced to get on.
+
+(Karol) Augumented the random spawning of Stations with a minimun and maximum time. This prevents bursts of Stations from spawning and ensures that the user does get new Stations spawning at stable but unpredictable intervals.
+
+(Karol) Performed more testing. Seems stable. Removed some System.out.println()s. Tweaked some values.
 
 
 
