@@ -413,7 +413,7 @@ public class GameEngine {
   
   public void tickStations(){
     tickStation++;
-    System.out.println(tickStation);
+    //System.out.println(tickStation);
     if (tickStation < 500){
       allow = false;
       force = false;
