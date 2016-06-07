@@ -42,11 +42,15 @@ May 20, 2016
 
 (Karol) Worked on user interface, first button creates new trainLine and increments the counter visible to the user, second button cycles the current trainLine and turn its color to match. Each TrainLine now has its own color. Moved the trainLine creation out of Main into GameEngine class.
 
+(Will) Started working on rail connection. This allows the user to use his/her mouse to select two stations and a rail will be built in between. It is triggered by a global variable that is also triggered by the click of a button. The distance formula is used to determine which Station is to be selected.
+
 May 21, 2016
 
 (Karol) Rails that are created by the user are in the color of the line to which they correspond to. The cycleLines button is now assumes the color of the active lines upon game startup, (previously it had to be clicked once for this to happen. Working on stopping the addition of rails from discriminating between randomly spawned and user made stations.
 
 (Karol) Rail creation no longer discriminates between user made and randomly spawned stations, all new stations are added to the masterStationList in GameEngine. Moved rail creation code out of the draw function into a function in the GameENgine class. Will work on making trains run on each TrainLine now.
+
+(Will) Improved the visual feedback for users. Before, the user would have a difficult time figuring out whether it is in range of buttons or not. Now colors change with mouse clicks and mouse hovers. It also affects stations that need to be selected to build rails in between.
 
 May 22, 2016
 
@@ -60,11 +64,15 @@ May 23, 2016
 
 (Karol) Restricted the Trainlines to 5 unique Trainlines with predetermined colors. Increased station and train size. Changed background color.
 
+(Will) Fixed a considerable error in the createRail() function (not really an error, more like a flaw). Before, our program would not match the fronts and backs of rails creating many discontinuities for the train's journey accross them. Now, the programs checks to see if the fronts and backs of rails match up before adding them into the train line.
+
 May 24, 2016
 
 (Karol) Worked on adding another type of station, turned out rails look uncentered on ellipse stations, had to add 4 cases of adjustment for rails. Each station has Txcor and Tycor variables that are offset properly to make sure the trains do not stray off the offset rails.
 
 (Karol) Started to implement Passenger class, passengers are spawned at a random rate at all Stations using the spawnPassengers() function in GameEngine, the drawPassengers() function draws the passengers next to their respective stations. The passengers still need to be properly offset and need to be able to interact with trains.
+
+(Will) Fixed a big flaw in the moveTrain() function, before our program treated every train line like a loop so when reaching the end of the station, a train would travel accross emptiness to the otherside of the train line. Now it knows to turn around and go to the other end the way it came from. I did this by creating an instance variable in the train (a boolean) called forward. This changes whenever it reaches the end of a linear trainline.
 
 (Karol) Aesthetic changes to passengers at Stations, changed their size, spawn rate, color and created offsets that place them in the correct spot for both elliptical and rectangular stations. Also changed draw location for elliptical Passengers to make them line up with the rectangular ones.
 
@@ -73,6 +81,10 @@ May 24, 2016
 May 25, 2016
 
 (Karol) Changed Station aesthetics, strokeWeight changed to 4, color changed to white. (Small changes during class)
+
+May 26, 2016
+
+(Will) Changed the aesthetic of trains, now they are angled more correctly along the rails than they were previously. I also changed how they were drawn completely: before, they were just sketches, now they are actual PShapes. I used four vertices centered around the instance variables in the train class, xcor and ycor, along with some trigonometry (to calculate where they were according to the angle of the rail).
 
 May 27, 2016
 
@@ -83,6 +95,10 @@ May 27, 2016
 (Karol) Worked on the random station spawning in spawnStations(), now the function checks if a another station is in the vicinity (radius) of the station it is trying to spawn and retires 100 times until it can find a spot. Stations can no longer spawn on top of each other.
 
 (Karol) Created 3 stations that are always present upon game start. Changed the passenger boarding behavior, now passengers board and deboard one by one. (Not done in the cleanest way possible, I'll just make it use modulo if needed). Did some more work on function that offsets rails that are on top of one another.
+
+(Will) Changed station sketched to PShapes (they look the same but are easier to use since many shapes that we may use in the future may require intricate designs that only PShapes can bring and all Stations should be the same).
+
+(Will) Added highlighted versions of stations and the conditions in which these would be implemented (highlighted versions of stations are just bigger PShapes with a different color)
 
 May 29, 2016
 
@@ -95,6 +111,10 @@ May 30, 2016
 (Karol) Fully implemented traingle passengers. Changed the passenger display location for all station types (was too close to station in some cases). The rotated trains do not behave well on the rails since rectangles are drawn from a vertex, this and the issue of rotation must be adressed in the next class discussion.
 
 (Karol) Small tweak, passengers no longer spawn at a station with the same type as them, this is possible since we now have 3 station types.
+
+June 1, 2016
+
+(Will) Tweaked the removeRail() function for looped train lines. Before problems existed whenever a rail was removed from a looped train line for almost all trains, now the only problem that occurs is when one of the trains is on top of the removed rail.
 
 June 2, 2016
 
