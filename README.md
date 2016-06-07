@@ -128,5 +128,29 @@ June 2, 2016
 
 (Karol) Minor commit, wrote method name, decided to work on it tomorrow, want to commit anyway so I don't have to rewrite the method name.
 
+June 3, 2016
+
+(Will) Created a very rough BFS in order to optimize passenger travel. The passenger will precede to follow this exact route until it reaches its location. However, when it is located on a looped rail and the train does not follow the exact route, the passenger will be permanently stuck at its original station.
+
+June 4, 2016
+
+(Will) Tried to get the search function to work compatibly with looped rails, now that I've implemented it, it works for the most part however, there are several anomalies in which the Passenger stays idle (this is usually when its target station lies immediately in the opposite direction of the train.
+
+June 5, 2016
+
+(Will) Tried a bit more to fix the passenger travel on looped rails but to no avail.
+
+(Will) Created the design for a menu, I haven't yet created its user interface or implemeted it into our program but everything looks good and is ready to go.
+
+June 6, 2016
+
+(Will) Created an instruction menu, it (like the other menu) is not connected to the program but is clean looking and is prepared to be implemented.
+
+(Will) Created the user interface within the start and instruction menus and implemented them into program, this includes hovering and clicking.
+
+(Will) Fixed a bug in the code that occurs when a rail is removed from the end while a train is there, usually the train has no where to go and a NullPointerException is thrown, now it moves the train to a station, removes the passengers from the train to the station then removes the train, itself from the game.
+
+(Will) Created levels, every 75 passengers dropped off, the user will level up. I also added limits to the amount of trains that can be spawned in order to increase difficulty. With every level up, the user is granted two more trains.
+
 
 
