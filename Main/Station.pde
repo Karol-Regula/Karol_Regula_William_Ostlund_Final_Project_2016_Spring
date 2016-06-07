@@ -16,6 +16,8 @@ public class Station implements Locatable {
   public ArrayList <Station> connectedStations;
   public ArrayList<TrainLine> connects;
   public ArrayList<Character> stopHere; //FOR TRANSFERRING, contains all the trainlines that connect to this station 
+  public int tick;
+  public boolean blink;
 
   public float getXcor() {
     return this.xcor;
@@ -41,11 +43,25 @@ public class Station implements Locatable {
     } else {
       Txcor = xcor;
       Tycor = ycor;
+      blink = true;
     }
     connects = new ArrayList<TrainLine>();
     Passengers = new ArrayList<Passenger>();
     stopHere = new ArrayList<Character>(); //FOR TRANSFERRING, contains all the trainlines that connect to this station
     connectedStations  = new ArrayList<Station>();
+    tick = 0;
+  }
+
+  public void advanceTicks() {
+    System.out.println(tick);
+    if (Passengers.size() > 0) {
+      tick++;
+      if (tick % 30 == 0) {
+        blink = !blink;
+      }
+    } else {
+      tick = 0;
+    }
   }
 
   public void reloadStopHere() {
@@ -100,7 +116,19 @@ public class Station implements Locatable {
         break;
       }
     } else {
-      fill(255, 255, 255);
+
+      if (tick > 0) {
+        if (!blink) {
+          System.out.println("here1");
+          fill(color(255, 142, 28));
+        } else {
+          System.out.println("here2");
+          fill(255, 255, 255);
+        }
+      } else {
+        fill(255, 255, 255);
+      }
+
       switch (shape) {
       case 0: 
         avatar = createShape(RECT, this.getXcor()- 2.5, this.getYcor()-2.5, 20, 20);

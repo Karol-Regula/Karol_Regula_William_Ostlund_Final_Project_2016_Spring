@@ -157,6 +157,7 @@ void draw() {
     }
     for (int i = 0; i < g1.masterSize; i++) {
       g1.masterStationList[i].reloadStopHere();
+      g1.masterStationList[i].advanceTicks();
     }
     g1.spawnStations();
     g1.drawPassengersOnTrains();
